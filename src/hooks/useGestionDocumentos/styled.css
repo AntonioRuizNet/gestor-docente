@@ -1,0 +1,11 @@
+.itemDoc > button{
+    height: 90px;
+    width: 100%!important;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .itemDoc > button{
+        height: 50px;
+    }
+}
