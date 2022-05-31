@@ -28,7 +28,7 @@ export default function Contactos() {
       const accounts = await get_Accounts();
       if(accounts){
         setData(accounts)
-        buildTable(accounts);
+        buildTable(accounts.accounts);
         console.log(accounts);
       }
     }
@@ -36,7 +36,9 @@ export default function Contactos() {
   }
   
   const toogleModalPanel = () => {
-    setActiveModalPanel(!activeModalPanel);
+    setActiveModalPanel(false);
+    setActiveModalPanelAsistencias(false);
+    setActiveModalPanelEvaluaciones(false);
   }
 
   const OpenModal = (value) => {
@@ -63,28 +65,24 @@ export default function Contactos() {
   const buildLinea = (id, type) => {
     console.log(id, type);
     if(type==="Ficha"){
-      const selectedLineObj = data.filter(e => e.id===id);
+      const selectedLineObj = data.accounts.filter(e => e.id===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
       setActiveModalPanel(true);
     }
 
     if(type==="Asistencias"){
-      /* TODO: getAccounts -> llamar a la tabla asistencias
-        const selectedLineObj = data.filter(e => e.id===id);
-        const selectedLine = selectedLineObj.map( Object.values );
-        setLinea(selectedLine);
-      */
-      //setActiveModalPanelAsistencias(true);
+      const selectedLineObj = data.asistencias.filter(e => e.id===id);
+      const selectedLine = selectedLineObj.map( Object.values );
+      setLinea(selectedLine);
+      setActiveModalPanelAsistencias(true);
     }
 
     if(type==="Evaluaciones"){
-      /* TODO: getAccounts -> llamar a la tabla evaluaciones
-        const selectedLineObj = data.filter(e => e.id===id);
-        const selectedLine = selectedLineObj.map( Object.values );
-        setLinea(selectedLine);
-      */
-      //setActiveModalPanelEvaluaciones(true);
+      const selectedLineObj = data.evaluaciones.filter(e => e.id===id);
+      const selectedLine = selectedLineObj.map( Object.values );
+      setLinea(selectedLine);
+      setActiveModalPanelEvaluaciones(true);
     }
   }
 
