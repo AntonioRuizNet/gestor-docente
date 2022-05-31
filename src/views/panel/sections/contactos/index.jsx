@@ -29,6 +29,7 @@ export default function Contactos() {
       if(accounts){
         setData(accounts)
         buildTable(accounts);
+        console.log(accounts);
       }
     }
     setDataBuilded(true)

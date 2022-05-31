@@ -6,7 +6,7 @@ import {update_Account, remove_Account} from './../../../../api/requests/contact
 
 const Evaluaciones = ({closePanel, linea, setDataBuilded}) => {
     /*
-    	id, idUser, evaluacion, materia, tipo(unidad/parcial), observaciones
+    	id, idUser, idContacto, evaluacion, materia, tipo(unidad/parcial), observaciones, valor
     */
     console.log(linea);
     return null;

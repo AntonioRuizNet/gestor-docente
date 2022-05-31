@@ -6,7 +6,7 @@ import {update_Account, remove_Account} from './../../../../api/requests/contact
 
 const Asistencias = ({closePanel, linea, setDataBuilded}) => {
     /*
-    	id, idUser, fecha, valor
+    	id, idUser, idContacto, fecha, valor
     */
     console.log(linea);
     return null;
