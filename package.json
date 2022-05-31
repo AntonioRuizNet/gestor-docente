@@ -1,6 +1,6 @@
 {
-  "name": "profeapp",
-  "homepage": "https://antonioruiz.net/proyectos/docenteapp",
+  "name": "gestordocente",
+  "homepage": "https://gestordocente.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
