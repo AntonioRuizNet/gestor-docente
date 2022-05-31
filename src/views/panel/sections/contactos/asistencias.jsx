@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
+import { Calendario } from "./../../../../components/calendar";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Account} from './../../../../api/requests/contacts'
 
@@ -11,6 +12,8 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
     console.log(linea);
 
     const [dataReady, setDataReady] = useState(false);
+    const [dataLoaded, setLoaded] = useState(false);
+
     const [id, setId] = useState("");
     const [fecha, setFecha] = useState("");
     const [valor, setValor] = useState("");
@@ -25,17 +28,6 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
         }
     }
     checkData();
-
-    const Calendario = () => {
-        let calendario;
-        let meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
-        let dias = ['1', '2', '3', '4'];
-        calendario = meses.map( mes => {
-            let diasMes = dias.map( dia => { return `<td>${dia}</td>`; });
-            return `<tr><td>${mes}</td>${diasMes}</tr>`;
-        });
-        return `<table>${calendario}</table>`;
-    }
 
     useEffect( () =>{
         if(dataReady){
@@ -56,12 +48,7 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
             <h4>Asistencias</h4>
             <hr />
             <div className="row">
-                <div className="col-md-4 col-sm-12">
-                    <Input placeholder={"Fecha"} setValue={setNacimiento} type={"date"} idInput={"fecha"} className={""} value={fecha} />
-                </div>
-                <div className="col-md-8 col-sm-12">
-                    <Input placeholder={"Valor"} setValue={setEnfermedades} type={"text"} idInput={"valor"} className={""} value={valor} />
-                </div>
+
                 <div className="col-md-12 col-sm-12">
                     <Calendario />
                 </div>

@@ -27,9 +27,9 @@ export default function Contactos() {
     if(!dataBuilded){
       const accounts = await get_Accounts();
       if(accounts){
+        console.log(accounts);
         setData(accounts)
         buildTable(accounts.accounts);
-        console.log(accounts);
       }
     }
     setDataBuilded(true)
@@ -63,7 +63,6 @@ export default function Contactos() {
   ];
 
   const buildLinea = (id, type) => {
-    console.log(id, type);
     if(type==="Ficha"){
       const selectedLineObj = data.accounts.filter(e => e.id===id);
       const selectedLine = selectedLineObj.map( Object.values );

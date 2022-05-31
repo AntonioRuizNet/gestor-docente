@@ -11,6 +11,8 @@ const Evaluaciones = ({closePanel, linea, setDataBuilded}) => {
     console.log(linea);
 
     const [dataReady, setDataReady] = useState(false);
+    const [dataLoaded, setLoaded] = useState(false);
+    
     const [id, setId] = useState("");
     const [evaluacion, setEvaluacion] = useState("");
 
@@ -43,7 +45,7 @@ const Evaluaciones = ({closePanel, linea, setDataBuilded}) => {
             <hr />
             <div className="row">
                 <div className="col-md-8 col-sm-12">
-                    <Input placeholder={"Evaluacion"} setValue={setEnfermedades} type={"text"} idInput={"evaluacion"} className={""} value={evaluacion} />
+                    <Input placeholder={"Evaluacion"} setValue={setEvaluacion} type={"text"} idInput={"evaluacion"} className={""} value={evaluacion} />
                 </div>
     
                 <div className="col-md-12 col-sm-12 text-center mt-3">

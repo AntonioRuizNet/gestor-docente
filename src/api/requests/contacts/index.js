@@ -8,7 +8,7 @@ export const get_Accounts = (data) => {
   return fetch(getAccounts, { method: "POST", body: formData })
     .then((response) => response.json())
     .then((json) => {
-      return json.results;
+      return json.results[0];
     })
     .catch((error) => {
       console.error(error);
