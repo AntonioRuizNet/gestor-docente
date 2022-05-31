@@ -12,7 +12,7 @@ export const Calendario = () => {
         ['Febrero', [5, 7]]
     ];
 
-    let cabecera = dias.map( dia => { return <th>{dia}</th>; });
+    /*let cabecera = dias.map( dia => { return <th>{dia}</th>; });
     let calendario = meses.map( mes => {
         let diasMes = dias.map( dia => {
             let backgroundColor = {};
@@ -20,7 +20,15 @@ export const Calendario = () => {
             return <td>{<Checkbox style={backgroundColor} idInput={dia}/>}</td>; 
         });
         return <tr><td>{mes}</td>{diasMes}</tr>; 
+    });*/
+
+    let cabecera = dias.map( dia => { return <div style={{float:'left', width: '16.5px'}}>{dia}</div>; });
+    let calendario = meses.map( mes => {
+        let diasMes = dias.map( dia => {
+            return <div style={{float:'left', border: '0.5px #ededed solid', width: '16.5px'}}>&nbsp;</div>; 
+        });
+        return <div style={{clear:'both', float:'left'}}><div style={{float:'left', width: '80px'}}>{mes}</div>{diasMes}</div>; 
     });
 
-    return <StyledTable><tr><th> </th>{cabecera}</tr>{calendario}</StyledTable>;
+    return <StyledTable><div style={{fontSize: '12px'}}><div style={{float:'left', width: '80px'}}>&nbsp;</div>{cabecera}{calendario}</div></StyledTable>;
 }
