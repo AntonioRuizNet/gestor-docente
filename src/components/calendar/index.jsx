@@ -5,6 +5,8 @@ export const Calendario = ({data, updateDate}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [state, setState] = useState(null);
+    const [fecha, setFecha] = useState(null);
+    const [idContacto, setIdContacto] = useState(null);
 
     let meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     let dias=[]; for(let d=1; d<32; d++){ dias.push(d); }
@@ -52,33 +54,36 @@ export const Calendario = ({data, updateDate}) => {
             <div style={{position: 'absolute', backgroundColor: '#fff', width: '40%', padding: '15px', marginLeft: '30%', 
                         marginTop: '11%', border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f'}}>
                 Estados posibles
-                <div>
-                    <div style={colorDay('0')}>&nbsp;</div>
-                    <div style={colorDay('1')}>&nbsp;</div>
-                    <div style={colorDay('2')}>&nbsp;</div>
-                    <div style={colorDay('3')}>&nbsp;</div>
+                <div style={{clear:'both', float:'left'}}>
+                    <div onClick={setState(0)} style={colorDay('0')}>&nbsp;</div>
+                    <div onClick={setState(1)} style={colorDay('1')}>&nbsp;</div>
+                    <div onClick={setState(2)} style={colorDay('2')}>&nbsp;</div>
+                    <div onClick={setState(3)} style={colorDay('3')}>&nbsp;</div>
                 </div>
-                <div>
+                <div style={{clear:'both', float:'left'}}>
                     Estado actual: <div style={colorDay(state)}>&nbsp;</div>
                 </div>
-                <p onClick={()=>setModalOpen(false)}>Cerrar</p>
+                Obs
+                <textarea></textarea>
+                <div style={{clear:'both', float:'left'}}>
+                    <p onClick={()=>updateStateDay}>Actualizar</p>
+                    <p onClick={()=>setModalOpen(false)}>Cerrar</p>
+                </div>
+                
             </div>
         )
     }
 
     const detailDay = (mes, dia) => {
-        let fecha = formatDate(mes, dia);
-        let idContacto = data[0][2];
-        let valor = stateDay(mes, dia);
-        setState(valor);
+        setFecha(formatDate(mes, dia));
+        setIdContacto(data[0][2]);
+        setState(stateDay(mes, dia));
         setModalOpen(true);
-        //Modal con los posibles estados
-        //Estado actual + obs
-        //Boton que llama a updateStateDay(idContacto, fecha, state)
     }
 
-    const updateStateDay = (idContacto, fecha, valor) => {
-        console.log(`Actualizando estado del dia: ${idContacto} ${fecha} ${valor}`)
+    const updateStateDay = () => {
+        setModalOpen(false);
+        console.log(`Actualizando estado del dia: ${idContacto} ${fecha} ${state}`)
         //updateDate(idContacto, fecha, valor);
     }
 
