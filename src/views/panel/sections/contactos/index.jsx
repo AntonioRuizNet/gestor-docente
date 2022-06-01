@@ -71,14 +71,14 @@ export default function Contactos() {
     }
 
     if(type==="Asistencias"){
-      const selectedLineObj = data.asistencias.filter(e => e.id===id);
+      const selectedLineObj = data.asistencias.filter(e => e.idContacto===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
       setActiveModalPanelAsistencias(true);
     }
 
     if(type==="Evaluaciones"){
-      const selectedLineObj = data.evaluaciones.filter(e => e.id===id);
+      const selectedLineObj = data.evaluaciones.filter(e => e.idContacto===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
       setActiveModalPanelEvaluaciones(true);

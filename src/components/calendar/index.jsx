@@ -2,30 +2,42 @@ import React from 'react';
 import { StyledTable } from './styled'
 import {Checkbox} from './../checkbox'
 
-export const Calendario = () => {
+export const Calendario = ({data, onClick}) => {
 
     let meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     let dias=[]; for(let d=1; d<32; d++){ dias.push(d); }
 
-    let disabledDays = [ 
-        ['Enero', [1, 2]], 
-        ['Febrero', [5, 7]]
-    ];
+    const stateDay = (mes, dia) => {
 
-    /*let cabecera = dias.map( dia => { return <th>{dia}</th>; });
-    let calendario = meses.map( mes => {
-        let diasMes = dias.map( dia => {
-            let backgroundColor = {};
-            disabledDays.map( e => {if(e[0]==mes && e[1].includes(dia)){ backgroundColor = {backgroundColor: 'lightgrey'} } })
-            return <td>{<Checkbox style={backgroundColor} idInput={dia}/>}</td>; 
-        });
-        return <tr><td>{mes}</td>{diasMes}</tr>; 
-    });*/
+        let state='';
+
+        if(dia<10) dia = '0'+dia;
+        mes = meses.indexOf(mes)+1;
+        if(mes<10) mes = '0'+mes;
+        let fecha = `2022-${mes}-${dia}`;
+
+        let valor = '';
+        let finded = data[0].indexOf(fecha);
+        if(finded>0) valor=data[0][4];
+
+        switch (valor) {
+            case '0':
+                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: 'lightgrey'};
+                break;
+        
+            default:
+                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px'};
+                break;
+        }
+
+        return state;
+    }
 
     let cabecera = dias.map( dia => { return <div style={{float:'left', width: '16.5px'}}>{dia}</div>; });
     let calendario = meses.map( mes => {
         let diasMes = dias.map( dia => {
-            return <div style={{float:'left', border: '0.5px #ededed solid', width: '16.5px'}}>&nbsp;</div>; 
+            let backgroundColor = stateDay(mes, dia);
+            return <div onClick={() => onClick} style={backgroundColor}>&nbsp;</div>; 
         });
         return <div style={{clear:'both', float:'left'}}><div style={{float:'left', width: '80px'}}>{mes}</div>{diasMes}</div>; 
     });

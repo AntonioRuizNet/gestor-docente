@@ -12,13 +12,13 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
     console.log(linea);
 
     const [dataReady, setDataReady] = useState(false);
-    const [dataLoaded, setLoaded] = useState(false);
+    //const [dataLoaded, setLoaded] = useState(false);
 
     const [id, setId] = useState("");
     const [fecha, setFecha] = useState("");
     const [valor, setValor] = useState("");
 
-    const checkData = () => {
+    /*const checkData = () => {
         const lineaFormated = linea[0];
         if(lineaFormated && lineaFormated.length>0 && !dataLoaded){
           setId(lineaFormated[0])
@@ -27,10 +27,18 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
           setLoaded(true);
         }
     }
-    checkData();
+    checkData();*/
+
+    const updateDate = (id, fecha, valor) =>{
+      setId(id);
+      setFecha(fecha);
+      setValor(valor);
+      setDataReady(true);
+    }
 
     useEffect( () =>{
         if(dataReady){
+          console.log('Actualizando calendario...');
           setDataReady(false);
           /*update_Account(
             id,
@@ -50,12 +58,9 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
             <div className="row">
 
                 <div className="col-md-12 col-sm-12">
-                    <Calendario />
+                    <Calendario data={linea} onClick={updateDate} />
                 </div>
     
-                <div className="col-md-12 col-sm-12 text-center mt-3">
-                    <Button text={"Actualizar"} onClick={() => setDataReady(true)} />
-                </div>
             </div>
             </>} closePanel={closePanel}
         />
