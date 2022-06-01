@@ -11,12 +11,12 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
     */
     console.log(linea);
 
-    const [dataReady, setDataReady] = useState(false);
+    //const [dataReady, setDataReady] = useState(false);
     //const [dataLoaded, setLoaded] = useState(false);
 
-    const [id, setId] = useState("");
+    /*const [idContacto, setIdContacto] = useState("");
     const [fecha, setFecha] = useState("");
-    const [valor, setValor] = useState("");
+    const [valor, setValor] = useState("");*/
 
     /*const checkData = () => {
         const lineaFormated = linea[0];
@@ -29,26 +29,22 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
     }
     checkData();*/
 
-    const updateDate = (id, fecha, valor) =>{
-      setId(id);
-      setFecha(fecha);
-      setValor(valor);
-      setDataReady(true);
+    const updateDate = (idContacto, fecha, valor) =>{
+      /*updateCalendar(
+        idContacto,
+        fecha,
+        valor,
+      )*/
     }
 
-    useEffect( () =>{
+    /*useEffect( () =>{
         if(dataReady){
           console.log('Actualizando calendario...');
           setDataReady(false);
-          /*update_Account(
-            id,
-            fecha,
-            valor,
-          )*/
           closePanel();
           setDataBuilded(false);
         }
-    }, [dataReady]);
+    }, [dataReady]);*/
 
     return (
         <ModalPanel info={
@@ -58,7 +54,7 @@ const Asistencias = ({closePanel, linea, setDataBuilded}) => {
             <div className="row">
 
                 <div className="col-md-12 col-sm-12">
-                    <Calendario data={linea} onClick={updateDate} />
+                    <Calendario data={linea} updateDate={updateDate} />
                 </div>
     
             </div>
