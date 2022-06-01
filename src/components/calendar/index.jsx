@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-//import { StyledTable } from './styled'
+import { ItemDay } from './styled'
+import { Button } from "./../button";
+import { Textarea } from "./../textarea";
 
-export const Calendario = ({data, updateDate}) => {
+export const Calendario = ({data, updateDate, idContacto}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [state, setState] = useState(null);
     const [fecha, setFecha] = useState(null);
-    const [idContacto, setIdContacto] = useState(null);
+    const [obs, setObs] = useState('');
+    let obsTemp = '';
 
     let meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     let dias=[]; for(let d=1; d<32; d++){ dias.push(d); }
@@ -21,53 +24,61 @@ export const Calendario = ({data, updateDate}) => {
     const stateDay = (mes, dia) => {
         let fecha = formatDate(mes, dia);
         let valor = '';
-        let finded = data[0].indexOf(fecha);
-        if(finded>0) valor=data[0][4];
+        data.map(e=>{ if(e.indexOf(fecha)>0) valor=e[4]; })
         return valor;
     }
 
-    const colorDay = (valor) =>{
-        let state='';
+    const colorTypes = (valor) =>{
+        let background='';
         switch (valor) {
             case '0':
-                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: 'lightgrey'};
+                background = 'white';
                 break;
             case '1':
-                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: 'darkgreen'};
+                background = '#23b723';
                 break;
             case '2':
-                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: 'darkred'};
+                background = '#8b00006b';
                 break;
             case '3':
-                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: 'lighblue'};
+                background = '#f7eb48';
                 break;
         
             default:
-                state = {float:'left', border: '0.5px #ededed solid', width: '16.5px'};
                 break;
         }
-        return state;
+        return background;
     }
 
-    const Detail = ({state}) =>{
+    const colorDay = (valor) =>{
+        let style = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: colorTypes(valor), cursor: 'pointer'};
+        return style;
+    }
+
+    const colorDayGlosary = (valor) =>{
+        let style = { border: '1px #ededed solid', width: '100%', backgroundColor: colorTypes(valor), cursor: 'pointer', textAlign: 'center', color: 'black', marginTop: '2px'};
+        return style;
+    }
+
+    const Detail = ({obs}) =>{
         return (
-            <div style={{position: 'absolute', backgroundColor: '#fff', width: '40%', padding: '15px', marginLeft: '30%', 
-                        marginTop: '11%', border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f'}}>
-                Estados posibles
-                <div style={{clear:'both', float:'left'}}>
-                    <div onClick={setState(0)} style={colorDay('0')}>&nbsp;</div>
-                    <div onClick={setState(1)} style={colorDay('1')}>&nbsp;</div>
-                    <div onClick={setState(2)} style={colorDay('2')}>&nbsp;</div>
-                    <div onClick={setState(3)} style={colorDay('3')}>&nbsp;</div>
+            <div style={{position: 'absolute', backgroundColor: '#fff', width: '40%', padding: '20px', marginLeft: '30%', 
+                        border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f', marginTop: '-10%'}}>
+                <div className="row"><div className="text-center">Selecciona el tipo de falta</div></div>
+                <div className="row">
+                    <div onClick={()=>updateStateDay(0)} style={colorDayGlosary('0')}>Eliminar falta</div>
+                    <div onClick={()=>updateStateDay(1)} style={colorDayGlosary('1')}>Justificada</div>
+                    <div onClick={()=>updateStateDay(2)} style={colorDayGlosary('2')}>Injustificada</div>
+                    <div onClick={()=>updateStateDay(3)} style={colorDayGlosary('3')}>Retraso</div>
                 </div>
-                <div style={{clear:'both', float:'left'}}>
-                    Estado actual: <div style={colorDay(state)}>&nbsp;</div>
+                <div className="row mt-3">
+                    <div className="text-center">Observaciones</div>
+                    <p>{obs}</p>
+                    <Textarea setValue={saveObs} idInput={'asist-detail-obs'} className={''}/>
                 </div>
-                Obs
-                <textarea></textarea>
-                <div style={{clear:'both', float:'left'}}>
-                    <p onClick={()=>updateStateDay}>Actualizar</p>
-                    <p onClick={()=>setModalOpen(false)}>Cerrar</p>
+                <div className="row">
+                    <Button className={'col-12 btn-primary'} text={'Guardar observaciones'} onClick={()=>updateObs()} />
+                    <Button className={'col-12 mt-2'} text={'Cerrar'} onClick={()=>setModalOpen(false)} />
                 </div>
                 
             </div>
@@ -75,29 +86,43 @@ export const Calendario = ({data, updateDate}) => {
     }
 
     const detailDay = (mes, dia) => {
+        let obs = ''; let idContacto = '';
+        data.map(e=>{ if(e.indexOf(formatDate(mes, dia))>0){ obs = e[5]; idContacto = e[2];} })
+        setObs(obs);
         setFecha(formatDate(mes, dia));
-        setIdContacto(data[0][2]);
         setState(stateDay(mes, dia));
         setModalOpen(true);
     }
 
-    const updateStateDay = () => {
-        setModalOpen(false);
-        console.log(`Actualizando estado del dia: ${idContacto} ${fecha} ${state}`)
-        //updateDate(idContacto, fecha, valor);
+    const saveObs = (value) => {
+        obsTemp = value;
     }
 
-    let cabecera = dias.map( dia => { return <div style={{float:'left', width: '16.5px'}}>{dia}</div>; });
+    const updateObs = () => {
+        console.log(`Actualizando estado del dia: ${idContacto} ${fecha} ${state} ${obsTemp}`)
+        updateDate(idContacto, fecha, state, obsTemp);
+        setModalOpen(false);
+    }
+
+    const updateStateDay = (newState) => {
+        setState(newState);
+        console.log(`Actualizando estado del dia: ${idContacto} ${fecha} ${newState} ${obs}`)
+        updateDate(idContacto, fecha, newState, obs);
+        setModalOpen(false);
+    }
+
+    let cabecera = dias.map( dia => { return <div key={'calheader-'+dia} style={{float:'left', width: '16.5px'}}>{dia}</div>; });
     let calendario = meses.map( mes => {
         let diasMes = dias.map( dia => {
             let backgroundColor = colorDay(stateDay(mes, dia));
-            return <div onClick={() => detailDay(mes, dia)} style={backgroundColor}>&nbsp;</div>; 
+            return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>&nbsp;</ItemDay>; 
         });
-        return <div style={{clear:'both', float:'left'}}><div style={{float:'left', width: '80px'}}>{mes}</div>{diasMes}</div>; 
+        return <div key={'calmonth-'+mes} style={{clear:'both', float:'left'}}><div style={{float:'left', width: '80px'}}>{mes}</div>{diasMes}</div>; 
     });
 
     return <>
+    {console.log('Render Calendar')}
             <div style={{fontSize: '12px'}}><div style={{float:'left', width: '80px'}}>&nbsp;</div>{cabecera}{calendario}</div>
-            {modalOpen && <Detail state={state}/>}
+            {modalOpen && <Detail state={state} obs={obs}/>}
         </>;
 }

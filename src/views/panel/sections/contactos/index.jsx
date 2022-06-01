@@ -15,6 +15,7 @@ export default function Contactos() {
   const [activeModalPanelEvaluaciones, setActiveModalPanelEvaluaciones] = useState(false);
   const [activeModalPanel, setActiveModalPanel] = useState(false);
   const [linea, setLinea] = useState({});
+  const [idContacto, setIdContacto] = useState(null);
 
   const [data, setData] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
@@ -74,6 +75,7 @@ export default function Contactos() {
       const selectedLineObj = data.asistencias.filter(e => e.idContacto===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
+      setIdContacto(id);
       setActiveModalPanelAsistencias(true);
     }
 
@@ -81,6 +83,7 @@ export default function Contactos() {
       const selectedLineObj = data.evaluaciones.filter(e => e.idContacto===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
+      setIdContacto(id);
       setActiveModalPanelEvaluaciones(true);
     }
   }
@@ -106,7 +109,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
     {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
-    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
+    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>
     
