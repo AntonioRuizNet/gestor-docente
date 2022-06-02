@@ -18,6 +18,14 @@ export default function Configuraciones() {
     setDataBuilded(true)
   }
 
+  const Configurador = () => {
+    return (
+      <div className="panel panel-default">
+        <div className="panel-body">A Basic Panel</div>
+      </div>
+    )
+  }
+
   useEffect( () =>{
     if(!dataBuilded) getData();
   }, [dataBuilded]);
