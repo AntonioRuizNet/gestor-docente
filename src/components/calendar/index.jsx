@@ -86,8 +86,8 @@ export const Calendario = ({data, updateDate, idContacto}) => {
     }
 
     const detailDay = (mes, dia) => {
-        let obs = ''; let idContacto = '';
-        data.map(e=>{ if(e.indexOf(formatDate(mes, dia))>0){ obs = e[5]; idContacto = e[2];} })
+        let obs = ''; 
+        data.map(e=>{ if(e.indexOf(formatDate(mes, dia))>0){ obs = e[5]; } })
         setObs(obs);
         setFecha(formatDate(mes, dia));
         setState(stateDay(mes, dia));

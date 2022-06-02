@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 //Components
 import SubmenuSection from './../../../../components/submenuSection'
 import Tabla from './../../../../components/tabla'
+import {Buscador} from './../../../../components/buscador'
 import Ficha from './ficha'
 import Asistencias from './asistencias'
 import Evaluaciones from './evaluaciones'
@@ -100,6 +101,17 @@ export default function Contactos() {
     setLines(extractedLines);
   }
 
+  const searcher = (search) => {
+    //Esto puedo llevarlo al componente buscador
+    console.log(data.accounts)
+    console.log('filtros: '+search)
+
+    const allLines = data.accounts.map( Object.values );
+    const extractedLines = allLines.filter(e => e.nombre===search || e.apellidos===search);
+    setLines(extractedLines);
+  }
+  
+
   useEffect( () =>{
     if(!dataBuilded) getAccounts();
   }, [dataBuilded]);
@@ -107,6 +119,7 @@ export default function Contactos() {
   return (
     <>
     <SubmenuSection options={enlaces}/>
+    <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
     {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
