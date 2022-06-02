@@ -46,11 +46,7 @@ export default function Index({ widths, header, data, buildLinea, optionsTable }
                         })}
                   </div>
                 ))}
-                <div>
-                  {/*optionsTable.map((opt) => {
-                  return <Button key={opt.value} className={opt.className} text={opt.value} onClick={() => buildLinea(line[0], opt.value)} />;
-                })*/}
-                </div>
+                <div></div>
               </StyledTableRow>
             )
         )}
