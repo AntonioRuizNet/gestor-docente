@@ -18,10 +18,11 @@ export default function Configuraciones() {
     setDataBuilded(true)
   }
 
-  const Configurador = () => {
+  const Configurador = ({title}) => {
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">A Basic Panel</div>
+      <div className="" style={{border: '1px lightgray solid', borderRadius: '3px', padding: '15px', backgroundColor: 'whitesmoke'}}>
+        <b>{title}</b><hr/>
+        <div className="">A Basic Panel</div>
       </div>
     )
   }
@@ -31,8 +32,13 @@ export default function Configuraciones() {
   }, [dataBuilded]);
 
   return (
-    <>
-    <div>Configuraciones (Cursos y asignaturas)</div>
-    </>
+    <div className="row">
+      <div className="col">
+        <Configurador title={'Asignaturas'}/>
+      </div>
+      <div className="col">
+        <Configurador title={'Cursos'}/>
+      </div>
+    </div>
   )
 }
