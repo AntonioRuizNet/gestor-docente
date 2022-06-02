@@ -90,24 +90,21 @@ export default function Contactos() {
   }
 
   const buildTable = (data) => {
-    const widths = [4, 30, 45, 10, 11];
+    const widths = [4, 20, 20, 11, 45];
     setWidths(widths);
 
-    const header = ["#", "Nombre", "Apellidos", "Nacimiento", ""];
+    const header = ["#", "Nombre", "Apellidos", "Nacimiento", " "];
     setHeader(header);
 
     const allLines = data.map( Object.values );
-    const extractedLines = allLines.map( e => {return [e[0], e[2], e[3], e[4]]})
+    const extractedLines = allLines.map( e => {return [e[0], e[2], e[3], e[4], null]})
     setLines(extractedLines);
   }
 
   const searcher = (search) => {
-    //Esto puedo llevarlo al componente buscador
-    console.log(data.accounts)
-    console.log('filtros: '+search)
-
     const allLines = data.accounts.map( Object.values );
-    const extractedLines = allLines.filter(e => e.nombre===search || e.apellidos===search);
+    const allLinesFiltred = allLines.filter(e => e[2].indexOf(search) > -1 || e[3].indexOf(search) > -1 || e[4].indexOf(search) > -1);
+    const extractedLines = allLinesFiltred.map( e => {return [e[0], e[2], e[3], e[4], null]})
     setLines(extractedLines);
   }
   
