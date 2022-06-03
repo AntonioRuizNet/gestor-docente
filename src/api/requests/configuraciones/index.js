@@ -1,4 +1,4 @@
-import { idUser, getConfiguraciones } from "./../../constants";
+import { idUser, getConfiguraciones, updateConfigurador } from "./../../constants";
 
 export const get_Configuraciones = () => {
   let formData = new FormData();
@@ -9,6 +9,21 @@ export const get_Configuraciones = () => {
     .then((json) => {
       return json.results[0];
     })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const update_Configurador = (id, table, operation, value) => {
+  let formData = new FormData();
+  formData.append("idUser", idUser());
+  formData.append("id", id);
+  formData.append("table", table);
+  formData.append("operation", operation);
+  formData.append("value", value);
+
+  return fetch(updateConfigurador, { method: "POST", body: formData })
+    .then((response) => get_Configuraciones())
     .catch((error) => {
       console.error(error);
     });
