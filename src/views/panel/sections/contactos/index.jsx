@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 //Components
 import SubmenuSection from './../../../../components/submenuSection'
 import Tabla from './../../../../components/tabla'
+import {Buscador} from './../../../../components/buscador'
 import Ficha from './ficha'
 import Asistencias from './asistencias'
 import Evaluaciones from './evaluaciones'
@@ -15,6 +16,7 @@ export default function Contactos() {
   const [activeModalPanelEvaluaciones, setActiveModalPanelEvaluaciones] = useState(false);
   const [activeModalPanel, setActiveModalPanel] = useState(false);
   const [linea, setLinea] = useState({});
+  const [idContacto, setIdContacto] = useState(null);
 
   const [data, setData] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
@@ -27,15 +29,18 @@ export default function Contactos() {
     if(!dataBuilded){
       const accounts = await get_Accounts();
       if(accounts){
+        console.log(accounts);
         setData(accounts)
-        buildTable(accounts);
+        buildTable(accounts.accounts);
       }
     }
     setDataBuilded(true)
   }
   
   const toogleModalPanel = () => {
-    setActiveModalPanel(!activeModalPanel);
+    setActiveModalPanel(false);
+    setActiveModalPanelAsistencias(false);
+    setActiveModalPanelEvaluaciones(false);
   }
 
   const OpenModal = (value) => {
@@ -60,44 +65,49 @@ export default function Contactos() {
   ];
 
   const buildLinea = (id, type) => {
-    console.log(id, type);
     if(type==="Ficha"){
-      const selectedLineObj = data.filter(e => e.id===id);
+      const selectedLineObj = data.accounts.filter(e => e.id===id);
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
       setActiveModalPanel(true);
     }
 
     if(type==="Asistencias"){
-      /* TODO: getAccounts -> llamar a la tabla asistencias
-        const selectedLineObj = data.filter(e => e.id===id);
-        const selectedLine = selectedLineObj.map( Object.values );
-        setLinea(selectedLine);
-      */
-      //setActiveModalPanelAsistencias(true);
+      const selectedLineObj = data.asistencias.filter(e => e.idContacto===id);
+      const selectedLine = selectedLineObj.map( Object.values );
+      setLinea(selectedLine);
+      setIdContacto(id);
+      setActiveModalPanelAsistencias(true);
     }
 
     if(type==="Evaluaciones"){
-      /* TODO: getAccounts -> llamar a la tabla evaluaciones
-        const selectedLineObj = data.filter(e => e.id===id);
-        const selectedLine = selectedLineObj.map( Object.values );
-        setLinea(selectedLine);
-      */
-      //setActiveModalPanelEvaluaciones(true);
+      const selectedLineObj = data.evaluaciones.filter(e => e.idContacto===id);
+      const selectedLine = selectedLineObj.map( Object.values );
+      setLinea(selectedLine);
+      setIdContacto(id);
+      setActiveModalPanelEvaluaciones(true);
     }
   }
 
   const buildTable = (data) => {
-    const widths = [4, 30, 45, 10, 11];
+    const widths = [4, 20, 20, 11, 45];
     setWidths(widths);
 
-    const header = ["#", "Nombre", "Apellidos", "Nacimiento", ""];
+    const header = ["#", "Nombre", "Apellidos", "Nacimiento", " "];
     setHeader(header);
 
     const allLines = data.map( Object.values );
-    const extractedLines = allLines.map( e => {return [e[0], e[2], e[3], e[4]]})
+    const extractedLines = allLines.map( e => {return [e[0], e[2], e[3], e[4], null]})
     setLines(extractedLines);
   }
+
+  const searcher = (search) => {
+    const allLines = data.accounts.map( Object.values );
+    const allLinesFiltred = allLines.filter(e => e[2].indexOf(search) > -1 || e[3].indexOf(search) > -1 || e[4].indexOf(search) > -1);
+    const extractedLines = allLinesFiltred.map( e => {return [e[0], e[2], e[3], e[4], null]})
+    setLines(extractedLines);
+  }
+  
 
   useEffect( () =>{
     if(!dataBuilded) getAccounts();
@@ -106,9 +116,10 @@ export default function Contactos() {
   return (
     <>
     <SubmenuSection options={enlaces}/>
+    <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
     {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
-    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
+    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>
     

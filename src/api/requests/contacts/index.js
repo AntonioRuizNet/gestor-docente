@@ -1,4 +1,4 @@
-import { idUser, getAccounts, updateAccount, removeAccount } from "./../../constants";
+import { idUser, getAccounts, updateAccount, removeAccount, updateAsistencias } from "./../../constants";
 
 export const get_Accounts = (data) => {
   let formData = new FormData();
@@ -8,7 +8,7 @@ export const get_Accounts = (data) => {
   return fetch(getAccounts, { method: "POST", body: formData })
     .then((response) => response.json())
     .then((json) => {
-      return json.results;
+      return json.results[0];
     })
     .catch((error) => {
       console.error(error);
@@ -42,6 +42,23 @@ export const remove_Account = (id) => {
   return fetch(removeAccount, { method: "POST", body: formData })
     .then((response) => {
       return response.ok;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const update_Asistencias = (idContacto, fecha, valor, obs) => {
+  let formData = new FormData();
+  formData.append("idUser", idUser());
+  formData.append("idContacto", idContacto);
+  formData.append("fecha", fecha);
+  formData.append("valor", valor);
+  formData.append("obs", obs);
+
+  return fetch(updateAsistencias, { method: "POST", body: formData })
+    .then((response) => {
+      return response;
     })
     .catch((error) => {
       console.error(error);

@@ -20,15 +20,13 @@ export const Overlay = styled.div`
   animation-name: growIn;
   -webkit-animation-duration: 0.2s;
   animation-duration: 0.2s;
-  -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1),
-    opacity cubic-bezier(0, 1, 0.4, 1);
-  animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1),
-    opacity cubic-bezier(0, 1, 0.4, 1);
+  -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
+  animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
   box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 `;
 
 export const ContainerBlock = styled.div`
-  max-width: 500px;
+  max-width: 650px;
   margin: 1.75rem auto;
   //margin-left: 28%;
   margin-top: 7%;

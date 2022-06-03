@@ -37,14 +37,20 @@ export default function Index({ widths, header, data, buildLinea, optionsTable }
             index >= itemsPage * (activePage - 1) &&
             index < itemsPage * activePage && (
               <StyledTableRow key={"row" + index}>
-                {line.map((data, index) => (
-                  <div key={"body" + index} style={{ padding: "5px", width: widths[index] + "%" }}>
-                    {data}
+                {line.map((data2, index2) => (
+                  <div key={"body" + index2} style={data2 === null ? { padding: "5px", width: widths[index2] + "%", textAlign: "right" } : { padding: "5px", width: widths[index2] + "%" }}>
+                    {data2 !== null
+                      ? data2
+                      : optionsTable.map((opt) => {
+                          return <Button key={opt.value} className={opt.className} text={opt.value} onClick={() => buildLinea(line[0], opt.value)} />;
+                        })}
                   </div>
                 ))}
-                {optionsTable.map((opt) => {
-                  return <Button className={opt.className} text={opt.value} onClick={() => buildLinea(line[0], opt.value)} />;
-                })}
+                <div>
+                  {/*optionsTable.map((opt) => {
+                  return <Button key={opt.value} className={opt.className} text={opt.value} onClick={() => buildLinea(line[0], opt.value)} />;
+                })*/}
+                </div>
               </StyledTableRow>
             )
         )}
