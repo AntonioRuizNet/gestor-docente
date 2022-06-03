@@ -16,3 +16,6 @@ export const getAccounts = baseUrl + "/GET_ACCOUNTS";
 export const updateAccount = baseUrl + "/UPDATE_ACCOUNT";
 export const removeAccount = baseUrl + "/REMOVE_ACCOUNT";
 export const updateAsistencias = baseUrl + "/UPDATE_ASISTENCIAS";
+
+export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
+export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";
