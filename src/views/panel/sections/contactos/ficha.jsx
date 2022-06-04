@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
+import { Textarea } from "./../../../../components/textarea";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Account, remove_Account} from './../../../../api/requests/contacts'
 
@@ -89,7 +90,7 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
                 <Input placeholder={"Nacimiento"} setValue={setNacimiento} type={"date"} idInput={"nacimiento"} className={""} value={nacimiento} />
                 </div>
                 <div className="col-md-8 col-sm-12">
-                <Input placeholder={"Enfermedades"} setValue={setEnfermedades} type={"text"} idInput={"enfermedades"} className={""} value={enfermedades} />
+                <Textarea placeholder={"Enfermedades"} setValue={setEnfermedades} type={"text"} idInput={"enfermedades"} className={""} value={enfermedades} />
                 </div>
                 <div className="col-md-12 col-sm-12">
                 <Input placeholder={"Domicilio"} setValue={setDomicilio} type={"text"} idInput={"domicilio"} className={""} value={domicilio} />
