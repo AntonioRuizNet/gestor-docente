@@ -5,9 +5,7 @@ import { BackgroundSidebar, TitleSidebar, Separador, OptionMenu, OptionMenuV2 } 
 export const Sidebar = ({ selectionMenu }) => {
   return (
     <BackgroundSidebar>
-      <TitleSidebar>
-        <Logo width="90%" />
-      </TitleSidebar>
+      <TitleSidebar>Gestor Docente</TitleSidebar>
 
       <Separador />
 
