@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
+import { CheckboxText }  from "./../../../../components/checkboxText";
 import { Textarea } from "./../../../../components/textarea";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Account, remove_Account} from './../../../../api/requests/contacts'
@@ -54,7 +55,7 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
 
     const [observaciones, setObservaciones] = useState("");
 
-    const [aceptaSituacionHijo, setAceptaSituacionHijo] = useState();
+    /*const [aceptaSituacionHijo, setAceptaSituacionHijo] = useState();
     const [conocenCausasACNEAE, setConocenCausasACNEAE] = useState();
     const [excesivaProteccion, setExcesivaProteccion] = useState();
     const [refuerzanLogros, setRefuerzanLogros] = useState();
@@ -73,27 +74,38 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
     const [custodiaPadre, setCustodiaPadre] = useState();
     const [custodiaMadre, setCustodiaMadre] = useState();
     const [custodiaAbuelos, setCustodiaAbuelos] = useState();
-    const [custodiaOtros, setCustodiaOtros] = useState();
+    const [custodiaOtros, setCustodiaOtros] = useState();*/
     const [personasConvivenSenoFamiliar, setPersonasConvivenSenoFamiliar] = useState();
     const [observacionesFamiliares, setObservacionesFamiliares] = useState();
 
-    const [repiteCurso, setRepiteCurso] = useState();
     const [cursoRepetido, setCursoRepetido] = useState();
     const [presentaAdaptacion, setPresentaAdaptacion] = useState();
     const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
 
-    const [responsable, setResponsable] = useState();
-    const [motivado, setMotivado] = useState();
-    const [atento, setAtendo] = useState();
-    const [reflexivo, setReflexivo] = useState();
-    const [independiente, setIndependiente] = useState();
-    const [organizado, setOrganizado] = useState();
-    //Faltan algunos
+    /*const contextoFamiliar = [
+      {id: 'Aceptan situación hijo/a', value: ''}, {id: 'Despreocupado', value: ''}, {id: 'Motivado', value: ''}, {id: 'Desmotivado', value: ''}, 
+      {id:'Atento', value: ''}, {id:'Distraido', value: ''}, {id: 'Reflexivo', value: ''}, {id: 'Impulsivo', value: ''}, 
+      {id: 'Independiente', value: ''}, {id: 'Dependiente', value: ''}, {id:'Organizado', value: ''}, {id:'Desorganizado', value: ''}
+    ];
 
-    //V2
-    const contextoEscolarApi = [{responsable: '', motivado: '', atento:'', reflexivo:'', independiente:'', organizado:''}];
-    const [contextoEscolar, setContextoEscolar] = useState(contextoEscolarApi);
-    //ToTest: Generar inputs según contextoEscolarApi, guardar inputs en contextoEscolar segun key y comprobar que contextoEscolar cambia.
+    const updateContextoFamiliar = (valor, id) => {
+      contextoEscolar.map( e =>{ if(e.id===id){ e.value=valor; }} );
+      console.log(id, valor);
+      console.log(contextoEscolar);
+    }*/
+
+
+    const contextoEscolar = [
+      {idTable: 'responsable', id: 'Responsable', value: ''}, {id: 'Despreocupado', value: ''}, {id: 'Motivado', value: ''}, {id: 'Desmotivado', value: ''}, 
+      {id:'Atento', value: ''}, {id:'Distraido', value: ''}, {id: 'Reflexivo', value: ''}, {id: 'Impulsivo', value: ''}, 
+      {id: 'Independiente', value: ''}, {id: 'Dependiente', value: ''}, {id:'Organizado', value: ''}, {id:'Desorganizado', value: ''}
+    ];
+
+    const updateContextoEscolar = (valor, id) => {
+      contextoEscolar.map( e =>{ if(e.id===id){ e.value=valor; }} );
+      console.log(id, valor);
+      console.log(contextoEscolar);
+    }
 
     const checkData = () => {
       const lineaFormated = linea[0];
@@ -140,26 +152,37 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
             <hr />
             <div className="row">
                 <div className="col-md-6 col-sm-12">
-                <Input placeholder={"Apellidos"} setValue={setApellidos} type={"text"} idInput={"apellidos"} className={""} value={apellidos} />
+                  <Input placeholder={"Apellidos"} setValue={setApellidos} type={"text"} idInput={"apellidos"} className={""} value={apellidos} />
                 </div>
                 <div className="col-md-6 col-sm-12">
-                <Input placeholder={"Nombre"} setValue={setNombre} type={"text"} idInput={"nombre"} className={""} value={nombre} />
+                  <Input placeholder={"Nombre"} setValue={setNombre} type={"text"} idInput={"nombre"} className={""} value={nombre} />
                 </div>
                 <div className="col-md-4 col-sm-12">
-                <Input placeholder={"Nacimiento"} setValue={setNacimiento} type={"date"} idInput={"nacimiento"} className={""} value={nacimiento} />
+                  <Input placeholder={"Nacimiento"} setValue={setNacimiento} type={"date"} idInput={"nacimiento"} className={""} value={nacimiento} />
                 </div>
                 <div className="col-md-8 col-sm-12">
-                <Textarea placeholder={"Enfermedades"} setValue={setEnfermedades} type={"text"} idInput={"enfermedades"} className={""} value={enfermedades} />
+                  <Textarea placeholder={"Enfermedades"} setValue={setEnfermedades} type={"text"} idInput={"enfermedades"} className={""} value={enfermedades} />
                 </div>
                 <div className="col-md-12 col-sm-12">
-                <Input placeholder={"Domicilio"} setValue={setDomicilio} type={"text"} idInput={"domicilio"} className={""} value={domicilio} />
+                  <Input placeholder={"Domicilio"} setValue={setDomicilio} type={"text"} idInput={"domicilio"} className={""} value={domicilio} />
                 </div>
+
+                <div className="col-md-12 col-sm-12">
+                  Contexto escolar<hr/>
+                </div>
+                {contextoEscolar.map( e =>{
+                    return (<div className="col-md-4 col-sm-6">
+                              <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                            </div>)
+                })}
+
     
                 <div className="col-md-12 col-sm-12 text-center mt-3">
                 <Button text={nombre===""?"Guardar":"Actualizar"} onClick={() => setDataReady(true)} />
                 <Button text={"Eliminar"} onClick={() => removeContact()} />
                 </div>
             </div>
+
             </>} closePanel={closePanel}
         />
       );
