@@ -7,25 +7,6 @@ import {update_Account, remove_Account} from './../../../../api/requests/contact
 
 const Ficha = ({closePanel, linea, setDataBuilded}) => {
 
-  /*
-    foto, n_hermanos, curso, grupo
-    nombre padre, tel, estudios, profesion
-    nombre madre, tel, estudios, profesion
-    contacto urgencia
-
-    -- datos-medicos --
-    tratamiento medico, tratamiento psico, informe medico, diagnostico
-    hospitalizado, operado,
-    alergias
-    enfermedades (ya implementado)
-    deficit tipo auditivo, visual, tactil, respiratorio, cardiaco, motorico [Alto, medio, bajo]
-    observaciones medicas
-
-    --contexto familiar --
-
-
-    -- contexto escolar --
-  */
     const [dataReady, setDataReady] = useState(false);
     const [dataLoaded, setLoaded] = useState(false);
     
@@ -35,6 +16,84 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
     const [enfermedades, setEnfermedades] = useState("");
     const [domicilio, setDomicilio] = useState("");
     const [id, setId] = useState("");
+
+    //new
+    //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
+    const [nHermanos, setNHermanos] = useState("");
+    const [puesto, setPuesto] = useState("");
+    const [grupo, setGrupo] = useState("");
+    const [localidad, setLocalidad] = useState("");
+    const [cp, setCp] = useState("");
+    const [provincia, setProvincia] = useState("");
+    const [foto, setFoto] = useState("");
+
+    const [nombrePadre, setNombrePadre] = useState("");
+    const [telefonoPadre, setTelefonoPadre] = useState("");
+    const [estudiosPadre, setEstudiosPadre] = useState("");
+    const [profesionPadre, setProfesionPadre] = useState("");
+
+    const [nombreMadre, setNombreMadre] = useState("");
+    const [telefonoMadre, setTelefonoMadre] = useState("");
+    const [estudiosMadre, setEstudiosMadre] = useState("");
+    const [profesionMadre, setProfesionMadre] = useState("");
+
+    const [contactoUrgencia, setContactoUrgencia] = useState("");
+    const [telefonoUrgencia, setTelefonoUrgencia] = useState("");
+
+    const [tratamientoMedico, setTratamientoMedico] = useState();
+    const [tratamientoPsicologico, setTratamientoPsicologico] = useState();
+
+    const [alergias, setAlergias] = useState("");
+    const [deficitAuditivo, setDeficitAuditivo] = useState("");
+    const [deficitVisual, setDeficitVisual] = useState("");
+    const [deficitTactil, setDeficitTactil] = useState("");
+    const [deficitRespiratorio, setDeficitRespiratorio] = useState("");
+    const [deficitCardiaco, setDeficitCardiaco] = useState("");
+    const [deficitMotorico, setDeficitMotorico] = useState("");
+    const [deficitObs, setDeficitObs] = useState("");
+
+    const [observaciones, setObservaciones] = useState("");
+
+    const [aceptaSituacionHijo, setAceptaSituacionHijo] = useState();
+    const [conocenCausasACNEAE, setConocenCausasACNEAE] = useState();
+    const [excesivaProteccion, setExcesivaProteccion] = useState();
+    const [refuerzanLogros, setRefuerzanLogros] = useState();
+    const [castiganConductasDisruptivas, setCastiganConductasDisruptivas] = useState();
+    const [dialoganHijo, setDialoganHijo] = useState();
+    const [presentanColaboracion, setPresentanColaboracion] = useState();
+    const [demandanReunionesTutor, setDemandanReunionesTutor] = useState();
+    const [colaboranSoloSiTutorLoPide, setColaboranSoloSiTutorLoPide] = useState();
+    const [organizanTiempoDeEstudio, setOrganizanTiempoDeEstudio] = useState();
+    const [refuerzanAprendizaje, setRefuerzanAprendizaje] = useState();
+    const [controlanEstudioDiario, setControlanEstudioDiario] = useState();
+
+    const [fallecimientoPadre, setFallecimientoPadre] = useState();
+    const [fallecimientoMadre, setFallecimientoMadre] = useState();
+    const [desempleoPadre, setDesempleoPadre] = useState();
+    const [custodiaPadre, setCustodiaPadre] = useState();
+    const [custodiaMadre, setCustodiaMadre] = useState();
+    const [custodiaAbuelos, setCustodiaAbuelos] = useState();
+    const [custodiaOtros, setCustodiaOtros] = useState();
+    const [personasConvivenSenoFamiliar, setPersonasConvivenSenoFamiliar] = useState();
+    const [observacionesFamiliares, setObservacionesFamiliares] = useState();
+
+    const [repiteCurso, setRepiteCurso] = useState();
+    const [cursoRepetido, setCursoRepetido] = useState();
+    const [presentaAdaptacion, setPresentaAdaptacion] = useState();
+    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
+
+    const [responsable, setResponsable] = useState();
+    const [motivado, setMotivado] = useState();
+    const [atento, setAtendo] = useState();
+    const [reflexivo, setReflexivo] = useState();
+    const [independiente, setIndependiente] = useState();
+    const [organizado, setOrganizado] = useState();
+    //Faltan algunos
+
+    //V2
+    const contextoEscolarApi = [{responsable: '', motivado: '', atento:'', reflexivo:'', independiente:'', organizado:''}];
+    const [contextoEscolar, setContextoEscolar] = useState(contextoEscolarApi);
+    //ToTest: Generar inputs según contextoEscolarApi, guardar inputs en contextoEscolar segun key y comprobar que contextoEscolar cambia.
 
     const checkData = () => {
       const lineaFormated = linea[0];
