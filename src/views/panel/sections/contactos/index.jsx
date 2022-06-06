@@ -20,6 +20,8 @@ export default function Contactos() {
 
   const [data, setData] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
+  const [contactosContextoEscolar, setContactosContextoEscolar] = useState([]);
+  const [contextoEscolar, setContextoEscolar] = useState([]);
 
   const [widths, setWidths] = useState([]);
   const [header, setHeader] = useState([]);
@@ -29,9 +31,10 @@ export default function Contactos() {
     if(!dataBuilded){
       const accounts = await get_Accounts();
       if(accounts){
-        console.log(accounts);
+        //console.log(accounts);
         setData(accounts)
         buildTable(accounts.accounts);
+        setContactosContextoEscolar(accounts.contactosContextoEscolar);
       }
     }
     setDataBuilded(true)
@@ -70,6 +73,10 @@ export default function Contactos() {
       const selectedLine = selectedLineObj.map( Object.values );
       setLinea(selectedLine);
       setActiveModalPanel(true);
+
+      const selectedselectedContextoEscolarObj = data.contactosContextoEscolar.filter(e => e.idContacto===id);
+      const selectedContextoEscolar = selectedselectedContextoEscolarObj.map( Object.values );
+      setContextoEscolar(selectedselectedContextoEscolarObj[0])
     }
 
     if(type==="Asistencias"){
@@ -118,7 +125,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>

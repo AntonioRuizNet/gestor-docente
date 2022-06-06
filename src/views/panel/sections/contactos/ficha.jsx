@@ -4,11 +4,10 @@ import { Input } from "./../../../../components/input";
 import { CheckboxText }  from "./../../../../components/checkboxText";
 import { Textarea } from "./../../../../components/textarea";
 import ModalPanel from './../../../../components/modalPanel'
-import {update_Account, remove_Account} from './../../../../api/requests/contacts'
+import {update_Account, remove_Account, updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
-    const [dataReady, setDataReady] = useState(false);
     const [dataLoaded, setLoaded] = useState(false);
     
     const [apellidos, setApellidos] = useState("");
@@ -17,6 +16,9 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
     const [enfermedades, setEnfermedades] = useState("");
     const [domicilio, setDomicilio] = useState("");
     const [id, setId] = useState("");
+
+    const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
+    const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
 
     //new
     //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
@@ -80,32 +82,43 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
 
     const [cursoRepetido, setCursoRepetido] = useState();
     const [presentaAdaptacion, setPresentaAdaptacion] = useState();
-    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
-
-    /*const contextoFamiliar = [
-      {id: 'Aceptan situación hijo/a', value: ''}, {id: 'Despreocupado', value: ''}, {id: 'Motivado', value: ''}, {id: 'Desmotivado', value: ''}, 
-      {id:'Atento', value: ''}, {id:'Distraido', value: ''}, {id: 'Reflexivo', value: ''}, {id: 'Impulsivo', value: ''}, 
-      {id: 'Independiente', value: ''}, {id: 'Dependiente', value: ''}, {id:'Organizado', value: ''}, {id:'Desorganizado', value: ''}
-    ];
-
-    const updateContextoFamiliar = (valor, id) => {
-      contextoEscolar.map( e =>{ if(e.id===id){ e.value=valor; }} );
-      console.log(id, valor);
-      console.log(contextoEscolar);
-    }*/
+    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState()
 
 
-    const contextoEscolar = [
-      {idTable: 'responsable', id: 'Responsable', value: ''}, {id: 'Despreocupado', value: ''}, {id: 'Motivado', value: ''}, {id: 'Desmotivado', value: ''}, 
-      {id:'Atento', value: ''}, {id:'Distraido', value: ''}, {id: 'Reflexivo', value: ''}, {id: 'Impulsivo', value: ''}, 
-      {id: 'Independiente', value: ''}, {id: 'Dependiente', value: ''}, {id:'Organizado', value: ''}, {id:'Desorganizado', value: ''}
-    ];
+    /*const contextoEscolar = [
+      {idTable: 'responsable', id: 'Responsable', value: ''}, {idTable: 'despreocupado', id: 'Despreocupado', value: ''}, 
+      {idTable: 'motivado', id: 'Motivado', value: ''}, {idTable: 'desmotivado', id: 'Desmotivado', value: ''}, 
+      {idTable: 'atento', id:'Atento', value: ''}, {idTable: 'distraido', id:'Distraido', value: ''}, 
+      {idTable: 'reflexivo', id: 'Reflexivo', value: ''}, {idTable: 'impulsivo', id: 'Impulsivo', value: ''}, 
+      {idTable: 'independiente', id: 'Independiente', value: ''}, {idTable: 'dependiente', id: 'Dependiente', value: ''}, 
+      {idTable: 'organizado', id:'Organizado', value: ''}, {idTable: 'desorganizado', id:'Desorganizado', value: ''}
+    ];*/
 
-    const updateContextoEscolar = (valor, id) => {
-      contextoEscolar.map( e =>{ if(e.id===id){ e.value=valor; }} );
-      console.log(id, valor);
-      console.log(contextoEscolar);
+    const contextoEscolarCustom = () => {
+      if(contextoEscolarLoaded===false){
+        let contextoEscolarBuild = [
+          {idTable: 'responsable', id: 'Responsable', value: contextoEscolar.responsable},
+          {idTable: 'despreocupado', id: 'Despreocupado', value: contextoEscolar.despreocupado}
+        ];
+
+        console.log(contextoEscolarBuild)
+        setContextoEscolarV1(contextoEscolarBuild);
+        setContextoEscolarLoaded(true);
+      }
     }
+    contextoEscolarCustom();
+
+    const updateContextoEscolar = (valor, idContexto) => {
+      contextoEscolarV1.map( e =>{ if(e.id===idContexto){ e.value=valor; }} );
+      console.log(idContexto, valor);
+      console.log(contextoEscolarV1);
+    }
+
+    const sendData = (type) => {
+      updateData(type, contextoEscolarV1, id);
+      setDataBuilded(false);
+    }
+
 
     const checkData = () => {
       const lineaFormated = linea[0];
@@ -122,27 +135,21 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
     checkData();
 
     const removeContact = () => {
-      remove_Account(
-        id,
-      )
+      remove_Account( id )
       closePanel();
     }
 
-    useEffect( () =>{
-        if(dataReady){
-          setDataReady(false);
-          update_Account(
-            id,
-            apellidos,
-            nombre,
-            nacimiento,
-            enfermedades,
-            domicilio,
-          )
-          closePanel();
-          setDataBuilded(false);
-        }
-    }, [dataReady]);
+    const updateAccount = () =>{
+      update_Account(
+        id,
+        apellidos,
+        nombre,
+        nacimiento,
+        enfermedades,
+        domicilio,
+      )
+      setDataBuilded(false);
+    };
 
     return (
         <ModalPanel info={
@@ -170,15 +177,16 @@ const Ficha = ({closePanel, linea, setDataBuilded}) => {
                 <div className="col-md-12 col-sm-12">
                   Contexto escolar<hr/>
                 </div>
-                {contextoEscolar.map( e =>{
+                {contextoEscolarV1.map( e =>{
                     return (<div className="col-md-4 col-sm-6">
                               <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                             </div>)
                 })}
+                <div className="col-md-12"><Button text={'Actualizar Contexto escolar'} onClick={() => sendData('updateContextoEscolar')}/></div>
 
     
                 <div className="col-md-12 col-sm-12 text-center mt-3">
-                <Button text={nombre===""?"Guardar":"Actualizar"} onClick={() => setDataReady(true)} />
+                <Button text={nombre===""?"Guardar":"Actualizar"} onClick={() => updateAccount()} />
                 <Button text={"Eliminar"} onClick={() => removeContact()} />
                 </div>
             </div>

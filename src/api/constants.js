@@ -17,5 +17,7 @@ export const updateAccount = baseUrl + "/UPDATE_ACCOUNT";
 export const removeAccount = baseUrl + "/REMOVE_ACCOUNT";
 export const updateAsistencias = baseUrl + "/UPDATE_ASISTENCIAS";
 
+export const updateContextoEscolar = baseUrl + "/UPDATE_CONTEXTO_ESCOLAR";
+
 export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";

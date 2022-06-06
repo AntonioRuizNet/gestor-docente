@@ -1,4 +1,4 @@
-import { idUser, getAccounts, updateAccount, removeAccount, updateAsistencias } from "./../../constants";
+import { idUser, getAccounts, updateAccount, removeAccount, updateAsistencias, updateContextoEscolar } from "./../../constants";
 
 export const get_Accounts = (data) => {
   let formData = new FormData();
@@ -57,6 +57,30 @@ export const update_Asistencias = (idContacto, fecha, valor, obs) => {
   formData.append("obs", obs);
 
   return fetch(updateAsistencias, { method: "POST", body: formData })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateData = (type, data, id) => {
+  console.log("Sending...");
+  console.log(data);
+  let formData = new FormData();
+  formData.append("idUser", idUser());
+  formData.append("idContacto", id);
+
+  let apiCall = "";
+  if (type === "updateContextoEscolar") {
+    apiCall = updateContextoEscolar;
+    data.map((e) => {
+      formData.append(e.idTable, e.value);
+    });
+  }
+
+  return fetch(apiCall, { method: "POST", body: formData })
     .then((response) => {
       return response;
     })
