@@ -95,10 +95,11 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     ];*/
 
     const contextoEscolarCustom = () => {
+      console.log(contextoEscolar);
       if(contextoEscolarLoaded===false){
         let contextoEscolarBuild = [
-          {idTable: 'responsable', id: 'Responsable', value: contextoEscolar.responsable},
-          {idTable: 'despreocupado', id: 'Despreocupado', value: contextoEscolar.despreocupado}
+          {id: 'Responsable', value: contextoEscolar.responsable},
+          {id: 'Despreocupado', value: contextoEscolar.despreocupado}
         ];
 
         console.log(contextoEscolarBuild)
@@ -109,13 +110,13 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     contextoEscolarCustom();
 
     const updateContextoEscolar = (valor, idContexto) => {
-      contextoEscolarV1.map( e =>{ if(e.id===idContexto){ e.value=valor; }} );
-      console.log(idContexto, valor);
-      console.log(contextoEscolarV1);
+      if(idContexto==="Responsable") contextoEscolar.responsable = ''+valor;
+      if(idContexto==="Despreocupado") contextoEscolar.despreocupado = ''+valor;
+      console.log(contextoEscolar);
     }
 
     const sendData = (type) => {
-      updateData(type, contextoEscolarV1, id);
+      updateData(type, contextoEscolar);
       setDataBuilded(false);
     }
 

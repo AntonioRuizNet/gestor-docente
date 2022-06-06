@@ -65,19 +65,13 @@ export const update_Asistencias = (idContacto, fecha, valor, obs) => {
     });
 };
 
-export const updateData = (type, data, id) => {
-  console.log("Sending...");
-  console.log(data);
+export const updateData = (type, data) => {
   let formData = new FormData();
-  formData.append("idUser", idUser());
-  formData.append("idContacto", id);
+  formData.append("json", JSON.stringify(data));
 
   let apiCall = "";
   if (type === "updateContextoEscolar") {
     apiCall = updateContextoEscolar;
-    data.map((e) => {
-      formData.append(e.idTable, e.value);
-    });
   }
 
   return fetch(apiCall, { method: "POST", body: formData })
