@@ -84,22 +84,22 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     const [presentaAdaptacion, setPresentaAdaptacion] = useState();
     const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState()
 
-
-    /*const contextoEscolar = [
-      {idTable: 'responsable', id: 'Responsable', value: ''}, {idTable: 'despreocupado', id: 'Despreocupado', value: ''}, 
-      {idTable: 'motivado', id: 'Motivado', value: ''}, {idTable: 'desmotivado', id: 'Desmotivado', value: ''}, 
-      {idTable: 'atento', id:'Atento', value: ''}, {idTable: 'distraido', id:'Distraido', value: ''}, 
-      {idTable: 'reflexivo', id: 'Reflexivo', value: ''}, {idTable: 'impulsivo', id: 'Impulsivo', value: ''}, 
-      {idTable: 'independiente', id: 'Independiente', value: ''}, {idTable: 'dependiente', id: 'Dependiente', value: ''}, 
-      {idTable: 'organizado', id:'Organizado', value: ''}, {idTable: 'desorganizado', id:'Desorganizado', value: ''}
-    ];*/
-
     const contextoEscolarCustom = () => {
       console.log(contextoEscolar);
       if(contextoEscolarLoaded===false){
         let contextoEscolarBuild = [
           {id: 'Responsable', value: contextoEscolar.responsable},
-          {id: 'Despreocupado', value: contextoEscolar.despreocupado}
+          {id: 'Despreocupado', value: contextoEscolar.despreocupado},
+          {id: 'Motivado', value: contextoEscolar.motivado},
+          {id: 'Desmotivado', value: contextoEscolar.desmotivado},
+          {id: 'Atento', value: contextoEscolar.atento},
+          {id: 'Distraido', value: contextoEscolar.distraido},
+          {id: 'Reflexivo', value: contextoEscolar.reflexivo},
+          {id: 'Impulsivo', value: contextoEscolar.impulsivo},
+          {id: 'Independiente', value: contextoEscolar.independiente},
+          {id: 'Dependiente', value: contextoEscolar.dependiente},
+          {id: 'Organizado', value: contextoEscolar.organizado},
+          {id: 'Desorganizado', value: contextoEscolar.desorganizado}
         ];
 
         console.log(contextoEscolarBuild)
@@ -112,6 +112,16 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     const updateContextoEscolar = (valor, idContexto) => {
       if(idContexto==="Responsable") contextoEscolar.responsable = ''+valor;
       if(idContexto==="Despreocupado") contextoEscolar.despreocupado = ''+valor;
+      if(idContexto==="Motivado") contextoEscolar.motivado = ''+valor;
+      if(idContexto==="Desmotivado") contextoEscolar.desmotivado = ''+valor;
+      if(idContexto==="Atento") contextoEscolar.atento = ''+valor;
+      if(idContexto==="Distraido") contextoEscolar.distraido = ''+valor;
+      if(idContexto==="Reflexivo") contextoEscolar.reflexivo = ''+valor;
+      if(idContexto==="Impulsivo") contextoEscolar.impulsivo = ''+valor;
+      if(idContexto==="Independiente") contextoEscolar.independiente = ''+valor;
+      if(idContexto==="Dependiente") contextoEscolar.dependiente = ''+valor;
+      if(idContexto==="Organizado") contextoEscolar.organizado = ''+valor;
+      if(idContexto==="Desorganizado") contextoEscolar.desorganizado = ''+valor;
       console.log(contextoEscolar);
     }
 

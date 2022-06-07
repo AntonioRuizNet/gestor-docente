@@ -71,12 +71,13 @@ export default function Contactos() {
     if(type==="Ficha"){
       const selectedLineObj = data.accounts.filter(e => e.id===id);
       const selectedLine = selectedLineObj.map( Object.values );
-      setLinea(selectedLine);
+      //setLinea(selectedLine);
+      setLinea(selectedLineObj[0]);
       setActiveModalPanel(true);
 
-      const selectedselectedContextoEscolarObj = data.contactosContextoEscolar.filter(e => e.idContacto===id);
-      const selectedContextoEscolar = selectedselectedContextoEscolarObj.map( Object.values );
-      setContextoEscolar(selectedselectedContextoEscolarObj[0])
+      const selectedContextoEscolarObj = data.contactosContextoEscolar.filter(e => e.idContacto===id);
+      const selectedContextoEscolar = selectedContextoEscolarObj.map( Object.values );
+      setContextoEscolar(selectedContextoEscolarObj[0])
     }
 
     if(type==="Asistencias"){
