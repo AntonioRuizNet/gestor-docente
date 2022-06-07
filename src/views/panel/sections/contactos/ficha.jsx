@@ -9,12 +9,6 @@ import {update_Account, remove_Account, updateData} from './../../../../api/requ
 const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
     const [dataLoaded, setLoaded] = useState(false);
-    
-    const [apellidos, setApellidos] = useState("");
-    const [nombre, setNombre] = useState("");
-    const [nacimiento, setNacimiento] = useState("");
-    const [enfermedades, setEnfermedades] = useState("");
-    const [domicilio, setDomicilio] = useState("");
     const [id, setId] = useState("");
 
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -86,11 +80,12 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
 
     const updateContextoPersonal = (valor, idContexto) => {
-      if(idContexto==="Apellidos") linea.apellidos = ''+valor;
-      if(idContexto==="Nombre") linea.nombre = ''+valor;
-      if(idContexto==="Nacimiento") linea.nacimiento = ''+valor;
-      if(idContexto==="Enfermedades") linea.enfermedades = ''+valor;
-      if(idContexto==="Domicilio") linea.domicilio = ''+valor;
+      console.log(valor, idContexto)
+      if(idContexto==="apellidos") linea.apellidos = ''+valor;
+      if(idContexto==="nombre") linea.nombre = ''+valor;
+      if(idContexto==="nacimiento") linea.nacimiento = ''+valor;
+      if(idContexto==="enfermedades") linea.enfermedades = ''+valor;
+      if(idContexto==="domicilio") linea.domicilio = ''+valor;
       console.log(linea);
     }
 
@@ -136,24 +131,13 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     }
 
     const sendData = (type) => {
-      updateData(type, contextoEscolar);
+      if(type==="updateContextoEscolar") updateData(type, contextoEscolar);
+      if(type==="updateContextoPersonal") updateData(type, linea);
       setDataBuilded(false);
     }
 
 
-    const checkData = () => {
-      const lineaFormated = linea[0];
-      if(lineaFormated && lineaFormated.length>0 && !dataLoaded){
-        setId(lineaFormated[0])
-        setNombre(lineaFormated[2]);
-        setApellidos(lineaFormated[3]);
-        setNacimiento(lineaFormated[4]);
-        setEnfermedades(lineaFormated[5]);
-        setDomicilio(lineaFormated[6]);
-        setLoaded(true);
-      }
-    }
-    checkData();
+    
 
     const removeContact = () => {
       remove_Account( id )
@@ -161,7 +145,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     }
 
     const updateAccount = () =>{
-      update_Account(
+      /*update_Account(
         id,
         apellidos,
         nombre,
@@ -169,14 +153,14 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
         enfermedades,
         domicilio,
       )
-      setDataBuilded(false);
+      setDataBuilded(false);*/
     };
 
     return (
         <ModalPanel info={
             <>
             
-            <h4>{nombre===""?"Nuevo contacto": "Editar detalles de "+nombre}</h4>
+            <h4>{linea.nombre===""?"Nuevo contacto": "Editar detalles de "+linea.nombre}</h4>
             <hr />
             <div className="row">
                 <div className="col-md-6 col-sm-12">
@@ -186,13 +170,13 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
                   <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
                 </div>
                 <div className="col-md-4 col-sm-12">
-                  <Input placeholder={"Nacimiento"} setValue={setNacimiento} type={"date"} idInput={"nacimiento"} className={""} value={nacimiento} />
+                  <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
                 </div>
                 <div className="col-md-8 col-sm-12">
-                  <Textarea placeholder={"Enfermedades"} setValue={setEnfermedades} type={"text"} idInput={"enfermedades"} className={""} value={enfermedades} />
+                  <Textarea placeholder={"Enfermedades"} setValue={updateContextoPersonal} type={"text"} idInput={"enfermedades"} className={""} value={linea.enfermedades} />
                 </div>
                 <div className="col-md-12 col-sm-12">
-                  <Input placeholder={"Domicilio"} setValue={setDomicilio} type={"text"} idInput={"domicilio"} className={""} value={domicilio} />
+                  <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
                 </div>
 
                 <div className="col-md-12 col-sm-12">
@@ -207,7 +191,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
     
                 <div className="col-md-12 col-sm-12 text-center mt-3">
-                <Button text={nombre===""?"Guardar":"Actualizar"} onClick={() => updateAccount()} />
+                <Button text={linea.nombre===""?"Guardar":"Actualizar"} onClick={() => sendData('updateContextoPersonal')} />
                 <Button text={"Eliminar"} onClick={() => removeContact()} />
                 </div>
             </div>
