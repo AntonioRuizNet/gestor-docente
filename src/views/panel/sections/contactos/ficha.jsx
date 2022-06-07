@@ -82,7 +82,17 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
     const [cursoRepetido, setCursoRepetido] = useState();
     const [presentaAdaptacion, setPresentaAdaptacion] = useState();
-    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState()
+    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
+
+
+    const updateContextoPersonal = (valor, idContexto) => {
+      if(idContexto==="Apellidos") linea.apellidos = ''+valor;
+      if(idContexto==="Nombre") linea.nombre = ''+valor;
+      if(idContexto==="Nacimiento") linea.nacimiento = ''+valor;
+      if(idContexto==="Enfermedades") linea.enfermedades = ''+valor;
+      if(idContexto==="Domicilio") linea.domicilio = ''+valor;
+      console.log(linea);
+    }
 
     const contextoEscolarCustom = () => {
       console.log(contextoEscolar);
@@ -170,10 +180,10 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
             <hr />
             <div className="row">
                 <div className="col-md-6 col-sm-12">
-                  <Input placeholder={"Apellidos"} setValue={setApellidos} type={"text"} idInput={"apellidos"} className={""} value={apellidos} />
+                  <Input placeholder={"Apellidos"} setValue={updateContextoPersonal} type={"text"} idInput={"apellidos"} className={""} value={linea.apellidos} />
                 </div>
                 <div className="col-md-6 col-sm-12">
-                  <Input placeholder={"Nombre"} setValue={setNombre} type={"text"} idInput={"nombre"} className={""} value={nombre} />
+                  <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
                 </div>
                 <div className="col-md-4 col-sm-12">
                   <Input placeholder={"Nacimiento"} setValue={setNacimiento} type={"date"} idInput={"nacimiento"} className={""} value={nacimiento} />
