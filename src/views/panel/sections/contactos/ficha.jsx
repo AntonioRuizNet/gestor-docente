@@ -33,7 +33,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="grupo") linea.grupo = ''+valor;
       if(idContexto==="localidad") linea.localidad = ''+valor;
       if(idContexto==="cp") linea.cp = ''+valor;
-      if(idContexto==="rovincia") linea.rovincia = ''+valor;
+      if(idContexto==="provincia") linea.provincia = ''+valor;
       if(idContexto==="foto") linea.foto = ''+valor;
 
       if(idContexto==="nombrePadre") linea.nombrePadre = ''+valor;
@@ -61,7 +61,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="alergias") contextoMedico.alergias = ''+valor;
       if(idContexto==="deficitAuditivo") contextoMedico.deficitAuditivo = ''+valor;
       if(idContexto==="deficitVisual") contextoMedico.deficitVisual = ''+valor;
-      if(idContexto==="eficitTactil") contextoMedico.eficitTactil = ''+valor;
+      if(idContexto==="deficitTactil") contextoMedico.deficitTactil = ''+valor;
       if(idContexto==="deficitRespiratorio") contextoMedico.deficitRespiratorio = ''+valor;
       if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
       if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
@@ -89,7 +89,15 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
           {id: 'Independiente', value: contextoEscolar.independiente},
           {id: 'Dependiente', value: contextoEscolar.dependiente},
           {id: 'Organizado', value: contextoEscolar.organizado},
-          {id: 'Desorganizado', value: contextoEscolar.desorganizado}
+          {id: 'Desorganizado', value: contextoEscolar.desorganizado},
+          {id: 'comprensionLectora', value: contextoEscolar.comprensionLectora},
+          {id: 'comprensionOral', value: contextoEscolar.comprensionOral},
+          {id: 'expresionEscrita', value: contextoEscolar.expresionEscrita},
+          {id: 'expresionOral', value: contextoEscolar.expresionOral},
+          {id: 'calculo', value: contextoEscolar.calculo},
+          {id: 'resolucionDeProblemas', value: contextoEscolar.resolucionDeProblemas},
+          {id: 'ortografia', value: contextoEscolar.ortografia},
+          {id: 'vocabulario', value: contextoEscolar.vocabulario},
         ];
 
         console.log(contextoEscolarBuild)
