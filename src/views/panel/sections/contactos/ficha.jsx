@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
 import { CheckboxText }  from "./../../../../components/checkboxText";
 import { Textarea } from "./../../../../components/textarea";
 import ModalPanel from './../../../../components/modalPanel'
-import {update_Account, remove_Account, updateData} from './../../../../api/requests/contacts'
+import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar}) => {
 
-    //const [dataLoaded, setLoaded] = useState(false);
-    //const [id, setId] = useState("");
-
+    //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
     const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
+
+    const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
+    const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
 
     //new
     //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
@@ -79,6 +80,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
 
 
+    //CONTEXTO PERSONAL
+
     const updateContextoPersonal = (valor, idContexto) => {
       console.log(valor, idContexto)
       if(idContexto==="apellidos") linea.apellidos = ''+valor;
@@ -88,6 +91,9 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
       if(idContexto==="domicilio") linea.domicilio = ''+valor;
       console.log(linea);
     }
+
+
+    //CONTEXTO ESCOLAR
 
     const contextoEscolarCustom = () => {
       console.log(contextoEscolar);
@@ -130,8 +136,31 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
       console.log(contextoEscolar);
     }
 
+    //CONTEXTO FAMILIAR
+
+    const contextoFamiliarCustom = () => {
+      console.log(contextoFamiliar);
+      if(contextoFamiliarLoaded===false){
+        let contextoFamiliarBuild = [
+          {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo},
+        ];
+
+        console.log(contextoFamiliarBuild)
+        setContextoFamiliarV1(contextoFamiliarBuild);
+        setContextoFamiliarLoaded(true);
+      }
+    }
+    contextoFamiliarCustom();
+
+    const updateContextoFamiliar = (valor, idContexto) => {
+      if(idContexto==="aceptaSituacionHijo") contextoFamiliar.aceptaSituacionHijo = ''+valor;
+      console.log(contextoFamiliar);
+    }
+
+
     const sendData = (type) => {
       if(type==="updateContextoEscolar") updateData(type, contextoEscolar);
+      if(type==="updateContextoFamiliar") updateData(type, contextoFamiliar);
       if(type==="updateContextoPersonal") updateData(type, linea);
       if(type==="removeAccount") updateData(type, linea);
       setDataBuilded(false);
@@ -159,6 +188,18 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
                 </div>
+
+
+                <div className="col-md-12 col-sm-12">
+                  Contexto Familiar<hr/>
+                </div>
+                {contextoFamiliarV1.map( e =>{
+                    return (<div className="col-md-4 col-sm-6">
+                              <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                            </div>)
+                })}
+                <div className="col-md-12"><Button text={'Actualizar Contexto familiar'} onClick={() => sendData('updateContextoFamiliar')}/></div>
+
 
                 <div className="col-md-12 col-sm-12">
                   Contexto escolar<hr/>
