@@ -111,7 +111,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="Independiente") contextoEscolar.independiente = ''+valor;
       if(idContexto==="Dependiente") contextoEscolar.dependiente = ''+valor;
       if(idContexto==="Organizado") contextoEscolar.organizado = ''+valor;
-      if(idContexto==="Desorganizado") contextoEscolar.Desorganizado = ''+valor;
+      if(idContexto==="Desorganizado") contextoEscolar.desorganizado = ''+valor;
       if(idContexto==="cursoRepetido") contextoEscolar.cursoRepetido = ''+valor;
       if(idContexto==="presentaAdaptacion") contextoEscolar.presentaAdaptacion = ''+valor;
       if(idContexto==="promocionaConAreasSuspensas") contextoEscolar.promocionaConAreasSuspensas = ''+valor;
@@ -123,11 +123,11 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="resolucionDeProblemas") contextoEscolar.resolucionDeProblemas = ''+valor;
       if(idContexto==="ortografia") contextoEscolar.ortografia = ''+valor;
       if(idContexto==="vocabulario") contextoEscolar.vocabulario = ''+valor;
-      if(idContexto==="insersionSocial_interesAprendizaje") contextoEscolar.insersionSocial_interesAprendizaje = ''+valor;
-      if(idContexto==="insersionSocial_relacionAlumnos") contextoEscolar.insersionSocial_relacionAlumnos = ''+valor;
-      if(idContexto==="insersionSocial_habitosTrabajo") contextoEscolar.insersionSocial_habitosTrabajo = ''+valor;
-      if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.insersionSocial_habitosEstudio = ''+valor;
-      if(idContexto==="insersionSocial_comportamiento") contextoEscolar.insersionSocial_comportamiento = ''+valor;
+      if(idContexto==="insersionSocial_interesAprendizaje") contextoEscolar.interesAprendizaje = ''+valor;
+      if(idContexto==="insersionSocial_relacionAlumnos") contextoEscolar.relacionAlumnos = ''+valor;
+      if(idContexto==="insersionSocial_habitosTrabajo") contextoEscolar.habitosTrabajo = ''+valor;
+      if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.habitosEstudio = ''+valor;
+      if(idContexto==="insersionSocial_comportamiento") contextoEscolar.comportamiento = ''+valor;
       if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
       console.log(contextoEscolar);
     }
