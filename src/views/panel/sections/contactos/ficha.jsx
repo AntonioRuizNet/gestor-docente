@@ -8,8 +8,8 @@ import {update_Account, remove_Account, updateData} from './../../../../api/requ
 
 const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
 
-    const [dataLoaded, setLoaded] = useState(false);
-    const [id, setId] = useState("");
+    //const [dataLoaded, setLoaded] = useState(false);
+    //const [id, setId] = useState("");
 
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
     const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
@@ -133,28 +133,9 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     const sendData = (type) => {
       if(type==="updateContextoEscolar") updateData(type, contextoEscolar);
       if(type==="updateContextoPersonal") updateData(type, linea);
+      if(type==="removeAccount") updateData(type, linea);
       setDataBuilded(false);
     }
-
-
-    
-
-    const removeContact = () => {
-      remove_Account( id )
-      closePanel();
-    }
-
-    const updateAccount = () =>{
-      /*update_Account(
-        id,
-        apellidos,
-        nombre,
-        nacimiento,
-        enfermedades,
-        domicilio,
-      )
-      setDataBuilded(false);*/
-    };
 
     return (
         <ModalPanel info={
@@ -192,7 +173,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar}) => {
     
                 <div className="col-md-12 col-sm-12 text-center mt-3">
                 <Button text={linea.nombre===""?"Guardar":"Actualizar"} onClick={() => sendData('updateContextoPersonal')} />
-                <Button text={"Eliminar"} onClick={() => removeContact()} />
+                <Button text={"Eliminar"} onClick={() => sendData('removeAccount')} />
                 </div>
             </div>
 

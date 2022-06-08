@@ -20,8 +20,9 @@ export default function Contactos() {
 
   const [data, setData] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
-  const [contactosContextoEscolar, setContactosContextoEscolar] = useState([]);
+  //const [contactosContextoEscolar, setContactosContextoEscolar] = useState([]);
   const [contextoEscolar, setContextoEscolar] = useState([]);
+  const [contextoFamiliar, setContextoFamiliar] = useState([]);
 
   const [widths, setWidths] = useState([]);
   const [header, setHeader] = useState([]);
@@ -34,7 +35,7 @@ export default function Contactos() {
         //console.log(accounts);
         setData(accounts)
         buildTable(accounts.accounts);
-        setContactosContextoEscolar(accounts.contactosContextoEscolar);
+        //setContactosContextoEscolar(accounts.contactosContextoEscolar);
       }
     }
     setDataBuilded(true)
@@ -70,14 +71,14 @@ export default function Contactos() {
   const buildLinea = (id, type) => {
     if(type==="Ficha"){
       const selectedLineObj = data.accounts.filter(e => e.id===id);
-      const selectedLine = selectedLineObj.map( Object.values );
-      //setLinea(selectedLine);
       setLinea(selectedLineObj[0]);
       setActiveModalPanel(true);
 
       const selectedContextoEscolarObj = data.contactosContextoEscolar.filter(e => e.idContacto===id);
-      const selectedContextoEscolar = selectedContextoEscolarObj.map( Object.values );
-      setContextoEscolar(selectedContextoEscolarObj[0])
+      setContextoEscolar(selectedContextoEscolarObj[0]);
+
+      const selectedContextoFamiliarObj = data.contactosContextoFamiliar.filter(e => e.idContacto===id);
+      setContextoFamiliar(selectedContextoFamiliarObj[0]);
     }
 
     if(type==="Asistencias"){
@@ -126,7 +127,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>
