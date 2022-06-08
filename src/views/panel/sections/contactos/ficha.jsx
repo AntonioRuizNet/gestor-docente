@@ -162,6 +162,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
           {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre},
           {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre},
           {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre},
+          {id: 'desempleoMadre', value: contextoFamiliar.desempleoMadre},
           {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre},
           {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre},
           {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos},
@@ -192,6 +193,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="fallecimientoPadre") contextoFamiliar.fallecimientoPadre = ''+valor;
       if(idContexto==="fallecimientoMadre") contextoFamiliar.fallecimientoMadre = ''+valor;
       if(idContexto==="desempleoPadre") contextoFamiliar.desempleoPadre = ''+valor;
+      if(idContexto==="desempleoMadre") contextoFamiliar.desempleoMadre = ''+valor;
       if(idContexto==="custodiaPadre") contextoFamiliar.custodiaPadre = ''+valor;
       if(idContexto==="custodiaMadre") contextoFamiliar.custodiaMadre = ''+valor;
       if(idContexto==="custodiaAbuelos") contextoFamiliar.custodiaAbuelos = ''+valor;
