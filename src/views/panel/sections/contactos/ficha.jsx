@@ -25,7 +25,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="apellidos") linea.apellidos = ''+valor;
       if(idContexto==="nombre") linea.nombre = ''+valor;
       if(idContexto==="nacimiento") linea.nacimiento = ''+valor;
-      if(idContexto==="enfermedades") linea.enfermedades = ''+valor;
       if(idContexto==="domicilio") linea.domicilio = ''+valor;
 
       if(idContexto==="nHermanos") linea.nHermanos = ''+valor;
@@ -59,6 +58,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
 
       if(idContexto==="alergias") contextoMedico.alergias = ''+valor;
+      if(idContexto==="enfermedades") contextoMedico.enfermedades = ''+valor;
       if(idContexto==="deficitAuditivo") contextoMedico.deficitAuditivo = ''+valor;
       if(idContexto==="deficitVisual") contextoMedico.deficitVisual = ''+valor;
       if(idContexto==="deficitTactil") contextoMedico.deficitTactil = ''+valor;
@@ -228,9 +228,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 </div>
                 <div className="col-md-4 col-sm-12">
                   <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
-                </div>
-                <div className="col-md-8 col-sm-12">
-                  <Textarea placeholder={"Enfermedades"} setValue={updateContextoPersonal} type={"text"} idInput={"enfermedades"} className={""} value={linea.enfermedades} />
                 </div>
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />

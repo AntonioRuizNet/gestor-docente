@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Button } from '../../../../components/button';
 import {get_Configuraciones, update_Configurador} from './../../../../api/requests/configuraciones'
 import {Input} from './../../../../components/input'
+import {Select} from './../../../../components/select'
 import {AiOutlineSave, AiFillDelete} from 'react-icons/ai'
 
 export default function Configuraciones() {
@@ -19,6 +20,7 @@ export default function Configuraciones() {
   const [asignaturas, setAsignaturas] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [evaluaciones, setEvaluaciones] = useState([]);
+  const [periodos, setPeriodos] = useState([]);
   
   const getData = async () => {
     if(!dataBuilded){
@@ -28,6 +30,7 @@ export default function Configuraciones() {
         setAsignaturas(data.asignaturas)
         setCursos(data.cursos)
         setEvaluaciones(data.evaluaciones)
+        setPeriodos(data.periodos)
       }
     }
     setDataBuilded(true)
@@ -53,8 +56,11 @@ export default function Configuraciones() {
             {data.length===0 ? 'Aún no hay datos' : ''}
             {data.map(e=>{
               return (<>
-                  <div className="col-7">
+                  <div className="col-4">
                     <Input setValue={()=>null} type={'text'} idInput={'new_'+e.id} className={'customInput'} value={e.nombre}/>
+                  </div>
+                  <div className="col-3">
+                    <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+title} className={''} values={periodos} selected={e.periodo}/>
                   </div>
                   <div className="col-5" style={{textAlign: 'end'}}>
                     <Button text={<AiOutlineSave/>} onClick={() => updateConfigurador(e.id, table, 'update', getValueById('new_'+e.id)) } className={''} />
@@ -66,11 +72,14 @@ export default function Configuraciones() {
 
         </div>
         <div className="row">
-          <div className="col-9">
+          <div className="col-3">
             <Input placeholder={'Nueva opción'} setValue={()=>null} type={'text'} idInput={'new_'+title} className={''}/>
           </div>
+          <div className="col-3">
+            <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+title} className={''} values={periodos}/>
+          </div>
           <div className="col-3">&nbsp;<br/>
-            <Button text={'Guardar'} onClick={() => updateConfigurador('', table, 'insert', getValueById('new_'+title))} className={''} />
+            <Button text={'Guardar'} onClick={() => updateConfigurador('', table, 'insert', getValueById('new_'+title), getValueById('periodo_'+title))} className={''} />
           </div>
         </div>
       </div>
