@@ -23,6 +23,7 @@ export default function Contactos() {
   //const [contactosContextoEscolar, setContactosContextoEscolar] = useState([]);
   const [contextoEscolar, setContextoEscolar] = useState([]);
   const [contextoFamiliar, setContextoFamiliar] = useState([]);
+  const [contextoMedico, setContextoMedico] = useState([]);
 
   const [widths, setWidths] = useState([]);
   const [header, setHeader] = useState([]);
@@ -79,6 +80,10 @@ export default function Contactos() {
 
       const selectedContextoFamiliarObj = data.contactosContextoFamiliar.filter(e => e.idContacto===id);
       setContextoFamiliar(selectedContextoFamiliarObj[0]);
+
+      const selectedContextoMedicoObj = data.contactosContextoMedico.filter(e => e.idContacto===id);
+      setContextoMedico(selectedContextoMedicoObj[0]);
+      
     }
 
     if(type==="Asistencias"){
@@ -127,7 +132,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>

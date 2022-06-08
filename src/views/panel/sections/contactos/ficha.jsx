@@ -6,7 +6,7 @@ import { Textarea } from "./../../../../components/textarea";
 import ModalPanel from './../../../../components/modalPanel'
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico}) => {
 
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -15,70 +15,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
     const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
 
-    //new
     //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
-    const [nHermanos, setNHermanos] = useState("");
-    const [puesto, setPuesto] = useState("");
-    const [grupo, setGrupo] = useState("");
-    const [localidad, setLocalidad] = useState("");
-    const [cp, setCp] = useState("");
-    const [provincia, setProvincia] = useState("");
-    const [foto, setFoto] = useState("");
-
-    const [nombrePadre, setNombrePadre] = useState("");
-    const [telefonoPadre, setTelefonoPadre] = useState("");
-    const [estudiosPadre, setEstudiosPadre] = useState("");
-    const [profesionPadre, setProfesionPadre] = useState("");
-
-    const [nombreMadre, setNombreMadre] = useState("");
-    const [telefonoMadre, setTelefonoMadre] = useState("");
-    const [estudiosMadre, setEstudiosMadre] = useState("");
-    const [profesionMadre, setProfesionMadre] = useState("");
-
-    const [contactoUrgencia, setContactoUrgencia] = useState("");
-    const [telefonoUrgencia, setTelefonoUrgencia] = useState("");
-
-    const [tratamientoMedico, setTratamientoMedico] = useState();
-    const [tratamientoPsicologico, setTratamientoPsicologico] = useState();
-
-    const [alergias, setAlergias] = useState("");
-    const [deficitAuditivo, setDeficitAuditivo] = useState("");
-    const [deficitVisual, setDeficitVisual] = useState("");
-    const [deficitTactil, setDeficitTactil] = useState("");
-    const [deficitRespiratorio, setDeficitRespiratorio] = useState("");
-    const [deficitCardiaco, setDeficitCardiaco] = useState("");
-    const [deficitMotorico, setDeficitMotorico] = useState("");
-    const [deficitObs, setDeficitObs] = useState("");
-
-    const [observaciones, setObservaciones] = useState("");
-
-    /*const [aceptaSituacionHijo, setAceptaSituacionHijo] = useState();
-    const [conocenCausasACNEAE, setConocenCausasACNEAE] = useState();
-    const [excesivaProteccion, setExcesivaProteccion] = useState();
-    const [refuerzanLogros, setRefuerzanLogros] = useState();
-    const [castiganConductasDisruptivas, setCastiganConductasDisruptivas] = useState();
-    const [dialoganHijo, setDialoganHijo] = useState();
-    const [presentanColaboracion, setPresentanColaboracion] = useState();
-    const [demandanReunionesTutor, setDemandanReunionesTutor] = useState();
-    const [colaboranSoloSiTutorLoPide, setColaboranSoloSiTutorLoPide] = useState();
-    const [organizanTiempoDeEstudio, setOrganizanTiempoDeEstudio] = useState();
-    const [refuerzanAprendizaje, setRefuerzanAprendizaje] = useState();
-    const [controlanEstudioDiario, setControlanEstudioDiario] = useState();
-
-    const [fallecimientoPadre, setFallecimientoPadre] = useState();
-    const [fallecimientoMadre, setFallecimientoMadre] = useState();
-    const [desempleoPadre, setDesempleoPadre] = useState();
-    const [custodiaPadre, setCustodiaPadre] = useState();
-    const [custodiaMadre, setCustodiaMadre] = useState();
-    const [custodiaAbuelos, setCustodiaAbuelos] = useState();
-    const [custodiaOtros, setCustodiaOtros] = useState();*/
-    const [personasConvivenSenoFamiliar, setPersonasConvivenSenoFamiliar] = useState();
-    const [observacionesFamiliares, setObservacionesFamiliares] = useState();
-
-    const [cursoRepetido, setCursoRepetido] = useState();
-    const [presentaAdaptacion, setPresentaAdaptacion] = useState();
-    const [promocionaConAreasSuspensas, setPromocionaConAreasSuspensas] = useState();
-
+    
 
     //CONTEXTO PERSONAL
 
@@ -89,7 +27,48 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="nacimiento") linea.nacimiento = ''+valor;
       if(idContexto==="enfermedades") linea.enfermedades = ''+valor;
       if(idContexto==="domicilio") linea.domicilio = ''+valor;
+
+      if(idContexto==="nHermanos") linea.nHermanos = ''+valor;
+      if(idContexto==="puesto") linea.puesto = ''+valor;
+      if(idContexto==="grupo") linea.grupo = ''+valor;
+      if(idContexto==="localidad") linea.localidad = ''+valor;
+      if(idContexto==="cp") linea.cp = ''+valor;
+      if(idContexto==="rovincia") linea.rovincia = ''+valor;
+      if(idContexto==="foto") linea.foto = ''+valor;
+
+      if(idContexto==="nombrePadre") linea.nombrePadre = ''+valor;
+      if(idContexto==="telefonoPadre") linea.telefonoPadre = ''+valor;
+      if(idContexto==="estudiosPadre") linea.estudiosPadre = ''+valor;
+      if(idContexto==="profesionPadre") linea.profesionPadre = ''+valor;
+
+      if(idContexto==="nombreMadre") linea.nombreMadre = ''+valor;
+      if(idContexto==="telefonoMadre") linea.telefonoMadre = ''+valor;
+      if(idContexto==="estudiosMadre") linea.estudiosMadre = ''+valor;
+      if(idContexto==="profesionMadre") linea.profesionMadre = ''+valor;
+
+      if(idContexto==="contactoUrgencia") linea.contactoUrgencia = ''+valor;
+      if(idContexto==="telefonoUrgencia") linea.telefonoUrgencia = ''+valor;
       console.log(linea);
+    }
+
+    //CONTEXTO MEDICO
+
+    const updateContextoMedico = (valor, idContexto) => {
+      console.log(valor, idContexto)
+      if(idContexto==="tratamientoMedico") contextoMedico.tratamientoMedico = ''+valor;
+      if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
+
+      if(idContexto==="alergias") contextoMedico.alergias = ''+valor;
+      if(idContexto==="deficitAuditivo") contextoMedico.deficitAuditivo = ''+valor;
+      if(idContexto==="deficitVisual") contextoMedico.deficitVisual = ''+valor;
+      if(idContexto==="eficitTactil") contextoMedico.eficitTactil = ''+valor;
+      if(idContexto==="deficitRespiratorio") contextoMedico.deficitRespiratorio = ''+valor;
+      if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
+      if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
+      if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
+
+      if(idContexto==="observacionesMedicas") contextoMedico.observacionesMedicas = ''+valor;
+      console.log(contextoMedico);
     }
 
 
@@ -132,7 +111,24 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="Independiente") contextoEscolar.independiente = ''+valor;
       if(idContexto==="Dependiente") contextoEscolar.dependiente = ''+valor;
       if(idContexto==="Organizado") contextoEscolar.organizado = ''+valor;
-      if(idContexto==="Desorganizado") contextoEscolar.desorganizado = ''+valor;
+      if(idContexto==="Desorganizado") contextoEscolar.Desorganizado = ''+valor;
+      if(idContexto==="cursoRepetido") contextoEscolar.cursoRepetido = ''+valor;
+      if(idContexto==="presentaAdaptacion") contextoEscolar.presentaAdaptacion = ''+valor;
+      if(idContexto==="promocionaConAreasSuspensas") contextoEscolar.promocionaConAreasSuspensas = ''+valor;
+      if(idContexto==="comprensionLectora") contextoEscolar.comprensionLectora = ''+valor;
+      if(idContexto==="comprensionOral") contextoEscolar.comprensionOral = ''+valor;
+      if(idContexto==="expresionEscrita") contextoEscolar.expresionEscrita = ''+valor;
+      if(idContexto==="expresionOral") contextoEscolar.expresionOral = ''+valor;
+      if(idContexto==="calculo") contextoEscolar.calculo = ''+valor;
+      if(idContexto==="resolucionDeProblemas") contextoEscolar.resolucionDeProblemas = ''+valor;
+      if(idContexto==="ortografia") contextoEscolar.ortografia = ''+valor;
+      if(idContexto==="vocabulario") contextoEscolar.vocabulario = ''+valor;
+      if(idContexto==="insersionSocial_interesAprendizaje") contextoEscolar.insersionSocial_interesAprendizaje = ''+valor;
+      if(idContexto==="insersionSocial_relacionAlumnos") contextoEscolar.insersionSocial_relacionAlumnos = ''+valor;
+      if(idContexto==="insersionSocial_habitosTrabajo") contextoEscolar.insersionSocial_habitosTrabajo = ''+valor;
+      if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.insersionSocial_habitosEstudio = ''+valor;
+      if(idContexto==="insersionSocial_comportamiento") contextoEscolar.insersionSocial_comportamiento = ''+valor;
+      if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
       console.log(contextoEscolar);
     }
 
@@ -143,6 +139,25 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(contextoFamiliarLoaded===false){
         let contextoFamiliarBuild = [
           {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo},
+          {id: 'conocenCausasACNEAE', value: contextoFamiliar.conocenCausasACNEAE},
+          {id: 'excesivaProteccion', value: contextoFamiliar.excesivaProteccion},
+          {id: 'refuerzanLogros', value: contextoFamiliar.refuerzanLogros},
+          {id: 'castiganConductasDisruptivas', value: contextoFamiliar.castiganConductasDisruptivas},
+          {id: 'dialoganHijo', value: contextoFamiliar.dialoganHijo},
+          {id: 'presentanColaboracion', value: contextoFamiliar.presentanColaboracion},
+          {id: 'demandanReunionesTutor', value: contextoFamiliar.demandanReunionesTutor},
+          {id: 'colaboranSoloSiTutorLoPide', value: contextoFamiliar.colaboranSoloSiTutorLoPide},
+          {id: 'organizanTiempoDeEstudio', value: contextoFamiliar.organizanTiempoDeEstudio},
+          {id: 'refuerzanAprendizaje', value: contextoFamiliar.refuerzanAprendizaje},
+          {id: 'controlanEstudioDiario', value: contextoFamiliar.controlanEstudioDiario},
+
+          {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre},
+          {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre},
+          {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre},
+          {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre},
+          {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre},
+          {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos},
+          {id: 'custodiaOtros', value: contextoFamiliar.custodiaOtros},
         ];
 
         console.log(contextoFamiliarBuild)
@@ -154,6 +169,27 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
     const updateContextoFamiliar = (valor, idContexto) => {
       if(idContexto==="aceptaSituacionHijo") contextoFamiliar.aceptaSituacionHijo = ''+valor;
+      if(idContexto==="conocenCausasACNEAE") contextoFamiliar.conocenCausasACNEAE = ''+valor;
+      if(idContexto==="excesivaProteccion") contextoFamiliar.excesivaProteccion = ''+valor;
+      if(idContexto==="refuerzanLogros") contextoFamiliar.refuerzanLogros = ''+valor;
+      if(idContexto==="castiganConductasDisruptivas") contextoFamiliar.castiganConductasDisruptivas = ''+valor;
+      if(idContexto==="dialoganHijo") contextoFamiliar.dialoganHijo = ''+valor;
+      if(idContexto==="presentanColaboracion") contextoFamiliar.presentanColaboracion = ''+valor;
+      if(idContexto==="demandanReunionesTutor") contextoFamiliar.demandanReunionesTutor = ''+valor;
+      if(idContexto==="colaboranSoloSiTutorLoPide") contextoFamiliar.colaboranSoloSiTutorLoPide = ''+valor;
+      if(idContexto==="organizanTiempoDeEstudio") contextoFamiliar.organizanTiempoDeEstudio = ''+valor;
+      if(idContexto==="refuerzanAprendizaje") contextoFamiliar.refuerzanAprendizaje = ''+valor;
+      if(idContexto==="controlanEstudioDiario") contextoFamiliar.controlanEstudioDiario = ''+valor;
+
+      if(idContexto==="fallecimientoPadre") contextoFamiliar.fallecimientoPadre = ''+valor;
+      if(idContexto==="fallecimientoMadre") contextoFamiliar.fallecimientoMadre = ''+valor;
+      if(idContexto==="desempleoPadre") contextoFamiliar.desempleoPadre = ''+valor;
+      if(idContexto==="custodiaPadre") contextoFamiliar.custodiaPadre = ''+valor;
+      if(idContexto==="custodiaMadre") contextoFamiliar.custodiaMadre = ''+valor;
+      if(idContexto==="custodiaAbuelos") contextoFamiliar.custodiaAbuelos = ''+valor;
+      if(idContexto==="custodiaOtros") contextoFamiliar.custodiaOtros = ''+valor;
+      if(idContexto==="personasConvivenSenoFamiliar") contextoFamiliar.personasConvivenSenoFamiliar = ''+valor;
+      if(idContexto==="observacionesFamiliares") contextoFamiliar.observacionesFamiliares = ''+valor;
       console.log(contextoFamiliar);
     }
 
@@ -161,6 +197,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     const sendData = (type) => {
       if(type==="updateContextoEscolar") updateData(type, contextoEscolar);
       if(type==="updateContextoFamiliar") updateData(type, contextoFamiliar);
+      if(type==="updateContextoMedico") updateData(type, updateContextoMedico);
       if(type==="updateContextoPersonal") updateData(type, linea);
       if(type==="removeAccount") updateData(type, linea);
       setDataBuilded(false);
@@ -188,6 +225,14 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
                 </div>
+
+                <div className="col-md-12 col-sm-12">
+                  Contexto Médico<hr/>
+                </div>
+                <div className="col-md-12 col-sm-12">
+                  <Input placeholder={"Tratamiento médico"} setValue={updateContextoMedico} type={"text"} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico} />
+                </div>
+                <div className="col-md-12"><Button text={'Actualizar Contexto médico'} onClick={() => sendData('updateContextoMedico')}/></div>
 
 
                 <div className="col-md-12 col-sm-12">

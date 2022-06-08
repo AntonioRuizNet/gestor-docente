@@ -20,6 +20,7 @@ export const updateAsistencias = baseUrl + "/UPDATE_ASISTENCIAS";
 export const updateContextoEscolar = baseUrl + "/UPDATE_CONTEXTO_ESCOLAR";
 export const updateContextoPersonal = baseUrl + "/UPDATE_CONTEXTO_PERSONAL";
 export const updateContextoFamiliar = baseUrl + "/UPDATE_CONTEXTO_FAMILIAR";
+export const updateContextoMedico = baseUrl + "/UPDATE_CONTEXTO_MEDICO";
 
 export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";
