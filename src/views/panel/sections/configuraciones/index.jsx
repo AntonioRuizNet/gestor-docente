@@ -26,7 +26,6 @@ export default function Configuraciones() {
     if(!dataBuilded){
       const data = await get_Configuraciones();
       if(data){
-        console.log(data);
         setAsignaturas(data.asignaturas)
         setCursos(data.cursos)
         setEvaluaciones(data.evaluaciones)
@@ -36,9 +35,9 @@ export default function Configuraciones() {
     setDataBuilded(true)
   }
 
-  const updateConfigurador = (id, table, operation, value) => {
+  const updateConfigurador = (id, table, operation, value, periodo) => {
     update_Configurador(
-      id, table, operation, value
+      id, table, operation, value, periodo
     )
     setDataBuilded(false);
   }
@@ -60,10 +59,10 @@ export default function Configuraciones() {
                     <Input setValue={()=>null} type={'text'} idInput={'new_'+e.id} className={'customInput'} value={e.nombre}/>
                   </div>
                   <div className="col-3">
-                    <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+title} className={''} values={periodos} selected={e.periodo}/>
+                    <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+e.id} className={''} values={periodos} selected={e.periodo}/>
                   </div>
                   <div className="col-5" style={{textAlign: 'end'}}>
-                    <Button text={<AiOutlineSave/>} onClick={() => updateConfigurador(e.id, table, 'update', getValueById('new_'+e.id)) } className={''} />
+                    <Button text={<AiOutlineSave/>} onClick={() => updateConfigurador(e.id, table, 'update', getValueById('new_'+e.id), getValueById('periodo_'+e.id)) } className={''} />
                     <Button text={<AiFillDelete/>} onClick={() => updateConfigurador(e.id, table, 'disable', '')} className={'btn-danger'} />
                   </div>
                 </>
@@ -92,13 +91,13 @@ export default function Configuraciones() {
 
   return (
     <div className="row">
-      <div className="col">
+      <div className="col-6 mb-4">
         <Configurador title={'Asignaturas'} data={asignaturas} table={'asignaturas'}/>
       </div>
-      <div className="col">
+      <div className="col-6 mb-4">
         <Configurador title={'Cursos'} data={cursos} table={'cursos'}/>
       </div>
-      <div className="col">
+      <div className="col-6 mb-4">
         <Configurador title={'Evaluaciones'} data={evaluaciones} table={'evaluacion'}/>
       </div>
     </div>

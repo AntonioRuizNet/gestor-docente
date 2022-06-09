@@ -14,13 +14,14 @@ export const get_Configuraciones = () => {
     });
 };
 
-export const update_Configurador = (id, table, operation, value) => {
+export const update_Configurador = (id, table, operation, value, periodo) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
   formData.append("id", id);
   formData.append("table", table);
   formData.append("operation", operation);
   formData.append("value", value);
+  formData.append("periodo", periodo);
 
   return fetch(updateConfigurador, { method: "POST", body: formData })
     .then((response) => get_Configuraciones())
