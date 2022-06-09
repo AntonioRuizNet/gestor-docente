@@ -33,10 +33,9 @@ export default function Contactos() {
     if(!dataBuilded){
       const accounts = await get_Accounts();
       if(accounts){
-        //console.log(accounts);
+        console.log(accounts);
         setData(accounts)
         buildTable(accounts.accounts);
-        //setContactosContextoEscolar(accounts.contactosContextoEscolar);
       }
     }
     setDataBuilded(true)
@@ -52,7 +51,7 @@ export default function Contactos() {
       switch (value) {
           case "Nuevo":
             setActiveModalPanel(true);
-            setLinea([]);
+            setLinea({});
               break;
           default:
               break;
@@ -132,7 +131,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodos={data.periodos}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>

@@ -5,7 +5,6 @@ import { Button } from "../button";
 import { StyledTable, PaginationTable, ItemPaginationTable, StyledTableRow } from "./styled";
 
 export default function Index({ widths, header, data, buildLinea, optionsTable }) {
-  console.log(optionsTable);
   const [activePage, setActivePage] = useState(1);
   const itemsPage = 10;
   const pages = Math.ceil(data.length / itemsPage);

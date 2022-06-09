@@ -3,10 +3,11 @@ import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
 import { CheckboxText }  from "./../../../../components/checkboxText";
 import { Textarea } from "./../../../../components/textarea";
+import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodos}) => {
 
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -47,6 +48,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
       if(idContexto==="contactoUrgencia") linea.contactoUrgencia = ''+valor;
       if(idContexto==="telefonoUrgencia") linea.telefonoUrgencia = ''+valor;
+      if(idContexto==="periodo") linea.periodo = ''+valor;
       console.log(linea);
     }
 
@@ -66,6 +68,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
       if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
       if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
+      if(idContexto==="periodo") contextoMedico.periodo = ''+valor;
 
       if(idContexto==="observacionesMedicas") contextoMedico.observacionesMedicas = ''+valor;
       console.log(contextoMedico);
@@ -137,6 +140,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.habitosEstudio = ''+valor;
       if(idContexto==="insersionSocial_comportamiento") contextoEscolar.comportamiento = ''+valor;
       if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
+      if(idContexto==="periodo") contextoEscolar.periodo = ''+valor;
       console.log(contextoEscolar);
     }
 
@@ -200,6 +204,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="custodiaOtros") contextoFamiliar.custodiaOtros = ''+valor;
       if(idContexto==="personasConvivenSenoFamiliar") contextoFamiliar.personasConvivenSenoFamiliar = ''+valor;
       if(idContexto==="observacionesFamiliares") contextoFamiliar.observacionesFamiliares = ''+valor;
+      if(idContexto==="periodo") contextoFamiliar.periodo = ''+valor;
       console.log(contextoFamiliar);
     }
 
@@ -209,16 +214,34 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(type==="updateContextoFamiliar") updateData(type, contextoFamiliar);
       if(type==="updateContextoMedico") updateData(type, updateContextoMedico);
       if(type==="updateContextoPersonal") updateData(type, linea);
+      if(type==="createAccount") updateData(type, linea);
       if(type==="removeAccount") updateData(type, linea);
       setDataBuilded(false);
     }
 
     return (
         <ModalPanel info={
-            <>
             
-            <h4>{linea.nombre===""?"Nuevo contacto": "Editar detalles de "+linea.nombre}</h4>
-            <hr />
+            linea.id===undefined
+              ? <>
+              <h4>{'Alta nueva'}</h4> <hr />
+              <div className="row">
+                <div className="col-md-6 col-sm-12">
+                  <Input placeholder={"Apellidos"} setValue={updateContextoPersonal} type={"text"} idInput={"apellidos"} className={""} value={linea.apellidos} />
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
+                </div>
+                <div className="col-3 mt-3">
+                  <Select placeholder={'Periodo'} setValue={updateContextoPersonal} idInput={'periodo'} className={''} values={periodos} selected={linea.periodo}/>
+                </div>
+                <div className="col-md-9 col-sm-9 text-center mt-3 text-right">
+                  <Button text={"Crear"} onClick={() => sendData('createAccount')} />
+                </div>
+              </div>
+              </> 
+              : <>
+            <h4>{linea.nombre}</h4> <hr />
             <div className="row">
                 <div className="col-md-6 col-sm-12">
                   <Input placeholder={"Apellidos"} setValue={updateContextoPersonal} type={"text"} idInput={"apellidos"} className={""} value={linea.apellidos} />
@@ -231,6 +254,11 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 </div>
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
+                </div>
+
+                <div className="col-md-12 col-sm-12 mt-3" style={{textAlign: 'right'}}>
+                <Button text={"Actualizar datos personales"} className={'btn-primary'} onClick={() => sendData('updateContextoPersonal')} />
+                <Button text={"Eliminar cuenta"} className={'btn-danger'} onClick={() => sendData('removeAccount')} />
                 </div>
 
                 <div className="col-md-12 col-sm-12">
@@ -250,7 +278,9 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                               <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                             </div>)
                 })}
-                <div className="col-md-12"><Button text={'Actualizar Contexto familiar'} onClick={() => sendData('updateContextoFamiliar')}/></div>
+                <div className="col-md-12" style={{textAlign: 'right'}}>
+                  <Button text={'Actualizar Contexto familiar'} className={'btn-primary'} onClick={() => sendData('updateContextoFamiliar')}/>
+                </div>
 
 
                 <div className="col-md-12 col-sm-12">
@@ -261,16 +291,16 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                               <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                             </div>)
                 })}
-                <div className="col-md-12"><Button text={'Actualizar Contexto escolar'} onClick={() => sendData('updateContextoEscolar')}/></div>
+                <div className="col-md-12" style={{textAlign: 'right'}}>
+                  <Button text={'Actualizar Contexto escolar'} className={'btn-primary'} onClick={() => sendData('updateContextoEscolar')}/>
+                  </div>
 
     
-                <div className="col-md-12 col-sm-12 text-center mt-3">
-                <Button text={linea.nombre===""?"Guardar":"Actualizar"} onClick={() => sendData('updateContextoPersonal')} />
-                <Button text={"Eliminar"} onClick={() => sendData('removeAccount')} />
-                </div>
+                
             </div>
 
-            </>} closePanel={closePanel}
+            </>
+          } closePanel={closePanel}
         />
       );
 }

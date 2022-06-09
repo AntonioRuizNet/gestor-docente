@@ -13,7 +13,8 @@ export const setProfile = baseUrl + "/SET_PROFILE";
 export const checkEmail = baseUrl + "/CHECK_EMAIL";
 
 export const getAccounts = baseUrl + "/GET_ACCOUNTS";
-export const updateAccount = baseUrl + "/UPDATE_ACCOUNT";
+export const createAccount = baseUrl + "/CREATE_ACCOUNT";
+//export const updateAccount = baseUrl + "/UPDATE_ACCOUNT";
 export const removeAccount = baseUrl + "/REMOVE_ACCOUNT";
 export const updateAsistencias = baseUrl + "/UPDATE_ASISTENCIAS";
 
