@@ -5,7 +5,7 @@ import { Calendario } from "./../../../../components/calendar";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Asistencias} from './../../../../api/requests/contacts'
 
-const Asistencias = ({closePanel, linea, idContacto, setDataBuilded}) => {
+const Asistencias = ({closePanel, linea, idContacto, setDataBuilded, periodo}) => {
     console.log(linea);
     const updateDate = (idContacto, fecha, valor, obs) =>{
       console.log('update_Asistencias');
@@ -14,6 +14,7 @@ const Asistencias = ({closePanel, linea, idContacto, setDataBuilded}) => {
         fecha,
         valor,
         obs,
+        periodo,
       )
       setDataBuilded(false);
       closePanel();

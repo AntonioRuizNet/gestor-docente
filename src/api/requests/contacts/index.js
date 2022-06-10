@@ -29,13 +29,14 @@ export const remove_Account = (id) => {
     });
 };
 
-export const update_Asistencias = (idContacto, fecha, valor, obs) => {
+export const update_Asistencias = (idContacto, fecha, valor, obs, periodo) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
   formData.append("idContacto", idContacto);
   formData.append("fecha", fecha);
   formData.append("valor", valor);
   formData.append("obs", obs);
+  formData.append("periodo", periodo);
 
   return fetch(updateAsistencias, { method: "POST", body: formData })
     .then((response) => {
