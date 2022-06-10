@@ -5,4 +5,11 @@ const setLogged = (data) => {
   };
 };
 
-export default { setLogged };
+const setPeriodo = (data) => {
+  return {
+    type: "SET_PERIODO",
+    payload: data,
+  };
+};
+
+export default { setLogged, setPeriodo };

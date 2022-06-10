@@ -1,5 +1,6 @@
 const initialState = {
   logged: false,
+  periodo: "",
 };
 
 function reducer(state = initialState, action) {
@@ -8,6 +9,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         logged: action.payload,
+      };
+    case "SET_PERIODO":
+      return {
+        ...state,
+        periodo: action.payload,
       };
     default:
       return state;
