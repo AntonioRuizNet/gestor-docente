@@ -54,13 +54,13 @@ export default function Configuraciones() {
             {data.length===0 ? 'Aún no hay datos' : ''}
             {data.map(e=>{
               return (<>
-                  <div className="col-4">
+                  <div className="col-5" style={{paddingTop: '15px'}}>
                     <Input setValue={()=>null} type={'text'} idInput={'new_'+e.id} className={'customInput'} value={e.nombre}/>
                   </div>
                   <div className="col-3">
                     <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+e.id} className={''} values={periodos} selected={e.periodo}/>
                   </div>
-                  <div className="col-5" style={{textAlign: 'end'}}>
+                  <div className="col-4" style={{textAlign: 'end', paddingTop: '15px'}}>
                     <Button text={<AiOutlineSave/>} onClick={() => updateConfigurador(e.id, table, 'update', getValueById('new_'+e.id), getValueById('periodo_'+e.id)) } className={''} />
                     <Button text={<AiFillDelete/>} onClick={() => updateConfigurador(e.id, table, 'disable', '')} className={'btn-danger'} />
                   </div>
@@ -68,14 +68,15 @@ export default function Configuraciones() {
               )
             })}
         </div>
-        <div className="row">
-          <div className="col-3">
+        <div className="row" style={{marginTop: '40px'}}>
+        <div className="col-12">Nueva opción<hr/></div>
+          <div className="col-5">
             <Input placeholder={'Nueva opción'} setValue={()=>null} type={'text'} idInput={'new_'+title} className={''}/>
           </div>
           <div className="col-3">
             <Select placeholder={'Periodo'} setValue={()=>null} idInput={'periodo_'+title} className={''} values={periodos}/>
           </div>
-          <div className="col-3">&nbsp;<br/>
+          <div className="col-4" style={{textAlign: 'end'}}>&nbsp;<br/>
             <Button text={'Guardar'} onClick={() => updateConfigurador('', table, 'insert', getValueById('new_'+title), getValueById('periodo_'+title))} className={''} />
           </div>
         </div>

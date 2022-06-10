@@ -3,6 +3,7 @@ import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
 import { CheckboxText }  from "./../../../../components/checkboxText";
 import { Textarea } from "./../../../../components/textarea";
+import {TabsPanels} from './../../../../components/tabsPanels'
 import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
 import {updateData} from './../../../../api/requests/contacts'
@@ -219,6 +220,74 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       setDataBuilded(false);
     }
 
+    const ContextoPersonal = () => {
+      return (
+        <div className="row">
+        <div className="col-md-6 col-sm-12">
+                  <Input placeholder={"Apellidos"} setValue={updateContextoPersonal} type={"text"} idInput={"apellidos"} className={""} value={linea.apellidos} />
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
+                </div>
+                <div className="col-md-12 col-sm-12">
+                  <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
+                </div>
+
+                <div className="col-md-12 col-sm-12 mt-3" style={{textAlign: 'right'}}>
+                <Button text={"Actualizar datos personales"} className={'btn-primary'} onClick={() => sendData('updateContextoPersonal')} />
+                <Button text={"Eliminar cuenta"} className={'btn-danger'} onClick={() => sendData('removeAccount')} />
+                </div>
+        </div>
+      )
+    }
+
+    const ContextoMedico = () => {
+      return (
+        <div className="row">
+                <div className="col-md-12 col-sm-12">
+                  <Input placeholder={"Tratamiento médico"} setValue={updateContextoMedico} type={"text"} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico} />
+                </div>
+                <div className="col-md-12" style={{textAlign: 'right'}}>
+                  <Button text={'Actualizar Contexto médico'} className={'btn-primary'} onClick={() => sendData('updateContextoMedico')}/>
+                </div>
+
+        </div>
+      )
+    }
+
+    const ContextoFamiliar = () => {
+      return (
+        <div className="row">
+                {contextoFamiliarV1.map( e =>{
+                    return (<div className="col-md-4 col-sm-6">
+                              <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                            </div>)
+                })}
+                <div className="col-md-12" style={{textAlign: 'right'}}>
+                  <Button text={'Actualizar Contexto familiar'} className={'btn-primary'} onClick={() => sendData('updateContextoFamiliar')}/>
+                </div>
+        </div>
+      )
+    }
+
+    const ContextoEscolar = () => {
+      return (
+        <div className="row">
+          {contextoEscolarV1.map( e =>{
+                      return (<div className="col-md-4 col-sm-6">
+                                <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                              </div>)
+          })}
+          <div className="col-md-12" style={{textAlign: 'right'}}>
+            <Button text={'Actualizar Contexto escolar'} className={'btn-primary'} onClick={() => sendData('updateContextoEscolar')}/>
+          </div>
+        </div>
+      )
+    }
+
     return (
         <ModalPanel info={
             
@@ -242,62 +311,16 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
               </> 
               : <>
             <h4>{linea.nombre}</h4> <hr />
-            <div className="row">
-                <div className="col-md-6 col-sm-12">
-                  <Input placeholder={"Apellidos"} setValue={updateContextoPersonal} type={"text"} idInput={"apellidos"} className={""} value={linea.apellidos} />
-                </div>
-                <div className="col-md-6 col-sm-12">
-                  <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
-                </div>
-                <div className="col-md-4 col-sm-12">
-                  <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
-                </div>
-                <div className="col-md-12 col-sm-12">
-                  <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
-                </div>
-
-                <div className="col-md-12 col-sm-12 mt-3" style={{textAlign: 'right'}}>
-                <Button text={"Actualizar datos personales"} className={'btn-primary'} onClick={() => sendData('updateContextoPersonal')} />
-                <Button text={"Eliminar cuenta"} className={'btn-danger'} onClick={() => sendData('removeAccount')} />
-                </div>
-
-                <div className="col-md-12 col-sm-12">
-                  Contexto Médico<hr/>
-                </div>
-                <div className="col-md-12 col-sm-12">
-                  <Input placeholder={"Tratamiento médico"} setValue={updateContextoMedico} type={"text"} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico} />
-                </div>
-                <div className="col-md-12"><Button text={'Actualizar Contexto médico'} onClick={() => sendData('updateContextoMedico')}/></div>
-
-
-                <div className="col-md-12 col-sm-12">
-                  Contexto Familiar<hr/>
-                </div>
-                {contextoFamiliarV1.map( e =>{
-                    return (<div className="col-md-4 col-sm-6">
-                              <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
-                            </div>)
-                })}
-                <div className="col-md-12" style={{textAlign: 'right'}}>
-                  <Button text={'Actualizar Contexto familiar'} className={'btn-primary'} onClick={() => sendData('updateContextoFamiliar')}/>
-                </div>
-
-
-                <div className="col-md-12 col-sm-12">
-                  Contexto escolar<hr/>
-                </div>
-                {contextoEscolarV1.map( e =>{
-                    return (<div className="col-md-4 col-sm-6">
-                              <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
-                            </div>)
-                })}
-                <div className="col-md-12" style={{textAlign: 'right'}}>
-                  <Button text={'Actualizar Contexto escolar'} className={'btn-primary'} onClick={() => sendData('updateContextoEscolar')}/>
-                  </div>
-
-    
-                
-            </div>
+            {
+              <TabsPanels titles={['Personal', 'Médico', 'Familiar', 'Escolar']} 
+                    contents={[
+                      <ContextoPersonal/>,
+                      <ContextoMedico/>,
+                      <ContextoFamiliar/>,
+                      <ContextoEscolar/>
+                    ]}
+              />
+            }
 
             </>
           } closePanel={closePanel}
