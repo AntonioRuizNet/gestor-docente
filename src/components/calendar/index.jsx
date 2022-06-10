@@ -127,7 +127,7 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
             let backgroundColor = colorDay(stateDay(mes, dia));
             counter++;
             if(counter<=7){
-                return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>&nbsp;</ItemDay>; 
+                return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>{dia}</ItemDay>; 
             } else { counter=0; return <br/> }
         });
         return <div className='col-3' key={'calmonth-'+mes} style={{display: 'block', marginTop: '15px'}}><div style={{width:'100%'/*float:'left', width: '80px'*/}}>{mes}</div>{whiteDays}{diasMes}</div>; 
