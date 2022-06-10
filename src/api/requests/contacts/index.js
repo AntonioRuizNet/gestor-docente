@@ -1,4 +1,4 @@
-import { idUser, getAccounts, updateAccount, removeAccount, updateAsistencias } from "./../../constants";
+import { idUser, getAccounts, removeAccount, createAccount, updateAsistencias, updateContextoEscolar, updateContextoFamiliar, updateContextoPersonal, updateContextoMedico } from "./../../constants";
 
 export const get_Accounts = (data) => {
   let formData = new FormData();
@@ -15,7 +15,7 @@ export const get_Accounts = (data) => {
     });
 };
 
-export const update_Account = (id, apellidos, nombre, nacimiento, enfermedades, domicilio) => {
+/*export const update_Account = (id, apellidos, nombre, nacimiento, enfermedades, domicilio) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
   formData.append("id", id);
@@ -32,7 +32,7 @@ export const update_Account = (id, apellidos, nombre, nacimiento, enfermedades, 
     .catch((error) => {
       console.error(error);
     });
-};
+};*/
 
 export const remove_Account = (id) => {
   let formData = new FormData();
@@ -57,6 +57,40 @@ export const update_Asistencias = (idContacto, fecha, valor, obs) => {
   formData.append("obs", obs);
 
   return fetch(updateAsistencias, { method: "POST", body: formData })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateData = (type, data) => {
+  let formData = new FormData();
+  formData.append("idUser", idUser());
+  formData.append("json", JSON.stringify(data));
+  let apiCall = "";
+
+  if (type === "updateContextoPersonal") {
+    apiCall = updateContextoPersonal;
+  }
+  if (type === "updateContextoFamiliar") {
+    apiCall = updateContextoFamiliar;
+  }
+  if (type === "updateContextoEscolar") {
+    apiCall = updateContextoEscolar;
+  }
+  if (type === "updateContextoMedico") {
+    apiCall = updateContextoMedico;
+  }
+  if (type === "createAccount") {
+    apiCall = createAccount;
+  }
+  if (type === "removeAccount") {
+    apiCall = removeAccount;
+  }
+
+  return fetch(apiCall, { method: "POST", body: formData })
     .then((response) => {
       return response;
     })

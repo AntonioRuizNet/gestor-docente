@@ -26,10 +26,10 @@ export const Overlay = styled.div`
 `;
 
 export const ContainerBlock = styled.div`
-  max-width: 650px;
+  max-width: 85%;
   margin: 1.75rem auto;
   //margin-left: 28%;
-  margin-top: 7%;
+  margin-top: 4%;
   position: relative;
 
   @media only screen and (min-width: 768px) {

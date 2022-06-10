@@ -20,6 +20,10 @@ export default function Contactos() {
 
   const [data, setData] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
+  //const [contactosContextoEscolar, setContactosContextoEscolar] = useState([]);
+  const [contextoEscolar, setContextoEscolar] = useState([]);
+  const [contextoFamiliar, setContextoFamiliar] = useState([]);
+  const [contextoMedico, setContextoMedico] = useState([]);
 
   const [widths, setWidths] = useState([]);
   const [header, setHeader] = useState([]);
@@ -47,7 +51,7 @@ export default function Contactos() {
       switch (value) {
           case "Nuevo":
             setActiveModalPanel(true);
-            setLinea([]);
+            setLinea({});
               break;
           default:
               break;
@@ -67,9 +71,18 @@ export default function Contactos() {
   const buildLinea = (id, type) => {
     if(type==="Ficha"){
       const selectedLineObj = data.accounts.filter(e => e.id===id);
-      const selectedLine = selectedLineObj.map( Object.values );
-      setLinea(selectedLine);
+      setLinea(selectedLineObj[0]);
       setActiveModalPanel(true);
+
+      const selectedContextoEscolarObj = data.contactosContextoEscolar.filter(e => e.idContacto===id);
+      setContextoEscolar(selectedContextoEscolarObj[0]);
+
+      const selectedContextoFamiliarObj = data.contactosContextoFamiliar.filter(e => e.idContacto===id);
+      setContextoFamiliar(selectedContextoFamiliarObj[0]);
+
+      const selectedContextoMedicoObj = data.contactosContextoMedico.filter(e => e.idContacto===id);
+      setContextoMedico(selectedContextoMedicoObj[0]);
+      
     }
 
     if(type==="Asistencias"){
@@ -118,7 +131,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodos={data.periodos}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>
