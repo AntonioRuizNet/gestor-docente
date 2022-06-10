@@ -10,7 +10,8 @@ export const TabsPanels = ({titles, contents}) => {
   return (
     <>
         {titles.map((title, index)=> {
-          return <StyledTitles key={'title_'+index} id={'title_'+index} onClick={()=> setSelectedTab(index)}>{title}</StyledTitles>;
+          let activeMenu = index===selectedTab? {fontWeight: 'bold'} : {};
+          return <StyledTitles key={'title_'+index} id={'title_'+index} onClick={()=> setSelectedTab(index)} style={activeMenu}>{title}</StyledTitles>;
         })}
         <StyledSeparator/>
         {contents.map((content, index)=> {
