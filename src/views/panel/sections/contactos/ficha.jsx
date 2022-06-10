@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
 import { CheckboxText }  from "./../../../../components/checkboxText";
@@ -8,7 +9,7 @@ import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodos}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo}) => {
 
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -49,7 +50,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
       if(idContexto==="contactoUrgencia") linea.contactoUrgencia = ''+valor;
       if(idContexto==="telefonoUrgencia") linea.telefonoUrgencia = ''+valor;
-      if(idContexto==="periodo") linea.periodo = ''+valor;
+      linea.periodo = ''+periodo;
       console.log(linea);
     }
 
@@ -69,7 +70,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
       if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
       if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
-      if(idContexto==="periodo") contextoMedico.periodo = ''+valor;
 
       if(idContexto==="observacionesMedicas") contextoMedico.observacionesMedicas = ''+valor;
       console.log(contextoMedico);
@@ -141,7 +141,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.habitosEstudio = ''+valor;
       if(idContexto==="insersionSocial_comportamiento") contextoEscolar.comportamiento = ''+valor;
       if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
-      if(idContexto==="periodo") contextoEscolar.periodo = ''+valor;
       console.log(contextoEscolar);
     }
 
@@ -205,7 +204,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="custodiaOtros") contextoFamiliar.custodiaOtros = ''+valor;
       if(idContexto==="personasConvivenSenoFamiliar") contextoFamiliar.personasConvivenSenoFamiliar = ''+valor;
       if(idContexto==="observacionesFamiliares") contextoFamiliar.observacionesFamiliares = ''+valor;
-      if(idContexto==="periodo") contextoFamiliar.periodo = ''+valor;
       console.log(contextoFamiliar);
     }
 
@@ -301,10 +299,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 <div className="col-md-6 col-sm-12">
                   <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
                 </div>
-                <div className="col-3 mt-3">
-                  <Select placeholder={'Periodo'} setValue={updateContextoPersonal} idInput={'periodo'} className={''} values={periodos} selected={linea.periodo}/>
-                </div>
-                <div className="col-md-9 col-sm-9 text-center mt-3 text-right">
+                <div className="col-md-12 col-sm-12 text-center mt-3 text-right">
                   <Button text={"Crear"} onClick={() => sendData('createAccount')} />
                 </div>
               </div>

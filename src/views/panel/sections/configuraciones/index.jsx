@@ -17,16 +17,14 @@ export default function Configuraciones() {
   const [asignaturas, setAsignaturas] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [evaluaciones, setEvaluaciones] = useState([]);
-  const [periodos, setPeriodos] = useState([]);
   
   const getData = async () => {
     if(!dataBuilded){
-      const data = await get_Configuraciones();
+      const data = await get_Configuraciones(periodo);
       if(data){
         setAsignaturas(data.asignaturas)
         setCursos(data.cursos)
         setEvaluaciones(data.evaluaciones)
-        setPeriodos(data.periodos)
       }
     }
     setDataBuilded(true)

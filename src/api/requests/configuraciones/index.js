@@ -1,8 +1,9 @@
 import { idUser, getConfiguraciones, updateConfigurador } from "./../../constants";
 
-export const get_Configuraciones = () => {
+export const get_Configuraciones = (periodo) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
+  formData.append("periodo", periodo);
 
   return fetch(getConfiguraciones, { method: "POST", body: formData })
     .then((response) => response.json())

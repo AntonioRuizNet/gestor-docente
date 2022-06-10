@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
+import { useSelector } from "react-redux";
 
 //Components
 import SubmenuSection from './../../../../components/submenuSection'
@@ -12,6 +13,9 @@ import Evaluaciones from './evaluaciones'
 import {get_Accounts} from './../../../../api/requests/contacts'
 
 export default function Contactos() {
+
+  const periodo = useSelector((state) => state.globalReducer.periodo);
+
   const [activeModalPanelAsistencias, setActiveModalPanelAsistencias] = useState(false);
   const [activeModalPanelEvaluaciones, setActiveModalPanelEvaluaciones] = useState(false);
   const [activeModalPanel, setActiveModalPanel] = useState(false);
@@ -31,7 +35,7 @@ export default function Contactos() {
 
   const getAccounts = async () => {
     if(!dataBuilded){
-      const accounts = await get_Accounts();
+      const accounts = await get_Accounts(periodo);
       if(accounts){
         console.log(accounts);
         setData(accounts)
@@ -131,7 +135,7 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodos={data.periodos}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto}/>}
     {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded}/>}
     </>
