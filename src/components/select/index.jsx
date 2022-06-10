@@ -7,6 +7,13 @@ export const Select = ({ setValue, idInput, className, placeholder, values, disa
     const handleSelect = () => {
         setValue(refSelect.current.value, idInput);
     }
+    
+
+    const currentYear = () => {
+        const currentDate = new Date();
+        console.log('3>'+currentDate.getFullYear()+"-"+(currentDate.getFullYear()+1));
+        return currentDate.getFullYear()+"-"+(currentDate.getFullYear()+1);  
+    }
 
     return (
         <>{placeholder}
