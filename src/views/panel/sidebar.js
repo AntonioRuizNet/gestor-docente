@@ -22,8 +22,16 @@ export const Sidebar = ({ selectionMenu }) => {
     if (!dataBuilded) {
       const periodosValues = await get_Periodos();
       if (periodosValues) {
-        console.log(periodosValues.periodos);
         setPeriodos(periodosValues.periodos);
+
+        if (periodo == "") {
+          const currentDate = new Date();
+          const currentAndNext = currentDate.getFullYear() + "-" + (currentDate.getFullYear() + 1);
+          let selected = periodosValues.periodos.filter((option) => {
+            return option.nombre === currentAndNext;
+          })[0]?.id;
+          dispatch(allActions.globalActions.setPeriodo(selected));
+        }
       }
     }
     setDataBuilded(true);

@@ -3,7 +3,7 @@ import { ItemDay } from './styled'
 import { Button } from "./../button";
 import { Textarea } from "./../textarea";
 
-export const Calendario = ({data, updateDate, idContacto}) => {
+export const Calendario = ({data, updateDate, idContacto, periodo}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [state, setState] = useState(null);
@@ -51,7 +51,7 @@ export const Calendario = ({data, updateDate, idContacto}) => {
     }
 
     const colorDay = (valor) =>{
-        let style = {float:'left', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: colorTypes(valor), cursor: 'pointer'};
+        let style = {display: 'inline-flex', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: colorTypes(valor), cursor: 'pointer'};
         return style;
     }
 
@@ -111,18 +111,32 @@ export const Calendario = ({data, updateDate, idContacto}) => {
         setModalOpen(false);
     }
 
-    let cabecera = dias.map( dia => { return <div key={'calheader-'+dia} style={{float:'left', width: '16.5px'}}>{dia}</div>; });
-    let calendario = meses.map( mes => {
+    let calendario = meses.map( (mes, index) => {
+        let counter=0; 
+
+        let nDay = new Date((2018+parseInt(periodo))+'/'+(index<9?'0'+(index+1):(index+1))+'/01');
+        let startPosition = nDay.getDay();
+        console.log(nDay+' -> '+startPosition);
+        let whiteDays = [];
+        for (var i = 1; i < startPosition; i++) {
+            counter++;
+            whiteDays.push(<ItemDay key={'cal-'+mes+'-'+i} onClick={() =>null} style={{display: 'inline-flex', border: '0px', width: '16.5px', cursor: 'pointer'}}>&nbsp;</ItemDay>);
+         }
+
         let diasMes = dias.map( dia => {
             let backgroundColor = colorDay(stateDay(mes, dia));
-            return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>&nbsp;</ItemDay>; 
+            counter++;
+            if(counter<=7){
+                return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>&nbsp;</ItemDay>; 
+            } else { counter=0; return <br/> }
         });
-        return <div key={'calmonth-'+mes} style={{clear:'both', float:'left'}}><div style={{float:'left', width: '80px'}}>{mes}</div>{diasMes}</div>; 
+        return <div className='col-3' key={'calmonth-'+mes} style={{display: 'block', marginTop: '15px'}}><div style={{width:'100%'/*float:'left', width: '80px'*/}}>{mes}</div>{whiteDays}{diasMes}</div>; 
     });
+
 
     return <>
     {console.log('Render Calendar')}
-            <div style={{fontSize: '12px'}}><div style={{float:'left', width: '80px'}}>&nbsp;</div>{cabecera}{calendario}</div>
+            <div className='row' style={{fontSize: '12px'}}>{calendario}</div>
             {modalOpen && <Detail state={state} obs={obs}/>}
         </>;
 }

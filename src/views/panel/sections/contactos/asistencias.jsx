@@ -23,12 +23,12 @@ const Asistencias = ({closePanel, linea, idContacto, setDataBuilded, periodo}) =
     return (
         <ModalPanel info={
             <>
-            <h4>Asistencias</h4>
+            <h4>Asistencias {(2018+parseInt(periodo))}</h4>
             <hr />
             <div className="row">
 
                 <div className="col-md-12 col-sm-12">
-                    <Calendario data={linea} updateDate={updateDate} idContacto={idContacto} />
+                    <Calendario data={linea} updateDate={updateDate} idContacto={idContacto} periodo={periodo}/>
                 </div>
     
             </div>
