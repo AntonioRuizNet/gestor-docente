@@ -30,7 +30,6 @@ export const Sidebar = ({ selectionMenu }) => {
   };
 
   const updatePeriodo = (periodo) => {
-    console.log(periodo);
     dispatch(allActions.globalActions.setPeriodo(periodo));
   };
 

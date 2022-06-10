@@ -76,6 +76,10 @@ export default function Configuraciones() {
     if(!dataBuilded) getData();
   }, [dataBuilded]);
 
+  useEffect( () =>{
+    setDataBuilded(false);
+  }, [periodo]);
+
   return (
     <>
       {

@@ -130,6 +130,10 @@ export default function Contactos() {
     if(!dataBuilded) getAccounts();
   }, [dataBuilded]);
 
+  useEffect( () =>{
+    setDataBuilded(false);
+  }, [periodo]);
+
   return (
     <>
     <SubmenuSection options={enlaces}/>
