@@ -4,7 +4,7 @@ import { Input } from "./../../../../components/input";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Account} from './../../../../api/requests/contacts'
 
-const Evaluaciones = ({closePanel, linea, setDataBuilded}) => {
+const Evaluaciones = ({closePanel, linea, setDataBuilded, periodo}) => {
     /*
     	id, idUser, idContacto, evaluacion, materia, tipo(unidad/parcial), observaciones, valor
     */

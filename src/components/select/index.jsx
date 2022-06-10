@@ -7,6 +7,18 @@ export const Select = ({ setValue, idInput, className, placeholder, values, disa
     const handleSelect = () => {
         setValue(refSelect.current.value, idInput);
     }
+    
+    const currentYear = () => {
+        if(selected===""){
+            const currentDate = new Date();
+            const currentAndNext = currentDate.getFullYear()+"-"+(currentDate.getFullYear()+1);
+            //let optSelected = '';
+            selected = values.filter(option => {
+                return option.nombre===currentAndNext;
+            })[0]?.id;
+        }
+    }
+    currentYear();
 
     return (
         <>{placeholder}
@@ -15,10 +27,10 @@ export const Select = ({ setValue, idInput, className, placeholder, values, disa
             className={className}
             ref={refSelect}
             disabled={disabled ? 'disabled' : ''}
-            onChange={handleSelect} >
+            onChange={handleSelect} 
+            value={selected}>
             {values.map(option => {
-                let optSelected = option.id===selected? 'selected': '';
-                return <option key={option.id} value={option.id} selected={optSelected}>{option.nombre}</option>
+                return <option key={option.id} value={option.id} >{option.nombre}</option>
             })}
         </StyledSelect>
         </>

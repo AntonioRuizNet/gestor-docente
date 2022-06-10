@@ -1,9 +1,9 @@
 import { idUser, getAccounts, removeAccount, createAccount, updateAsistencias, updateContextoEscolar, updateContextoFamiliar, updateContextoPersonal, updateContextoMedico } from "./../../constants";
 
-export const get_Accounts = (data) => {
+export const get_Accounts = (periodo) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
-  formData.append("data", data);
+  formData.append("periodo", periodo);
 
   return fetch(getAccounts, { method: "POST", body: formData })
     .then((response) => response.json())
@@ -14,25 +14,6 @@ export const get_Accounts = (data) => {
       console.error(error);
     });
 };
-
-/*export const update_Account = (id, apellidos, nombre, nacimiento, enfermedades, domicilio) => {
-  let formData = new FormData();
-  formData.append("idUser", idUser());
-  formData.append("id", id);
-  formData.append("apellidos", apellidos);
-  formData.append("nombre", nombre);
-  formData.append("nacimiento", nacimiento);
-  formData.append("enfermedades", enfermedades);
-  formData.append("domicilio", domicilio);
-
-  return fetch(updateAccount, { method: "POST", body: formData })
-    .then((response) => {
-      return response.ok;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};*/
 
 export const remove_Account = (id) => {
   let formData = new FormData();
@@ -48,13 +29,14 @@ export const remove_Account = (id) => {
     });
 };
 
-export const update_Asistencias = (idContacto, fecha, valor, obs) => {
+export const update_Asistencias = (idContacto, fecha, valor, obs, periodo) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
   formData.append("idContacto", idContacto);
   formData.append("fecha", fecha);
   formData.append("valor", valor);
   formData.append("obs", obs);
+  formData.append("periodo", periodo);
 
   return fetch(updateAsistencias, { method: "POST", body: formData })
     .then((response) => {

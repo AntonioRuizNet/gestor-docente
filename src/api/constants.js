@@ -8,6 +8,8 @@ export const idUser = () => {
   return id;
 };
 
+export const getPeriodos = baseUrl + "/GET_PERIODOS";
+
 export const getProfile = baseUrl + "/GET_PROFILE";
 export const setProfile = baseUrl + "/SET_PROFILE";
 export const checkEmail = baseUrl + "/CHECK_EMAIL";
