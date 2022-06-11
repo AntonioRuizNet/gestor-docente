@@ -1,42 +1,49 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
+import { useSelector } from "react-redux";
+
 import { Button } from "./../../../../components/button";
 import { Input } from "./../../../../components/input";
 import ModalPanel from './../../../../components/modalPanel'
 import {update_Account} from './../../../../api/requests/contacts'
 
-const Evaluaciones = ({closePanel, linea, setDataBuilded, periodo}) => {
+import {get_Configuraciones, update_Configurador} from './../../../../api/requests/configuraciones'
+
+const Evaluaciones = ({closePanel, linea}) => {
     /*
     	id, idUser, idContacto, evaluacion, materia, tipo(unidad/parcial), observaciones, valor
     */
     console.log(linea);
 
-    const [dataReady, setDataReady] = useState(false);
-    const [dataLoaded, setLoaded] = useState(false);
-    
-    const [id, setId] = useState("");
-    const [evaluacion, setEvaluacion] = useState("");
+    const periodo = useSelector((state) => state.globalReducer.periodo);
 
-    const checkData = () => {
-        const lineaFormated = linea[0];
-        if(lineaFormated && lineaFormated.length>0 && !dataLoaded){
-          setId(lineaFormated[0])
-          setEvaluacion(lineaFormated[3]);
-          setLoaded(true);
-        }
-    }
-    checkData();
+    const [dataBuilded, setDataBuilded] = useState(false);
+  
+    const [asignaturas, setAsignaturas] = useState([]);
+    const [cursos, setCursos] = useState([]);
+    const [evaluaciones, setEvaluaciones] = useState([]);
     
+    const getData = async () => {
+      if(!dataBuilded){
+        const data = await get_Configuraciones(periodo);
+        if(data){
+          setAsignaturas(data.asignaturas)
+          setCursos(data.cursos)
+          setEvaluaciones(data.evaluaciones)
+        }
+      }
+      setDataBuilded(true)
+    }
+
     useEffect( () =>{
-            if(dataReady){
-              setDataReady(false);
-              /*update_Account(
-                id,
-                evaluacion,
-              )*/
-              closePanel();
-              setDataBuilded(false);
-            }
-    }, [dataReady]);
+      if(!dataBuilded) getData();
+    }, [dataBuilded]);
+  
+    useEffect( () =>{
+      setDataBuilded(false);
+    }, [periodo]);
+  
+    
+
 
     return (
         <ModalPanel info={
@@ -44,14 +51,25 @@ const Evaluaciones = ({closePanel, linea, setDataBuilded, periodo}) => {
             <h4>Evaluaciones</h4>
             <hr />
             <div className="row">
-                <div className="col-md-8 col-sm-12">
-                    <Input placeholder={"Evaluacion"} setValue={setEvaluacion} type={"text"} idInput={"evaluacion"} className={""} value={evaluacion} />
-                </div>
-    
-                <div className="col-md-12 col-sm-12 text-center mt-3">
-                    <Button text={"Actualizar"} onClick={() => setDataReady(true)} />
-                </div>
+              <div className="col"> &nbsp; </div>
+              {evaluaciones.map( e =>{
+                        return (<div className="col">
+                                {e.nombre}
+                            </div>
+                        )
+              })}
             </div>
+            {asignaturas.map( a =>{
+              return (<div className="row">
+                  <div className="col"> {a.nombre} </div>
+                    {evaluaciones.map( e =>{
+                      return (<div className="col">
+                              <Input placeholder={""} setValue={() => null} type={"text"} idInput={""} className={""} value={""} />
+                          </div>
+                      )
+                    })}
+              </div>)
+            })}
             </>} closePanel={closePanel}
         />
       );
