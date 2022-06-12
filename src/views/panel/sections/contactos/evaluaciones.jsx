@@ -17,6 +17,7 @@ const Evaluaciones = ({closePanel, linea, idContacto}) => {
     const periodo = useSelector((state) => state.globalReducer.periodo);
 
     const [dataBuilded, setDataBuilded] = useState(false);
+    const [lineaBuilded, setLineaBuilded] = useState([]);
   
     const [asignaturas, setAsignaturas] = useState([]);
     const [cursos, setCursos] = useState([]);
@@ -32,17 +33,17 @@ const Evaluaciones = ({closePanel, linea, idContacto}) => {
           generateLinea(data.asignaturas, data.evaluaciones);
         }
       }
-      setDataBuilded(true)
+      setDataBuilded(true);
     }
 
     const generateLinea = (asignaturas, evaluaciones) => {
-      let myLinea = [];
+      let builded = [];
       asignaturas.map( a =>{
         evaluaciones.map( e =>{
-          myLinea.push({id: null, idContacto: idContacto, evaluacion: e.id, materia: a.id, observaciones: "", periodo: periodo, tipo: "", valor: ""});
+          builded.push({id: null, idContacto: idContacto, evaluacion: e.id, materia: a.id, observaciones: "", periodo: periodo, tipo: "", valor: ""});
         })
       })
-      myLinea.map( ml => {
+      builded.map( ml => {
         linea.map( l => {
           if(ml.materia === l.materia && ml.evaluacion === l.evaluacion){
             ml.id = l.id;
@@ -52,21 +53,32 @@ const Evaluaciones = ({closePanel, linea, idContacto}) => {
         
       });
 
-      linea = myLinea;
-      console.log(linea);
+      setLineaBuilded(builded);
+      console.log(lineaBuilded);
     }
 
     const updateEvaluaciones = (valor, id) => {
-      //Si ID contiene _new busco por _new_idEvaluacion_idMateria y comparo en if para encontrar el objeto.
-      console.log(valor, id);
-      linea.map( e => {
-        if(e.id===id){e.valor=valor;}
-      });
-      console.log(linea);      
+      if(id.includes("_new")){
+        let idArr = id.split("_");
+        lineaBuilded.map( l => {
+          if(l.materia === idArr[3] && l.evaluacion===idArr[2]){
+            
+            l.valor = valor;
+          }
+        });
+      }else{
+        lineaBuilded.map( e => {
+          if(e.id===id){e.valor=valor;}
+        });
+      }
+      console.log(lineaBuilded);      
     };
 
     const sendData = (type) => {
-      //if(type==="updateEvaluaciones") updateData(type, linea);
+      //Crear tab y agregar examenes, pruebas... a parte de evaluaciones
+      //Modificar nombre del componente a notas.jsx
+      
+      //if(type==="updateEvaluaciones") updateData(type, lineaBuilded);
       //setDataBuilded(false);
     }
 
@@ -96,10 +108,10 @@ const Evaluaciones = ({closePanel, linea, idContacto}) => {
             {asignaturas.map( a =>{
               return (<div className="row">
                   <div className="col">{a.nombre}</div>
-                    {evaluaciones.map( e =>{
+                    {lineaBuilded.length>0 && evaluaciones.map( e =>{
                       let valor = ''; let id = '';
-                      let resultado = linea.filter( f => f.materia === a.id && f.evaluacion===e.id);
-                      if(resultado[0]?.valor===undefined){ valor=''; id=''; }else{ valor=resultado[0].valor; id=resultado[0].id; }
+                      let resultado = lineaBuilded.filter( f => f.materia === a.id && f.evaluacion===e.id);
+                      if(resultado[0]?.id===null){ valor=''; id='_new_'+e.id+'_'+a.id; }else{ valor=resultado[0].valor; id=resultado[0].id; }
                       return (<div className="col">
                               <Input placeholder={""} setValue={updateEvaluaciones} type={"text"} idInput={id} className={""} value={valor} />
                           </div>
@@ -107,6 +119,11 @@ const Evaluaciones = ({closePanel, linea, idContacto}) => {
                     })}
               </div>)
             })}
+            <div className="row">
+              <div className="col-md-12" style={{textAlign: 'right'}}>
+                <Button text={'Actualizar evaluaciones'} className={'btn-primary'} onClick={() => sendData('updateEvaluaciones')}/>
+              </div>
+            </div>
             </>} closePanel={closePanel}
         />
       );
