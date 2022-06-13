@@ -12,7 +12,6 @@ export const Select = ({ setValue, idInput, className, placeholder, values, disa
         if(selected===""){
             const currentDate = new Date();
             const currentAndNext = currentDate.getFullYear()+"-"+(currentDate.getFullYear()+1);
-            //let optSelected = '';
             selected = values.filter(option => {
                 return option.nombre===currentAndNext;
             })[0]?.id;

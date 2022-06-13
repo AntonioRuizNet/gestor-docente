@@ -1,4 +1,15 @@
-import { idUser, getAccounts, removeAccount, createAccount, updateAsistencias, updateContextoEscolar, updateContextoFamiliar, updateContextoPersonal, updateContextoMedico } from "./../../constants";
+import {
+  idUser,
+  getAccounts,
+  removeAccount,
+  createAccount,
+  updateAsistencias,
+  updateContextoEscolar,
+  updateContextoFamiliar,
+  updateContextoPersonal,
+  updateContextoMedico,
+  updateNotas,
+} from "./../../constants";
 
 export const get_Accounts = (periodo) => {
   let formData = new FormData();
@@ -70,6 +81,9 @@ export const updateData = (type, data) => {
   }
   if (type === "removeAccount") {
     apiCall = removeAccount;
+  }
+  if (type === "updateNotas") {
+    apiCall = updateNotas;
   }
 
   return fetch(apiCall, { method: "POST", body: formData })

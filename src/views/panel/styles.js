@@ -36,16 +36,34 @@ export const OptionMenuV2 = styled.div`
     font-weight: bold;
     color: white;
   }
+  @media (max-width: 800px) {
+    display: grid;
+  }
+  @media (max-width: 600px) {
+    padding-left: 35%;
+    span {
+      display: none;
+    }
+  }
 `;
 
 export const BackgroundSidebar = styled.div`
   width: 10%;
-  min-width: 80px;
+  min-width: 150px;
   padding: 1%;
   background-color: #4e73df;
   background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
   background-size: cover;
   min-height: 100vh;
+  @media (max-width: 800px) {
+    min-width: 130px;
+  }
+  @media (max-width: 600px) {
+    min-width: 100px;
+    select {
+      padding: 0.3rem 0rem;
+    }
+  }
 `;
 
 export const BackgroundBody = styled.div`

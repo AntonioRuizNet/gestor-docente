@@ -25,5 +25,7 @@ export const updateContextoPersonal = baseUrl + "/UPDATE_CONTEXTO_PERSONAL";
 export const updateContextoFamiliar = baseUrl + "/UPDATE_CONTEXTO_FAMILIAR";
 export const updateContextoMedico = baseUrl + "/UPDATE_CONTEXTO_MEDICO";
 
+export const updateNotas = baseUrl + "/UPDATE_NOTAS";
+
 export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";

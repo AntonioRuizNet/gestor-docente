@@ -9,7 +9,7 @@ import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel}) => {
 
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -209,13 +209,18 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
 
     const sendData = (type) => {
-      if(type==="updateContextoEscolar") updateData(type, contextoEscolar);
-      if(type==="updateContextoFamiliar") updateData(type, contextoFamiliar);
-      if(type==="updateContextoMedico") updateData(type, updateContextoMedico);
-      if(type==="updateContextoPersonal") updateData(type, linea);
-      if(type==="createAccount") updateData(type, linea);
-      if(type==="removeAccount") updateData(type, linea);
-      setDataBuilded(false);
+      let data = '';
+      if(type==="updateContextoEscolar") data = contextoEscolar;
+      if(type==="updateContextoFamiliar") data = contextoFamiliar;
+      if(type==="updateContextoMedico") data = contextoMedico;
+      if(type==="updateContextoPersonal") data = linea;
+      if(type==="createAccount") data = linea;
+      if(type==="removeAccount") data = linea;
+
+      updateData(type, data)
+      .then((response,reject) => {
+        if(response.ok){ setDataBuilded(false); setActiveModalPanel(false); }
+      })
     }
 
     const ContextoPersonal = () => {
