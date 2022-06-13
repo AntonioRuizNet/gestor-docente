@@ -4,19 +4,19 @@ import { useSelector } from "react-redux";
 import { Button } from '../../../../components/button';
 import {get_Configuraciones, update_Configurador} from './../../../../api/requests/configuraciones'
 import {Input} from './../../../../components/input'
-import {Select} from './../../../../components/select'
 import {TabsPanels} from './../../../../components/tabsPanels'
 import {AiOutlineSave, AiFillDelete} from 'react-icons/ai'
 
 export default function Configuraciones() {
 
   const periodo = useSelector((state) => state.globalReducer.periodo);
-
   const [dataBuilded, setDataBuilded] = useState(false);
 
   const [asignaturas, setAsignaturas] = useState([]);
   const [cursos, setCursos] = useState([]);
+
   const [evaluaciones, setEvaluaciones] = useState([]);
+  const [examenes, setExamenes] = useState([]);
   
   const getData = async () => {
     if(!dataBuilded){
@@ -24,7 +24,8 @@ export default function Configuraciones() {
       if(data){
         setAsignaturas(data.asignaturas)
         setCursos(data.cursos)
-        setEvaluaciones(data.evaluaciones)
+        setEvaluaciones(data.evaluaciones.filter(e => e.tipo==="trimestral"))
+        setExamenes(data.evaluaciones.filter(e => e.tipo==="examen"))
       }
     }
     setDataBuilded(true)
@@ -83,11 +84,12 @@ export default function Configuraciones() {
   return (
     <>
       {
-        <TabsPanels titles={['Asignaturas', 'Cursos', 'Evaluaciones']} 
+        <TabsPanels titles={['Asignaturas', 'Cursos', 'Evaluaciones', 'Examenes']} 
                     contents={[
                       <Configurador title={'Asignaturas'} data={asignaturas} table={'asignaturas'}/>,
                       <Configurador title={'Cursos'} data={cursos} table={'cursos'}/>,
-                      <Configurador title={'Evaluaciones'} data={evaluaciones} table={'evaluacion'}/>
+                      <Configurador title={'Evaluaciones'} data={evaluaciones} table={'evaluaciones'}/>,
+                      <Configurador title={'Examenes'} data={examenes} table={'evaluaciones'}/>
                     ]}
           />
         }

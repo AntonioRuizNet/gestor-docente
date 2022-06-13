@@ -7,7 +7,7 @@ import Tabla from './../../../../components/tabla'
 import {Buscador} from './../../../../components/buscador'
 import Ficha from './ficha'
 import Asistencias from './asistencias'
-import Evaluaciones from './evaluaciones'
+import Notas from './notas'
 
 //Requests
 import {get_Accounts} from './../../../../api/requests/contacts'
@@ -17,7 +17,7 @@ export default function Contactos() {
   const periodo = useSelector((state) => state.globalReducer.periodo);
 
   const [activeModalPanelAsistencias, setActiveModalPanelAsistencias] = useState(false);
-  const [activeModalPanelEvaluaciones, setActiveModalPanelEvaluaciones] = useState(false);
+  const [activeModalPanelNotas, setActiveModalPanelNotas] = useState(false);
   const [activeModalPanel, setActiveModalPanel] = useState(false);
   const [linea, setLinea] = useState({});
   const [idContacto, setIdContacto] = useState(null);
@@ -48,7 +48,7 @@ export default function Contactos() {
   const toogleModalPanel = () => {
     setActiveModalPanel(false);
     setActiveModalPanelAsistencias(false);
-    setActiveModalPanelEvaluaciones(false);
+    setActiveModalPanelNotas(false);
   }
 
   const OpenModal = (value) => {
@@ -69,7 +69,7 @@ export default function Contactos() {
   const optionsTable = [
     { id: 0, value: "Ficha", className:"" }, 
     { id: 0, value: "Asistencias", className:"btn-primary"  }, 
-    { id: 0, value: "Evaluaciones", className:"btn-info"  }, 
+    { id: 0, value: "Notas", className:"btn-info"  }, 
   ];
 
   const buildLinea = (id, type) => {
@@ -97,12 +97,11 @@ export default function Contactos() {
       setActiveModalPanelAsistencias(true);
     }
 
-    if(type==="Evaluaciones"){
-      const selectedLineObj = data.evaluaciones.filter(e => e.idContacto===id);
-      //const selectedLine = selectedLineObj.map( Object.values );
-      setLinea(selectedLineObj);
+    if(type==="Notas"){
+      const selectedNotasObj = data.notas.filter(e => e.idContacto===id);
+      setLinea(selectedNotasObj);
       setIdContacto(id);
-      setActiveModalPanelEvaluaciones(true);
+      setActiveModalPanelNotas(true);
     }
   }
 
@@ -141,7 +140,7 @@ export default function Contactos() {
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
     {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto} periodo={periodo}/>}
-    {activeModalPanelEvaluaciones && <Evaluaciones closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} />}
+    {activeModalPanelNotas && <Notas closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} />}
     </>
     
   )
