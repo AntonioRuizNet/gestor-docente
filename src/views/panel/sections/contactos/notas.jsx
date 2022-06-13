@@ -10,7 +10,7 @@ import {updateData} from '../../../../api/requests/contacts'
 
 import {get_Configuraciones} from '../../../../api/requests/configuraciones'
 
-const Notas = ({closePanel, linea, idContacto}) => {
+const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
 
     const periodo = useSelector((state) => state.globalReducer.periodo);
 
@@ -104,7 +104,7 @@ const Notas = ({closePanel, linea, idContacto}) => {
       console.log('sendData')
       if(type==="trimestral") updateData('updateNotas', evaluacionesBuilded)
       if(type==="examen") updateData('updateNotas', examenesBuilded)
-      setDataBuilded(false);
+      setDataBuildedGlobal(false);
     }
 
     const EvaluacionesBlock = ({builded, tipo}) => {

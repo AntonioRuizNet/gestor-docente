@@ -73,8 +73,11 @@ export default function Contactos() {
   ];
 
   const buildLinea = (id, type) => {
+    console.log('buildLinea', id, type)
+    console.log(data)
     if(type==="Ficha"){
       const selectedLineObj = data.accounts.filter(e => e.id===id);
+      console.log(selectedLineObj)
       setLinea(selectedLineObj[0]);
       setActiveModalPanel(true);
 
@@ -138,9 +141,9 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo}/>}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo} setActiveModalPanel={setActiveModalPanel}/>}
     {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto} periodo={periodo}/>}
-    {activeModalPanelNotas && <Notas closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} />}
+    {activeModalPanelNotas && <Notas closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} setDataBuildedGlobal={setDataBuilded} />}
     </>
     
   )
