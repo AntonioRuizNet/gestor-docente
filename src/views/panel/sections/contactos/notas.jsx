@@ -6,7 +6,7 @@ import { Input } from "../../../../components/input";
 import ModalPanel from '../../../../components/modalPanel'
 import {TabsPanels} from './../../../../components/tabsPanels'
 
-import {update_Account} from '../../../../api/requests/contacts'
+import {updateData} from '../../../../api/requests/contacts'
 
 import {get_Configuraciones} from '../../../../api/requests/configuraciones'
 
@@ -75,25 +75,35 @@ const Notas = ({closePanel, linea, idContacto}) => {
       
     }
 
-    const updateEvaluaciones = (valor, id) => {
-      if(id.includes("_new")){
-        let idArr = id.split("_");
-        evaluacionesBuilded.map( l => {
-          if(l.materia === idArr[3] && l.evaluacion===idArr[2]){
-            
-            l.valor = valor;
-          }
-        });
-      }else{
-        evaluacionesBuilded.map( e => {
-          if(e.id===id){e.valor=valor;}
-        });
-      }
-      console.log(evaluacionesBuilded);      
+    const updateEvaluaciones = (valor, id, type) => {
+        if(id.includes("_new")){
+          let idArr = id.split("_");
+          evaluacionesBuilded.map( l => {
+            if(l.materia === idArr[3] && l.evaluacion===idArr[2]){
+              l.valor = valor;
+            }
+          });
+          examenesBuilded.map( l => {
+            if(l.materia === idArr[3] && l.evaluacion===idArr[2]){
+              l.valor = valor;
+            }
+          });
+        }else{
+          evaluacionesBuilded.map( e => {
+            if(e.id===id){e.valor=valor;}
+          });
+          examenesBuilded.map( e => {
+            if(e.id===id){e.valor=valor;}
+          });
+        }
+        console.log(evaluacionesBuilded);  
+        console.log(examenesBuilded);  
     };
 
     const sendData = (type) => {
-      //if(type==="updateEvaluaciones") updateData(type, evaluacionesBuilded);
+      console.log('sendData')
+      if(type==="trimestral") updateData('updateEvaluaciones', evaluacionesBuilded)
+      if(type==="examen") updateData('updateEvaluaciones', examenesBuilded)
       //setDataBuilded(false);
     }
 
@@ -129,7 +139,7 @@ const Notas = ({closePanel, linea, idContacto}) => {
             })}
             <div className="row">
               <div className="col-md-12" style={{textAlign: 'right'}}>
-                <Button text={'Actualizar'} className={'btn-primary'} onClick={() => sendData('updateEvaluaciones')}/>
+                <Button text={'Actualizar'} className={'btn-primary'} onClick={() => sendData(tipo)}/>
               </div>
             </div>
           </>
