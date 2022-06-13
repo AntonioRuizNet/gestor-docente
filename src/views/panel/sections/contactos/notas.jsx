@@ -102,8 +102,8 @@ const Notas = ({closePanel, linea, idContacto}) => {
 
     const sendData = (type) => {
       console.log('sendData')
-      if(type==="trimestral") updateData('updateEvaluaciones', evaluacionesBuilded)
-      if(type==="examen") updateData('updateEvaluaciones', examenesBuilded)
+      if(type==="trimestral") updateData('updateNotas', evaluacionesBuilded)
+      if(type==="examen") updateData('updateNotas', examenesBuilded)
       setDataBuilded(false);
     }
 

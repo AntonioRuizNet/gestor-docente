@@ -8,7 +8,7 @@ import {
   updateContextoFamiliar,
   updateContextoPersonal,
   updateContextoMedico,
-  updateEvaluaciones,
+  updateNotas,
 } from "./../../constants";
 
 export const get_Accounts = (periodo) => {
@@ -82,8 +82,8 @@ export const updateData = (type, data) => {
   if (type === "removeAccount") {
     apiCall = removeAccount;
   }
-  if (type === "updateEvaluaciones") {
-    apiCall = updateEvaluaciones;
+  if (type === "updateNotas") {
+    apiCall = updateNotas;
   }
 
   return fetch(apiCall, { method: "POST", body: formData })
