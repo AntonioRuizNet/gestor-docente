@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { FaDesktop, FaSignOutAlt, FaCog, FaUserFriends } from "react-icons/fa";
+import { FaDesktop, FaSignOutAlt, FaCog, FaUserFriends, FaUser } from "react-icons/fa";
 import { BackgroundSidebar, TitleSidebar, Separador, OptionMenuV2 } from "./styles";
 import { Select } from "./../../components/select";
 
@@ -63,6 +63,10 @@ export const Sidebar = ({ selectionMenu }) => {
       <OptionMenuV2 className="menuResp" onClick={() => selectionMenu("Configuraciones")}>
         <FaCog className="icoResp" />
         <span>Configuraciones</span>
+      </OptionMenuV2>
+      <OptionMenuV2 className="menuResp" onClick={() => selectionMenu("Perfil")}>
+        <FaUser className="icoResp" />
+        <span>Perfil</span>
       </OptionMenuV2>
       <OptionMenuV2 className="menuResp" onClick={() => selectionMenu("Salir")}>
         <FaSignOutAlt className="icoResp" /> <span>Salir</span>

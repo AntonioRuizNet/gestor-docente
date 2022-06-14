@@ -5,6 +5,7 @@ import { Sidebar } from "./sidebar";
 import Escritorio from "./sections/escritorio";
 import Contactos from "./sections/contactos";
 import Configuraciones from "./sections/configuraciones";
+import Perfil from "./sections/perfil";
 //Helpers
 import { clearLocalStorage } from "./../../helpers/localStorage";
 //Actions
@@ -19,6 +20,7 @@ export default function Panel() {
   const [viewEscritorio, setViewEscritorio] = useState(true);
   const [viewContactos, setViewContactos] = useState(false);
   const [viewConfiguraciones, setViewConfiguraciones] = useState(false);
+  const [viewPerfil, setViewPerfil] = useState(false);
   const [viewSalir, setViewSalir] = useState(false);
 
   const hideViews = () => {
@@ -26,6 +28,7 @@ export default function Panel() {
     setViewContactos(false);
     setViewSalir(false);
     setViewConfiguraciones(false);
+    setViewPerfil(false);
   };
 
   const salir = () => {
@@ -45,6 +48,9 @@ export default function Panel() {
       case "Configuraciones":
         setViewConfiguraciones(true);
         break;
+      case "Perfil":
+        setViewPerfil(true);
+        break;
       case "Salir":
         salir();
         break;
@@ -60,6 +66,7 @@ export default function Panel() {
         {viewEscritorio && <Escritorio />}
         {viewContactos && <Contactos />}
         {viewConfiguraciones && <Configuraciones />}
+        {viewPerfil && <Perfil />}
       </BackgroundBody>
     </Root>
   );

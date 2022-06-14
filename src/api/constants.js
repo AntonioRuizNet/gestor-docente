@@ -13,6 +13,8 @@ export const getPeriodos = baseUrl + "/GET_PERIODOS";
 export const getProfile = baseUrl + "/GET_PROFILE";
 export const setProfile = baseUrl + "/SET_PROFILE";
 export const checkEmail = baseUrl + "/CHECK_EMAIL";
+export const getPerfil = baseUrl + "/GET_PERFIL";
+export const updatePerfil = baseUrl + "/UPDATE_PERFIL";
 
 export const getAccounts = baseUrl + "/GET_ACCOUNTS";
 export const createAccount = baseUrl + "/CREATE_ACCOUNT";
