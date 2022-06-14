@@ -2,8 +2,54 @@ import React, {useState} from 'react'
 import { FaFlagCheckered, FaFlag, FaRegCheckCircle } from "react-icons/fa";
 import { Button } from '../../../../components/button';
 import { Textarea } from '../../../../components/textarea';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function Escritorio() {
+
+  //npm install recharts
+  //https://recharts.org/en-US/examples
+  const data = [{
+    name: 'Clase A',
+    Alumnos: 25,
+    Faltas: 10,
+  },
+  {
+    name: 'Clase B',
+    Alumnos: 30,
+    Faltas: 5,
+  },
+  {
+    name: 'Clase C',
+    Alumnos: 22,
+    Faltas: 4,
+  },
+              ];
+  const RenderBarChart = () => {
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Alumnos" fill="#00b3c5" />
+          <Bar dataKey="Faltas" fill="#4e73df" />
+        </BarChart>
+      </ResponsiveContainer>
+    )
+  }
+
   const [sugerenciaEnviada, setSugerenciaEnviada] = useState(false);
   const roadMapDone = <FaFlagCheckered style={{color: '#4e73df'}}/>;
   const roadMapPending = <FaFlag style={{color: '#e1d300'}}/>;
@@ -61,7 +107,9 @@ export default function Escritorio() {
   return (
     <>
     <div className='row'>
-      <div className="col-md-8 col-sm-6 col-xs-12">Escritorio<hr/></div>
+      <div className="col-md-8 col-sm-6 col-xs-12" style={{height: '600px'}}>Escritorio<hr/>
+      <RenderBarChart/>
+      </div>
       
       <div className='col-md-4 col-sm-6 col-xs-12'>
         <div className='row'>
