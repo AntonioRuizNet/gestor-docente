@@ -61,9 +61,9 @@ export default function Escritorio() {
   return (
     <>
     <div className='row'>
-      <div className="col-8">Escritorio<hr/></div>
+      <div className="col-md-8 col-sm-6 col-xs-12">Escritorio<hr/></div>
       
-      <div className='col-4'>
+      <div className='col-md-4 col-sm-6 col-xs-12'>
         <div className='row'>
 
           <div className='col-12'>
