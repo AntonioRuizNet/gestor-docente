@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useSelector } from "react-redux";
 
 import { Button } from '../../../../components/button';
-import {get_Configuraciones, update_Configurador} from './../../../../api/requests/configuraciones'
+import {get_Configuraciones, update_Configurador, update_Evaluaciones} from './../../../../api/requests/configuraciones'
 import {Input} from './../../../../components/input'
 import {TabsPanels} from './../../../../components/tabsPanels'
 import {AiOutlineSave, AiFillDelete} from 'react-icons/ai'
@@ -31,10 +31,12 @@ export default function Configuraciones() {
     setDataBuilded(true)
   }
 
-  const updateConfigurador = (id, table, operation, value) => {
-    update_Configurador(
-      id, table, operation, value, periodo
-    )
+  const updateConfigurador = (id, table, operation, value, tipo) => {
+    if(tipo==="null"){
+      update_Configurador(id, table, operation, value, periodo)
+    }else{
+      update_Evaluaciones(id, table, operation, value, periodo, tipo)
+    }
     setDataBuilded(false);
   }
 
@@ -42,7 +44,7 @@ export default function Configuraciones() {
     return document.getElementById(id).value;
   }
 
-  const Configurador = ({title, data, table}) => {
+  const Configurador = ({title, data, table, tipo}) => {
     return (
       <>
         <div className="row">
@@ -66,7 +68,7 @@ export default function Configuraciones() {
             <Input placeholder={'Nueva opción'} setValue={()=>null} type={'text'} idInput={'new_'+title} className={''}/>
           </div>
           <div className="col-4" style={{textAlign: 'end'}}>&nbsp;<br/>
-            <Button text={'Guardar'} onClick={() => updateConfigurador('', table, 'insert', getValueById('new_'+title))} className={''} />
+            <Button text={'Guardar'} onClick={() => updateConfigurador('', table, 'insert', getValueById('new_'+title), tipo)} className={''} />
           </div>
         </div>
       </>
@@ -86,10 +88,10 @@ export default function Configuraciones() {
       {
         <TabsPanels titles={['Asignaturas', 'Cursos', 'Evaluaciones', 'Examenes']} 
                     contents={[
-                      <Configurador title={'Asignaturas'} data={asignaturas} table={'asignaturas'}/>,
-                      <Configurador title={'Cursos'} data={cursos} table={'cursos'}/>,
-                      <Configurador title={'Evaluaciones'} data={evaluaciones} table={'evaluaciones'}/>,
-                      <Configurador title={'Examenes'} data={examenes} table={'evaluaciones'}/>
+                      <Configurador title={'Asignaturas'} data={asignaturas} table={'asignaturas'}tipo={'null'}/>,
+                      <Configurador title={'Cursos'} data={cursos} table={'cursos'}tipo={'null'}/>,
+                      <Configurador title={'Evaluaciones'} data={evaluaciones} table={'evaluaciones'} tipo={'trimestral'}/>,
+                      <Configurador title={'Examenes'} data={examenes} table={'evaluaciones'} tipo={'examen'}/>
                     ]}
           />
         }

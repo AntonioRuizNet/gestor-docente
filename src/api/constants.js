@@ -29,3 +29,4 @@ export const updateNotas = baseUrl + "/UPDATE_NOTAS";
 
 export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";
+export const updateEvaluaciones = baseUrl + "/UPDATE_EVALUACIONES";
