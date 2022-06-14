@@ -62,8 +62,8 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
 
     const Detail = ({obs}) =>{
         return (
-            <div style={{position: 'absolute', backgroundColor: '#fff', width: '40%', padding: '20px', marginLeft: '30%', 
-                        border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f', marginTop: '-10%'}}>
+            <div style={{position: 'absolute', backgroundColor: '#fff', width: '50%', padding: '20px', left: '25%', margin: 'auto',
+                        border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f', top: '80px', minWdidth: '300px'}}>
                 <div className="row"><div className="text-center">Selecciona el tipo de falta</div></div>
                 <div className="row">
                     <div onClick={()=>updateStateDay(0)} style={colorDayGlosary('0')}>Eliminar falta</div>
@@ -130,7 +130,7 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
                 return <ItemDay key={'cal-'+mes+'-'+dia} onClick={() => detailDay(mes, dia)} style={backgroundColor}>{dia}</ItemDay>; 
             } else { counter=0; return <br/> }
         });
-        return <div className='col-3' key={'calmonth-'+mes} style={{display: 'block', marginTop: '15px'}}><div style={{width:'100%'/*float:'left', width: '80px'*/}}>{mes}</div>{whiteDays}{diasMes}</div>; 
+        return <div className='col-md-3 col-sm-4 col-xs-6' key={'calmonth-'+mes} style={{display: 'block', marginTop: '15px'}}><div style={{width:'100%'/*float:'left', width: '80px'*/}}>{mes}</div>{whiteDays}{diasMes}</div>; 
     });
 
 
