@@ -6,10 +6,7 @@ import {RenderBarChart} from '../../../../components/renderBarChart';
 
 
 export default function Escritorio() {
-  let data = [{ name: 'Clase A', Alumnos: 25, Faltas: 10, },
-                { name: 'Clase B', Alumnos: 30, Faltas: 5, },
-                { name: 'Clase C', Alumnos: 22, Faltas: 4, },
-              ];
+  let data = [];
 
 
   const [sugerenciaEnviada, setSugerenciaEnviada] = useState(false);
