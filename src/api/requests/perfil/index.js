@@ -1,4 +1,4 @@
-import { idUser, getPerfil, updatePerfil } from "./../../constants";
+import { idUser, getPerfil, updateProfile } from "./../../constants";
 
 /*export const get_Perfil = () => {
   let formData = new FormData();
@@ -14,12 +14,12 @@ import { idUser, getPerfil, updatePerfil } from "./../../constants";
     });
 };*/
 
-export const update_Perfil = (data) => {
+export const update_Perfil = (objectData) => {
   let formData = new FormData();
   formData.append("idUser", idUser());
-  formData.append("json", JSON.stringify(data));
+  formData.append("json", JSON.stringify(objectData));
 
-  return fetch(updatePerfil, { method: "POST", body: formData })
+  return fetch(updateProfile, { method: "POST", body: formData })
     .then((response) => {
       return response;
     })

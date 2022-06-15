@@ -3,10 +3,8 @@ import { StyledInput } from './styled'
 
 export const CheckboxText = ({ placeholder, setValue, type, idInput, className, value }) => {
   const refInput = useRef(null);
-  const [data, setData] = useState(value);
 
   const handleInput = () => {
-    setData(refInput.current.checked);
     setValue(refInput.current.checked, idInput);
   }
 

@@ -12,29 +12,17 @@ export default function Perfil() {
     const dispatch = useDispatch();
     const profile = useSelector((state) => state.globalReducer.profile);
 
-    //const [dataBuilded, setDataBuilded] = useState(false);
-    const [data, setData] = useState(profile);
+    const [nombre, setNombre] = useState(profile.nombre);
+    const [clave, setClave] = useState('');
+    const [mock, setMock] = useState(profile.mock);
 
-    /*const getData = async () => {
-        if(!dataBuilded){
-          const data = await get_Perfil();
-          if(data){
-            setData(data.perfil)
-          }
-        }
-        setDataBuilded(true)
-    }*/
 
-    const updateData = () => {
-        dispatch(allActions.globalActions.setProfile({nombre: "", mock: "true"}));
-        console.log(data);
-        //update_Perfil(perfil);
-        //setDataBuilded(false);
-      }
-
-    /*useEffect( () =>{
-        if(!dataBuilded) getData();
-      }, [dataBuilded]);*/
+    const sendData = () => {
+        dispatch(allActions.globalActions.setProfile({nombre: nombre, mock: `${mock}`}));
+        const objectData = [{nombre: nombre, mock: `${mock}`, clave: clave}];
+        console.log(objectData);
+        update_Perfil(objectData);
+    }
 
     return (
         <>
@@ -44,21 +32,21 @@ export default function Perfil() {
 
             <div style={{backgroundColor: 'white', border: '1px #d9d9d9 solid', padding: '15px'}}>
                 <div className="row mt-4">
-                    <div className="col-6">
-                        <Input placeholder={'Nombre'} setValue={''} type={''} idInput={''} className={''} value={profile.nombre} />
+                    <div className="col-md-6 col-sm-6 col-xs-12">
+                        <Input placeholder={'Nombre'} setValue={setNombre} type={''} idInput={''} className={''} value={profile.nombre} />
                     </div>
-                    <div className="col-4">
-                        <Input placeholder={'Nueva clave'} setValue={''} type={''} idInput={''} className={''} value={''} />
+                    <div className="col-md-4 col-sm-6 col-xs-12">
+                        <Input placeholder={'Nueva clave (sólo si quieres cambiarla)'} setValue={setClave} type={''} idInput={''} className={''} value={''} />
                     </div>
-                    <div className="col-2">
+                    <div className="col-md-2 col-sm-6 col-xs-12 text-center">
                         <label>Datos de prueba</label><br/>
-                        <CheckboxText placeholder={''} setValue={''} type={'checkbox'} idInput={''} className={''} value={profile.mock} />
+                        <CheckboxText placeholder={''} setValue={setMock} type={'checkbox'} idInput={''} className={''} value={profile.mock} />
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-12">
-                        <Button text={'Actualizar'} onClick={updateData} className={''} />
+                        <Button text={'Actualizar'} onClick={sendData} className={''} />
                     </div>
                 </div>
             </div>
