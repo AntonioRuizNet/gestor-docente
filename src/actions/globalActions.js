@@ -12,4 +12,11 @@ const setPeriodo = (data) => {
   };
 };
 
-export default { setLogged, setPeriodo };
+const setMock = (data) => {
+  return {
+    type: "SET_MOCK",
+    payload: data,
+  };
+};
+
+export default { setLogged, setPeriodo, setMock };

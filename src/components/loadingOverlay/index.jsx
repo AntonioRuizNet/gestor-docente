@@ -8,7 +8,7 @@ export default function LoadingOverlay() {
         <Overlay>
             <ContainerBlock>
                 <Spinner animation="border" variant="light" />
-                <Title>Please wait...</Title>
+                <Title>Cargando...</Title>
             </ContainerBlock>
         </Overlay>
     )

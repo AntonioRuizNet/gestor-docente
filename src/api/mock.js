@@ -14,3 +14,11 @@ export const dataMock = [
   [10, "Agro Center", "9999999R", "957525252", "contacto@react.com"],
   [11, "Agro Center", "9999999R", "957525252", "contacto@react.com"],
 ];
+
+//=============== ESCRITORIO
+//Chart
+export const escritorioDataChart = [
+  { name: "Primero A", Alumnos: 25, Faltas: 10 },
+  { name: "Primero B", Alumnos: 24, Faltas: 6 },
+  { name: "Segundo A", Alumnos: 20, Faltas: 8 },
+];

@@ -1,6 +1,7 @@
 const initialState = {
   logged: false,
   periodo: "",
+  mock: "true",
 };
 
 function reducer(state = initialState, action) {
@@ -14,6 +15,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         periodo: action.payload,
+      };
+    case "SET_MOCK":
+      return {
+        ...state,
+        mock: action.payload,
       };
     default:
       return state;
