@@ -12,6 +12,7 @@ import { clearLocalStorage } from "./../../helpers/localStorage";
 import allActions from "../../actions";
 //Styles
 import { Root, BackgroundBody } from "./styles";
+import { FloatMessage } from "../../components/floatMessage";
 
 export default function Panel() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ export default function Panel() {
         {viewConfiguraciones && <Configuraciones />}
         {viewPerfil && <Perfil />}
       </BackgroundBody>
+      <FloatMessage />
     </Root>
   );
 }

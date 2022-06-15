@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 //Actions
 import allActions from "./../../../../actions";
@@ -22,6 +22,7 @@ export default function Perfil() {
         const objectData = [{nombre: nombre, mock: `${mock}`, clave: clave}];
         console.log(objectData);
         update_Perfil(objectData);
+        dispatch(allActions.globalActions.setFloatMessage({text: "Texto", state: 0, activate: true}));
     }
 
     return (
