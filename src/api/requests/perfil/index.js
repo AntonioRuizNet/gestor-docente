@@ -1,6 +1,6 @@
 import { idUser, getPerfil, updatePerfil } from "./../../constants";
 
-export const get_Perfil = () => {
+/*export const get_Perfil = () => {
   let formData = new FormData();
   formData.append("idUser", idUser());
 
@@ -12,7 +12,7 @@ export const get_Perfil = () => {
     .catch((error) => {
       console.error(error);
     });
-};
+};*/
 
 export const update_Perfil = (data) => {
   let formData = new FormData();
