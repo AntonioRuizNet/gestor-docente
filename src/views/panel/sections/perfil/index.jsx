@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //Actions
 import allActions from "./../../../../actions";
 //Components
@@ -10,6 +10,8 @@ import { CheckboxText } from '../../../../components/checkboxText';
 
 export default function Perfil() {
     const dispatch = useDispatch();
+    const profile = useSelector((state) => state.globalReducer.profile);
+
     const [dataBuilded, setDataBuilded] = useState(false);
     const [data, setData] = useState([]);
 
@@ -24,7 +26,7 @@ export default function Perfil() {
     }
 
     const updateData = () => {
-        dispatch(allActions.globalActions.setMock("true"));
+        dispatch(allActions.globalActions.setProfile({nombre: "", mock: "true"}));
         console.log(data);
         //update_Perfil(perfil);
         //setDataBuilded(false);
@@ -38,14 +40,14 @@ export default function Perfil() {
         <>
         <div className="row mt-4">
             <div className="col-4">
-                <Input placeholder={'Nombre'} setValue={''} type={''} idInput={''} className={''} value={''} />
+                <Input placeholder={'Nombre'} setValue={''} type={''} idInput={''} className={''} value={profile.nombre} />
             </div>
             <div className="col-4">
                 <Input placeholder={'Clave'} setValue={''} type={''} idInput={''} className={''} value={''} />
             </div>
             <div className="col-4">
                 <p>Datos de prueba</p>
-                <CheckboxText placeholder={''} setValue={''} type={''} idInput={''} className={''} value={''} />
+                <CheckboxText placeholder={''} setValue={''} type={''} idInput={''} className={''} value={profile.mock} />
             </div>
         </div>
         <div className="row">

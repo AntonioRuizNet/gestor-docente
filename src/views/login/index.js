@@ -34,11 +34,11 @@ export default function Login() {
   const [tokenCode, setTokenCode] = useState("");
   const dispatch = useDispatch();
 
-  const loginApp = (token, mock) => {
+  const loginApp = (token, mock, nombre) => {
     showModal(false);
     showLoading(false);
     dispatch(allActions.globalActions.setLogged(true));
-    dispatch(allActions.globalActions.setMock(mock));
+    dispatch(allActions.globalActions.setProfile({ nombre: nombre, mock: mock }));
     setLocalStorage("logged", true);
     setLocalStorage("token", token);
     const now = new Date();
@@ -54,7 +54,7 @@ export default function Login() {
       const response = await get_Profile(user, password);
       console.log(response);
       if (response.results.token !== "false") {
-        loginApp(response.results.token, response.results.mock);
+        loginApp(response.results.token, response.results.mock, response.results.nombre);
       } else {
         setModalText("Datos inválidos");
         showModal(true);
