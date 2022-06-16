@@ -1,7 +1,7 @@
 #RoadMap V1
 
-(1h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
-(1h) Escritorio > Enviar propuestas a Mysql
+/ (1h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
+X (1h) Escritorio > Enviar propuestas a Mysql
 
 (1h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
 X (0.2h) Alumnos > Tabla > Cambiar fecha por año nacimiento
@@ -10,7 +10,7 @@ X (0.2h) Alumnos > Asistencias > Cambiar color de texto a blanco con seleccionad
 X (0.5h) Alumnos > Asistencias > Botones de faltas hacerlos cuadrados
 X (2h) Alumnos > Asistencias > Poder cargar calendario del año siguiente para el periodo actual
 
-(2h) Ayuda > Enviar pregunta + Listado de preguntas y respuestas
+X (2h) Ayuda > Enviar pregunta + Listado de preguntas y respuestas
 
 X (0.5h) Login > Hacerlo mas intuitivo (mensaje de registro ok y por favor identifiquese)
 X (1h) Login > Añadir info de las opciones desarrolladas

@@ -32,6 +32,9 @@ export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";
 export const updateEvaluaciones = baseUrl + "/UPDATE_EVALUACIONES";
 
+export const sendMensaje = baseUrl + "/SEND_MENSAJE";
+export const getMensajes = baseUrl + "/GET_MENSAJES";
+
 export const roadMap = [
   { name: "Ficha del alumno", done: true },
   { name: "Gestión de asistencias", done: true },
@@ -39,7 +42,7 @@ export const roadMap = [
   { name: "Configuración de asignaturas y cursos", done: true },
   { name: "Configuración de evaluaciones y exámenes", done: true },
   { name: "Informes en PDF", done: false },
-  { name: "Estadísticas del escritorio", done: false },
+  { name: "Estadísticas en escritorio", done: true },
   { name: "Generador de fichas (operaciones básicas)", done: false },
   { name: "Gestión de tutorías", done: false },
   { name: "Diario", done: false },

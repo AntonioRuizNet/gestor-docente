@@ -6,25 +6,37 @@ import {RenderBarChart} from '../../../../components/renderBarChart';
 import { FloatMessage } from '../../../../components/floatMessage';
 import {roadMap} from '../../../../api/constants'
 import {escritorioFaltasDataChart, escritorioNotasDataChart} from './../../../../api/mock';
+import {send_Mensaje} from './../../../../api/requests/globals'
 
-export default function Escritorio() {
-  let data = [];
+export default function Escritorio({accounts}) {
+  let dataFaltas = [];
+  let dataNotas = [];
 
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
   const [sugerenciaEnviada, setSugerenciaEnviada] = useState(false);
+  let sugerencias;
+
   const roadMapDone = <FaFlagCheckered style={{color: '#4e73df'}}/>;
   const roadMapPending = <FaFlag style={{color: '#e1d300'}}/>;
-  
-
   const styleRoadMapItems = {margin: '5px 0px', fontSize: '14px'};
+
+  const setSugerencias = (data) => {
+    sugerencias = data;
+  }
 
   const enviarSugerencia = () =>{
     setSugerenciaEnviada(true);
-    //Send floatMessage
-    setMessageActive({text: "Solicitud enviada", state: 1, activate: true});
-    setTimeout(function() { 
-        setMessageActive({text: "", state: 0, activate: false}); 
-    }, 4000);
+
+    send_Mensaje(sugerencias, 'Sugerencia')
+      .then((response,reject) => {
+        if(response.ok){ 
+          //Send floatMessage
+          setMessageActive({text: "Solicitud enviada", state: 1, activate: true});
+          setTimeout(function() { 
+              setMessageActive({text: "", state: 0, activate: false}); 
+          }, 4000);
+        }
+    })
   }
 
   const AgradecimientoSugerencia = () => {
@@ -51,7 +63,7 @@ export default function Escritorio() {
             
       <div className='row mt-3'>
         <div className='col-12'>
-          <Textarea setValue={()=>null} idInput={'sugerencias'} className={''} />
+          <Textarea setValue={setSugerencias} idInput={'sugerencias'} className={''} value={''}/>
         </div>
         <div className='col-12'>
           <Button text={'Enviar'} onClick={() => enviarSugerencia()} className={'form-control btn-info'}/>
@@ -60,6 +72,7 @@ export default function Escritorio() {
       </>
     )
   }
+  
 
   return (
     <>
@@ -67,10 +80,10 @@ export default function Escritorio() {
       <div className="col-md-8 col-sm-6 col-xs-12">Escritorio<hr/>
       <div className='row'>
         <div className="col-12" style={{height: '300px'}}>
-        <RenderBarChart data={data} mocked={escritorioFaltasDataChart} dataKey1={"Alumnos"} dataKey2={"Faltas"}/>
+        <RenderBarChart data={dataFaltas} mocked={escritorioFaltasDataChart} dataKey1={"Alumnos"} dataKey2={"Faltas"}/>
         </div>
         <div className="col-12 mt-4" style={{height: '300px'}}>
-        <RenderBarChart data={data} mocked={escritorioNotasDataChart} dataKey1={"Alumnos"} dataKey2={"Notas"}/>
+        <RenderBarChart data={dataNotas} mocked={escritorioNotasDataChart} dataKey1={"Alumnos"} dataKey2={"Notas"}/>
         </div>
       </div>
       </div>
