@@ -1,6 +1,6 @@
 #RoadMap V1
 
-/ (1h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
+/ (0.5h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
 (1h) -> Agregar datos de prueba a todos los menus / Si el modo prueba esta activo, no realizar updates + aviso
 (1h) Alumnos > Ficha Agregar items a las tabs faltantes y renombrar items de Escolar & Familiar
 (0.5h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
