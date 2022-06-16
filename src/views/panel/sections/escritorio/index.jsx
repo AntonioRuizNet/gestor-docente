@@ -5,7 +5,7 @@ import { Textarea } from '../../../../components/textarea';
 import {RenderBarChart} from '../../../../components/renderBarChart';
 import { FloatMessage } from '../../../../components/floatMessage';
 import {roadMap} from '../../../../api/constants'
-
+import {escritorioFaltasDataChart, escritorioNotasDataChart} from './../../../../api/mock';
 
 export default function Escritorio() {
   let data = [];
@@ -64,8 +64,15 @@ export default function Escritorio() {
   return (
     <>
     <div className='row'>
-      <div className="col-md-8 col-sm-6 col-xs-12" style={{height: '600px'}}>Escritorio<hr/>
-      <RenderBarChart data={data}/>
+      <div className="col-md-8 col-sm-6 col-xs-12">Escritorio<hr/>
+      <div className='row'>
+        <div className="col-12" style={{height: '300px'}}>
+        <RenderBarChart data={data} mocked={escritorioFaltasDataChart} dataKey1={"Alumnos"} dataKey2={"Faltas"}/>
+        </div>
+        <div className="col-12 mt-4" style={{height: '300px'}}>
+        <RenderBarChart data={data} mocked={escritorioNotasDataChart} dataKey1={"Alumnos"} dataKey2={"Notas"}/>
+        </div>
+      </div>
       </div>
       
       <div className='col-md-4 col-sm-6 col-xs-12'>

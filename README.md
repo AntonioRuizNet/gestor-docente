@@ -4,9 +4,9 @@
 (1h) Escritorio > Enviar propuestas a Mysql
 
 (1h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
-(0.2h) Alumnos > Tabla > Cambiar fecha por año nacimiento
+X (0.2h) Alumnos > Tabla > Cambiar fecha por año nacimiento
 (1h) Alumnos > Ficha Agregar items a las tabs faltantes y renombrar items de Escolar & Familiar
-(0.2h) Alumnos > Asistencias > Cambiar color de texto a blanco con seleccionados y usar mismo textarea en observaciones
+X (0.2h) Alumnos > Asistencias > Cambiar color de texto a blanco con seleccionados y usar mismo textarea en observaciones
 X (0.5h) Alumnos > Asistencias > Botones de faltas hacerlos cuadrados
 X (2h) Alumnos > Asistencias > Poder cargar calendario del año siguiente para el periodo actual
 

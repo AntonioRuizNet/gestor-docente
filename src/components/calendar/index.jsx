@@ -52,7 +52,7 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
     }
 
     const colorDay = (valor) =>{
-        let style = {display: 'inline-flex', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: colorTypes(valor), cursor: 'pointer'};
+        let style = {display: 'inline-flex', border: '0.5px #ededed solid', width: '16.5px', backgroundColor: colorTypes(valor), cursor: 'pointer', color: 'black'};
         return style;
     }
 
@@ -74,8 +74,7 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
                 </div>
                 <div className="row mt-3">
                     <div className="text-center">Observaciones</div>
-                    <p>{obs}</p>
-                    <Textarea setValue={saveObs} idInput={'asist-detail-obs'} className={''}/>
+                    <Textarea setValue={saveObs} idInput={'asist-detail-obs'} className={''} value={obs}/>
                 </div>
                 <div className="row">
                     <Button className={'col-12 btn-primary'} text={'Guardar observaciones'} onClick={()=>updateObs()} />

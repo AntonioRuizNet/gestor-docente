@@ -3,20 +3,19 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 //Demo
 import { useSelector } from "react-redux";
-import {escritorioDataChart} from './../../api/mock';
 
-export const RenderBarChart = ({data}) => {
+export const RenderBarChart = ({data, mocked, dataKey1, dataKey2}) => {
     const mock = useSelector((state) => state.globalReducer.profile.mock);
     return (
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart width={500} height={300} data={mock==="true"?escritorioDataChart:data} margin={{top: 5, right: 30, left: 20, bottom: 5,}} >
+        <BarChart width={500} height={300} data={mock==="true"?mocked:data} margin={{top: 5, right: 30, left: 20, bottom: 5,}} >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Alumnos" fill="#00b3c5" />
-          <Bar dataKey="Faltas" fill="#4e73df" />
+          <Bar dataKey={dataKey1} fill="#00b3c5" />
+          <Bar dataKey={dataKey2} fill="#4e73df" />
         </BarChart>
       </ResponsiveContainer>
     )
