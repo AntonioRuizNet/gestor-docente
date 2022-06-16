@@ -7,10 +7,12 @@ import { Textarea } from "./../../../../components/textarea";
 import {TabsPanels} from './../../../../components/tabsPanels'
 import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
+import { FloatMessage } from '../../../../components/floatMessage';
+
 import {updateData} from './../../../../api/requests/contacts'
 
 const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel}) => {
-
+  const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
     const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
@@ -209,6 +211,12 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
 
     const sendData = (type) => {
+      //Send floatMessage
+      setMessageActive({text: "Cambios guardados", state: 1, activate: true});
+      setTimeout(function() { 
+          setMessageActive({text: "", state: 0, activate: false}); 
+      }, 4000);
+      
       let data = '';
       if(type==="updateContextoEscolar") data = contextoEscolar;
       if(type==="updateContextoFamiliar") data = contextoFamiliar;
@@ -219,7 +227,10 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
       updateData(type, data)
       .then((response,reject) => {
-        if(response.ok){ setDataBuilded(false); setActiveModalPanel(false); }
+        if(response.ok){ 
+          setDataBuilded(false); 
+          setActiveModalPanel(false); 
+        }
       })
     }
 
@@ -292,8 +303,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     }
 
     return (
+      <>
         <ModalPanel info={
-            
             linea.id===undefined
               ? <>
               <h4>{'Alta nueva'}</h4> <hr />
@@ -325,6 +336,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
             </>
           } closePanel={closePanel}
         />
+        {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
+        </>
       );
 }
 

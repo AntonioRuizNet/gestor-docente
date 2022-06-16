@@ -7,6 +7,7 @@ import { Button } from '../../../../components/button';
 import {update_Perfil} from './../../../../api/requests/perfil'
 import {Input} from './../../../../components/input'
 import { CheckboxText } from '../../../../components/checkboxText';
+import { FloatMessage } from '../../../../components/floatMessage';
 
 export default function Perfil() {
     const dispatch = useDispatch();
@@ -16,13 +17,20 @@ export default function Perfil() {
     const [clave, setClave] = useState('');
     const [mock, setMock] = useState(profile.mock);
 
+    const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
+
 
     const sendData = () => {
         dispatch(allActions.globalActions.setProfile({nombre: nombre, mock: `${mock}`}));
         const objectData = [{nombre: nombre, mock: `${mock}`, clave: clave}];
         console.log(objectData);
         update_Perfil(objectData);
-        dispatch(allActions.globalActions.setFloatMessage({text: "Texto", state: 0, activate: true}));
+
+        //Send floatMessage
+        setMessageActive({text: "Cambios guardados", state: 1, activate: true});
+        setTimeout(function() { 
+            setMessageActive({text: "", state: 0, activate: false}); 
+        }, 4000);
     }
 
     return (
@@ -51,6 +59,7 @@ export default function Perfil() {
                     </div>
                 </div>
             </div>
+            {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
         </>
     )
 }

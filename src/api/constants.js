@@ -31,3 +31,15 @@ export const updateNotas = baseUrl + "/UPDATE_NOTAS";
 export const getConfiguraciones = baseUrl + "/GET_CONFIGURACIONES";
 export const updateConfigurador = baseUrl + "/UPDATE_CONFIGURACIONES";
 export const updateEvaluaciones = baseUrl + "/UPDATE_EVALUACIONES";
+
+export const roadMap = [
+  { name: "Ficha del alumno", done: true },
+  { name: "Gestión de asistencias", done: true },
+  { name: "Gestión de notas", done: true },
+  { name: "Configuración de asignaturas y cursos", done: true },
+  { name: "Configuración de evaluaciones y exámenes", done: true },
+  { name: "Exportación en PDF", done: false },
+  { name: "Estadísticas del escritorio", done: false },
+  { name: "Generador de fichas (operaciones básicas)", done: false },
+  { name: "Gestión de tutorías", done: false },
+];

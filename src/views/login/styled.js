@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Background = styled.div`
-  height: 100vh !important;
+  height: 100% !important;
   background: #03a5b4;
   background-position: -800px -230px, right bottom;
   background-size: 1900px, 300px;
@@ -12,13 +12,14 @@ export const Background = styled.div`
 export const LogoBlock = styled.div`
   margin: auto;
   max-width: 500px;
-  padding: 7rem 1rem 1rem 1rem;
+  padding: 4rem 1rem 1rem 1rem;
 `;
 
 export const LoginBlock = styled.div`
   margin: auto;
   max-width: 500px;
   padding: 2rem;
+  background-color: #0893a0;
 `;
 
 export const InputBlock = styled.div`

@@ -3,30 +3,28 @@ import { FaFlagCheckered, FaFlag, FaRegCheckCircle } from "react-icons/fa";
 import { Button } from '../../../../components/button';
 import { Textarea } from '../../../../components/textarea';
 import {RenderBarChart} from '../../../../components/renderBarChart';
+import { FloatMessage } from '../../../../components/floatMessage';
+import {roadMap} from '../../../../api/constants'
 
 
 export default function Escritorio() {
   let data = [];
 
-
+  const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
   const [sugerenciaEnviada, setSugerenciaEnviada] = useState(false);
   const roadMapDone = <FaFlagCheckered style={{color: '#4e73df'}}/>;
   const roadMapPending = <FaFlag style={{color: '#e1d300'}}/>;
-  const roadMap = [
-    {name:'Ficha del alumno', icon: roadMapDone}, 
-    {name:'Gestión de asistencias', icon: roadMapDone}, 
-    {name:'Gestión de notas', icon: roadMapDone},
-    {name:'Configuración de asignaturas y cursos', icon: roadMapDone},
-    {name:'Configuración de evaluaciones y exámenes', icon: roadMapDone},
-    {name:'Exportación en PDF', icon: roadMapPending},
-    {name:'Estadísticas del escritorio', icon: roadMapPending},
-    {name:'Generador de fichas (operaciones básicas)', icon: roadMapPending},
-    {name:'Gestión de tutorías', icon: roadMapPending}];
+  
 
   const styleRoadMapItems = {margin: '5px 0px', fontSize: '14px'};
 
   const enviarSugerencia = () =>{
     setSugerenciaEnviada(true);
+    //Send floatMessage
+    setMessageActive({text: "Solicitud enviada", state: 1, activate: true});
+    setTimeout(function() { 
+        setMessageActive({text: "", state: 0, activate: false}); 
+    }, 4000);
   }
 
   const AgradecimientoSugerencia = () => {
@@ -77,7 +75,7 @@ export default function Escritorio() {
             <div style={{backgroundColor: 'white', border: '1px #d9d9d9 solid', padding: '15px'}}>
                 <h2>Ruta de desarrollo<hr/></h2>
                 {roadMap.map( r => {
-                  return <p style={styleRoadMapItems}>{r.icon} {r.name}</p>
+                  return <p style={styleRoadMapItems}>{r.done?roadMapDone:roadMapPending} {r.name}</p>
                 })}
             </div>
           </div>
@@ -91,6 +89,7 @@ export default function Escritorio() {
         </div>
       </div>
     </div>
+    {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
     </>
   )
 }

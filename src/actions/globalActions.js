@@ -19,11 +19,4 @@ const setProfile = (data) => {
   };
 };
 
-const setFloatMessage = (data) => {
-  return {
-    type: "SET_FLOAT_MESSAGE",
-    payload: data,
-  };
-};
-
-export default { setLogged, setPeriodo, setProfile, setFloatMessage };
+export default { setLogged, setPeriodo, setProfile };

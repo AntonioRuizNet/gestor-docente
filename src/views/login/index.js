@@ -10,6 +10,7 @@ import { Modal } from "../../components/modal";
 import LoadingOverlay from "../../components/loadingOverlay";
 //Constants
 import { get_Profile, check_Email } from "../../api/requests/login";
+import { roadMap } from "./../../api/constants";
 
 //Actions
 import allActions from "../../actions";
@@ -21,6 +22,7 @@ import { set_Profile } from "./../../api/requests/login";
 //Styles
 import { Background, LogoBlock, LoginBlock, InputBlock, SubmitBlock } from "./styled";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { FloatMessage } from "../../components/floatMessage";
 
 export default function Login() {
   const [user, setUser] = useState("");
@@ -33,6 +35,7 @@ export default function Login() {
   const [emailCode, setEmailCode] = useState("");
   const [tokenCode, setTokenCode] = useState("");
   const dispatch = useDispatch();
+  const [messageActive, setMessageActive] = useState({ text: "Texto", state: 0, active: false });
 
   const loginApp = (token, mock, nombre) => {
     showModal(false);
@@ -65,9 +68,15 @@ export default function Login() {
 
   const handleRegister = () => {
     let nombre = "Nuevo usuario";
-    console.log(nombre, password, user);
+    //console.log(nombre, password, user);
     set_Profile(nombre, password, user);
     setLoginForm("login");
+
+    //Send floatMessage
+    setMessageActive({ text: "Registro enviado, por favor ahora identifícate.", state: 1, activate: true });
+    setTimeout(function () {
+      setMessageActive({ text: "", state: 0, activate: false });
+    }, 4000);
   };
 
   const generateRecoverCode = () => {
@@ -160,13 +169,13 @@ export default function Login() {
               ""
             )}
           </InputBlock>
-          <SubmitBlock style={{ marginTop: "30px" }}>
+          <SubmitBlock style={{ marginTop: "20px" }}>
             {loginForm === "login" ? <Button text={"Identifícate"} onClick={handleLogin} /> : ""}
             {loginForm === "register" ? <Button text={"Regístrate"} onClick={handleRegister} /> : ""}
             {loginForm === "recover" && recoverCode === "" ? <Button text={"Enviar email"} onClick={handleRecover} /> : ""}
             {loginForm === "recover" && recoverCode !== "" ? <Button text={"Comprobar código"} onClick={checkRecover} /> : ""}
           </SubmitBlock>
-          <p style={{ marginTop: "50px" }}>
+          <p style={{ marginTop: "25px" }}>
             {loginForm === "login" ? (
               <a href="#" onClick={() => setLoginForm("register")}>
                 Regístrate
@@ -187,10 +196,25 @@ export default function Login() {
             </a>
           </p>
         </LoginBlock>
+        <hr />
+        <div className="row">
+          <div className="col-12 text-center mt-4" style={{ color: "white", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "whitesmoke" }}>
+            <b>Version BETA | Funciones disponibles actualmente. Estamos en continuo desarrollo.</b>
+          </div>
+          {roadMap.map((r) => {
+            if (r.done)
+              return (
+                <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "white", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "whitesmoke" }}>
+                  {r.name}
+                </div>
+              );
+          })}
+        </div>
       </Background>
       {modal ? <Modal text={modalText}></Modal> : ""}
       {loading && <LoadingOverlay></LoadingOverlay>}
       <div id="recoverBlock"></div>
+      {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state} />}
     </>
   );
 }

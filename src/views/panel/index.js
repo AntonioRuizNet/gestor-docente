@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 //Sections
 import { Sidebar } from "./sidebar";
 import Escritorio from "./sections/escritorio";
@@ -12,7 +12,6 @@ import { clearLocalStorage } from "./../../helpers/localStorage";
 import allActions from "../../actions";
 //Styles
 import { Root, BackgroundBody } from "./styles";
-import { FloatMessage } from "../../components/floatMessage";
 
 export default function Panel() {
   const dispatch = useDispatch();
@@ -69,7 +68,6 @@ export default function Panel() {
         {viewConfiguraciones && <Configuraciones />}
         {viewPerfil && <Perfil />}
       </BackgroundBody>
-      <FloatMessage />
     </Root>
   );
 }

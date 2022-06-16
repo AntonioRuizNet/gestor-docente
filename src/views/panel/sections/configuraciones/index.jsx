@@ -5,10 +5,12 @@ import { Button } from '../../../../components/button';
 import {get_Configuraciones, update_Configurador, update_Evaluaciones} from './../../../../api/requests/configuraciones'
 import {Input} from './../../../../components/input'
 import {TabsPanels} from './../../../../components/tabsPanels'
+import { FloatMessage } from '../../../../components/floatMessage';
+
 import {AiOutlineSave, AiFillDelete} from 'react-icons/ai'
 
 export default function Configuraciones() {
-
+  const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
   const periodo = useSelector((state) => state.globalReducer.periodo);
   const [dataBuilded, setDataBuilded] = useState(false);
 
@@ -38,6 +40,12 @@ export default function Configuraciones() {
       update_Evaluaciones(id, table, operation, value, periodo, tipo)
     }
     setDataBuilded(false);
+
+    //Send floatMessage
+    setMessageActive({text: "Cambios guardados", state: 1, activate: true});
+    setTimeout(function() { 
+        setMessageActive({text: "", state: 0, activate: false}); 
+    }, 4000);
   }
 
   const getValueById = (id) => {
@@ -95,6 +103,7 @@ export default function Configuraciones() {
                     ]}
           />
         }
+        {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
     </>
   )
 }
