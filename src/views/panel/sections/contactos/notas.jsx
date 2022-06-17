@@ -5,13 +5,14 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import ModalPanel from '../../../../components/modalPanel'
 import {TabsPanels} from './../../../../components/tabsPanels'
+import { FloatMessage } from '../../../../components/floatMessage';
 
 import {updateData} from '../../../../api/requests/contacts'
 
 import {get_Configuraciones} from '../../../../api/requests/configuraciones'
 
-const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
-
+const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal, mock}) => {
+  const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
     const periodo = useSelector((state) => state.globalReducer.periodo);
 
     const [dataBuilded, setDataBuilded] = useState(false);
@@ -102,9 +103,15 @@ const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
 
     const sendData = (type) => {
       console.log('sendData')
-      if(type==="trimestral") updateData('updateNotas', evaluacionesBuilded)
-      if(type==="examen") updateData('updateNotas', examenesBuilded)
+      if(type==="trimestral" && mock!=="true") updateData('updateNotas', evaluacionesBuilded)
+      if(type==="examen" && mock!=="true") updateData('updateNotas', examenesBuilded)
       setDataBuildedGlobal(false);
+
+      //Send floatMessage
+      setMessageActive({text: "Cambios guardados", state: 1, activate: true});
+      setTimeout(function() { 
+          setMessageActive({text: "", state: 0, activate: false}); 
+      }, 4000);
     }
 
     const EvaluacionesBlock = ({builded, tipo}) => {
@@ -156,6 +163,7 @@ const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
   
   
     return (
+      <>
         <ModalPanel info={
           <TabsPanels titles={['Exámenes', 'Evaluaciones']} 
                     contents={[
@@ -165,6 +173,8 @@ const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
           />
             } closePanel={closePanel}
         />
+        {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
+        </>
       );
 }
 

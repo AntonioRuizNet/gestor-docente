@@ -7,16 +7,18 @@ import { Textarea } from "./../../../../components/textarea";
 import {TabsPanels} from './../../../../components/tabsPanels'
 import {Select} from './../../../../components/select'
 import ModalPanel from './../../../../components/modalPanel'
+import { FloatMessage } from '../../../../components/floatMessage';
+
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel, cursos, mock}) => {
+  const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
+  //Genero nuevo array para pintar checkbox fácil
+  const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
+  const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
 
-    //Genero nuevo array para pintar checkbox fácil
-    const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
-    const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
-
-    const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
-    const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
+  const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
+  const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
 
     //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
     
@@ -58,19 +60,21 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
     const updateContextoMedico = (valor, idContexto) => {
       console.log(valor, idContexto)
-      if(idContexto==="tratamientoMedico") contextoMedico.tratamientoMedico = ''+valor;
-      if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
+      
 
       if(idContexto==="alergias") contextoMedico.alergias = ''+valor;
       if(idContexto==="enfermedades") contextoMedico.enfermedades = ''+valor;
+
+      if(idContexto==="tratamientoMedico") contextoMedico.tratamientoMedico = ''+valor;
+      if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
       if(idContexto==="deficitAuditivo") contextoMedico.deficitAuditivo = ''+valor;
       if(idContexto==="deficitVisual") contextoMedico.deficitVisual = ''+valor;
       if(idContexto==="deficitTactil") contextoMedico.deficitTactil = ''+valor;
       if(idContexto==="deficitRespiratorio") contextoMedico.deficitRespiratorio = ''+valor;
       if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
       if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
-      if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
 
+      if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
       if(idContexto==="observacionesMedicas") contextoMedico.observacionesMedicas = ''+valor;
       console.log(contextoMedico);
     }
@@ -82,26 +86,27 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       console.log(contextoEscolar);
       if(contextoEscolarLoaded===false){
         let contextoEscolarBuild = [
-          {id: 'Responsable', value: contextoEscolar.responsable},
-          {id: 'Despreocupado', value: contextoEscolar.despreocupado},
-          {id: 'Motivado', value: contextoEscolar.motivado},
-          {id: 'Desmotivado', value: contextoEscolar.desmotivado},
-          {id: 'Atento', value: contextoEscolar.atento},
-          {id: 'Distraido', value: contextoEscolar.distraido},
-          {id: 'Reflexivo', value: contextoEscolar.reflexivo},
-          {id: 'Impulsivo', value: contextoEscolar.impulsivo},
-          {id: 'Independiente', value: contextoEscolar.independiente},
-          {id: 'Dependiente', value: contextoEscolar.dependiente},
-          {id: 'Organizado', value: contextoEscolar.organizado},
-          {id: 'Desorganizado', value: contextoEscolar.desorganizado},
-          {id: 'comprensionLectora', value: contextoEscolar.comprensionLectora},
-          {id: 'comprensionOral', value: contextoEscolar.comprensionOral},
-          {id: 'expresionEscrita', value: contextoEscolar.expresionEscrita},
-          {id: 'expresionOral', value: contextoEscolar.expresionOral},
-          {id: 'calculo', value: contextoEscolar.calculo},
-          {id: 'resolucionDeProblemas', value: contextoEscolar.resolucionDeProblemas},
-          {id: 'ortografia', value: contextoEscolar.ortografia},
-          {id: 'vocabulario', value: contextoEscolar.vocabulario},
+          {id: 'curso', value: contextoEscolar.curso, name:'Curso'},
+          {id: 'Responsable', value: contextoEscolar.responsable, name:'Responsable'},
+          {id: 'Despreocupado', value: contextoEscolar.despreocupado, name:'Despreocupado'},
+          {id: 'Motivado', value: contextoEscolar.motivado, name:'Motivado'},
+          {id: 'Desmotivado', value: contextoEscolar.desmotivado, name:'Desmotivado'},
+          {id: 'Atento', value: contextoEscolar.atento, name:'Atento'},
+          {id: 'Distraido', value: contextoEscolar.distraido, name:'Distraido'},
+          {id: 'Reflexivo', value: contextoEscolar.reflexivo, name:'Reflexivo'},
+          {id: 'Impulsivo', value: contextoEscolar.impulsivo, name:'Impulsivo'},
+          {id: 'Independiente', value: contextoEscolar.independiente, name:'Independiente'},
+          {id: 'Dependiente', value: contextoEscolar.dependiente, name:'Dependiente'},
+          {id: 'Organizado', value: contextoEscolar.organizado, name:'Organizado'},
+          {id: 'Desorganizado', value: contextoEscolar.desorganizado, name:'Desorganizado'},
+          {id: 'comprensionLectora', value: contextoEscolar.comprensionLectora, name:'Comprensión lectora'},
+          {id: 'comprensionOral', value: contextoEscolar.comprensionOral, name:'Comprensión oral'},
+          {id: 'expresionEscrita', value: contextoEscolar.expresionEscrita, name:'Expresión escrita'},
+          {id: 'expresionOral', value: contextoEscolar.expresionOral, name:'Expresión oral'},
+          {id: 'calculo', value: contextoEscolar.calculo, name:'Cálculo'},
+          {id: 'resolucionDeProblemas', value: contextoEscolar.resolucionDeProblemas, name:'Resolución de problemas'},
+          {id: 'ortografia', value: contextoEscolar.ortografia, name:'Ortografia'},
+          {id: 'vocabulario', value: contextoEscolar.vocabulario, name:'Vocabulario'},
         ];
 
         console.log(contextoEscolarBuild)
@@ -141,6 +146,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.habitosEstudio = ''+valor;
       if(idContexto==="insersionSocial_comportamiento") contextoEscolar.comportamiento = ''+valor;
       if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
+      if(idContexto==="curso") contextoEscolar.curso = ''+valor;
       console.log(contextoEscolar);
     }
 
@@ -150,27 +156,27 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       console.log(contextoFamiliar);
       if(contextoFamiliarLoaded===false){
         let contextoFamiliarBuild = [
-          {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo},
-          {id: 'conocenCausasACNEAE', value: contextoFamiliar.conocenCausasACNEAE},
-          {id: 'excesivaProteccion', value: contextoFamiliar.excesivaProteccion},
-          {id: 'refuerzanLogros', value: contextoFamiliar.refuerzanLogros},
-          {id: 'castiganConductasDisruptivas', value: contextoFamiliar.castiganConductasDisruptivas},
-          {id: 'dialoganHijo', value: contextoFamiliar.dialoganHijo},
-          {id: 'presentanColaboracion', value: contextoFamiliar.presentanColaboracion},
-          {id: 'demandanReunionesTutor', value: contextoFamiliar.demandanReunionesTutor},
-          {id: 'colaboranSoloSiTutorLoPide', value: contextoFamiliar.colaboranSoloSiTutorLoPide},
-          {id: 'organizanTiempoDeEstudio', value: contextoFamiliar.organizanTiempoDeEstudio},
-          {id: 'refuerzanAprendizaje', value: contextoFamiliar.refuerzanAprendizaje},
-          {id: 'controlanEstudioDiario', value: contextoFamiliar.controlanEstudioDiario},
+          {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo, name: 'Aceptan situación hijo'},
+          {id: 'conocenCausasACNEAE', value: contextoFamiliar.conocenCausasACNEAE, name: 'Conocen causas ACNEAE'},
+          {id: 'excesivaProteccion', value: contextoFamiliar.excesivaProteccion, name: 'Excesiva protección'},
+          {id: 'refuerzanLogros', value: contextoFamiliar.refuerzanLogros, name: 'Refuerzan logros'},
+          {id: 'castiganConductasDisruptivas', value: contextoFamiliar.castiganConductasDisruptivas, name: 'Castigan conductas disruptivas'},
+          {id: 'dialoganHijo', value: contextoFamiliar.dialoganHijo, name: 'Dialogan con hijo'},
+          {id: 'presentanColaboracion', value: contextoFamiliar.presentanColaboracion, name: 'Presentan colaboración'},
+          {id: 'demandanReunionesTutor', value: contextoFamiliar.demandanReunionesTutor, name: 'Demandan reuniones tutor'},
+          {id: 'colaboranSoloSiTutorLoPide', value: contextoFamiliar.colaboranSoloSiTutorLoPide, name: 'Colaboran solo si tutor lo pide'},
+          {id: 'organizanTiempoDeEstudio', value: contextoFamiliar.organizanTiempoDeEstudio, name: 'Organizan tiempo de estudio'},
+          {id: 'refuerzanAprendizaje', value: contextoFamiliar.refuerzanAprendizaje, name: 'Refuerzan aprendizaje'},
+          {id: 'controlanEstudioDiario', value: contextoFamiliar.controlanEstudioDiario, name: 'Controlan estudio diario'},
 
-          {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre},
-          {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre},
-          {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre},
-          {id: 'desempleoMadre', value: contextoFamiliar.desempleoMadre},
-          {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre},
-          {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre},
-          {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos},
-          {id: 'custodiaOtros', value: contextoFamiliar.custodiaOtros},
+          {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre, name: 'Fallecimiento padre'},
+          {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre, name: 'Fallecimiento madre'},
+          {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre, name: 'Desempleo padre'},
+          {id: 'desempleoMadre', value: contextoFamiliar.desempleoMadre, name: 'Desempleo madre'},
+          {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre, name: 'Custodia padre'},
+          {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre, name: 'Custodia madre'},
+          {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos, name: 'Custodia abuelos'},
+          {id: 'custodiaOtros', value: contextoFamiliar.custodiaOtros, name: 'Custodia otros'},
         ];
 
         console.log(contextoFamiliarBuild)
@@ -209,6 +215,12 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
 
     const sendData = (type) => {
+      //Send floatMessage
+      setMessageActive({text: "Cambios guardados", state: 1, activate: true});
+      setTimeout(function() { 
+          setMessageActive({text: "", state: 0, activate: false}); 
+      }, 4000);
+      
       let data = '';
       if(type==="updateContextoEscolar") data = contextoEscolar;
       if(type==="updateContextoFamiliar") data = contextoFamiliar;
@@ -217,9 +229,13 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(type==="createAccount") data = linea;
       if(type==="removeAccount") data = linea;
 
+      if(mock!=="true")
       updateData(type, data)
       .then((response,reject) => {
-        if(response.ok){ setDataBuilded(false); setActiveModalPanel(false); }
+        if(response.ok){ 
+          setDataBuilded(false); 
+          setActiveModalPanel(false); 
+        }
       })
     }
 
@@ -232,11 +248,67 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 <div className="col-md-6 col-sm-12">
                   <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
                 </div>
-                <div className="col-md-4 col-sm-12">
+
+                <div className="col-md-4 col-sm-6">
                   <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
                 </div>
+                <div className="col-md-2 col-sm-6">
+                  <Input placeholder={"Nº hermanos"} setValue={updateContextoPersonal} type={"text"} idInput={"nHermanos"} className={""} value={linea.nHermanos} />
+                </div>
+                <div className="col-md-2 col-sm-6">
+                  <Input placeholder={"Grupo"} setValue={updateContextoPersonal} type={"text"} idInput={"grupo"} className={""} value={linea.grupo} />
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <Input placeholder={"Puesto"} setValue={updateContextoPersonal} type={"text"} idInput={"puesto"} className={""} value={linea.puesto} />
+                </div>
+
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
+                </div>
+
+                <div className="col-md-5 col-sm-8">
+                  <Input placeholder={"Localidad"} setValue={updateContextoPersonal} type={"text"} idInput={"localidad"} className={""} value={linea.localidad} />
+                </div>
+                <div className="col-md-2 col-sm-4">
+                  <Input placeholder={"CP"} setValue={updateContextoPersonal} type={"text"} idInput={"cp"} className={""} value={linea.cp} />
+                </div>
+                <div className="col-md-5 col-sm-12">
+                  <Input placeholder={"Provincia"} setValue={updateContextoPersonal} type={"text"} idInput={"provincia"} className={""} value={linea.provincia} />
+                </div>
+
+                <hr style={{marginTop: '20px', marginBottom: '30px'}}/>
+
+                <div className="col-md-9 col-sm-12">
+                  <Input placeholder={"Nombre padre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombrePadre"} className={""} value={linea.nombrePadre} />
+                </div>
+                <div className="col-md-3 col-sm-12">
+                  <Input placeholder={"Telefono padre"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoPadre"} className={""} value={linea.telefonoPadre} />
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Estudios padre"} setValue={updateContextoPersonal} type={"text"} idInput={"estudiosPadre"} className={""} value={linea.estudiosPadre} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Profesion padre"} setValue={updateContextoPersonal} type={"text"} idInput={"profesionPadre"} className={""} value={linea.profesionPadre} />
+                </div>
+
+                <div className="col-md-9 col-sm-12">
+                  <Input placeholder={"Nombre madre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombreMadre"} className={""} value={linea.nombreMadre} />
+                </div>
+                <div className="col-md-3 col-sm-12">
+                  <Input placeholder={"Telefono madre"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoMadre"} className={""} value={linea.telefonoMadre} />
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Estudios madre"} setValue={updateContextoPersonal} type={"text"} idInput={"estudiosMadre"} className={""} value={linea.estudiosMadre} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Profesion madre"} setValue={updateContextoPersonal} type={"text"} idInput={"profesionMadre"} className={""} value={linea.profesionMadre} />
+                </div>
+
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Contacto urgencia"} setValue={updateContextoPersonal} type={"text"} idInput={"contactoUrgencia"} className={""} value={linea.contactoUrgencia} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Telefono urgencia"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoUrgencia"} className={""} value={linea.telefonoUrgencia} />
                 </div>
 
                 <div className="col-md-12 col-sm-12 mt-3" style={{textAlign: 'right'}}>
@@ -250,9 +322,46 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     const ContextoMedico = () => {
       return (
         <div className="row">
-                <div className="col-md-12 col-sm-12">
-                  <Input placeholder={"Tratamiento médico"} setValue={updateContextoMedico} type={"text"} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico} />
+
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit auditivo"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitAuditivo"} className={""} value={contextoMedico.deficitAuditivo}/>
                 </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit visual"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitVisual"} className={""} value={contextoMedico.deficitVisual}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit tactil"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitTactil"} className={""} value={contextoMedico.deficitTactil}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit respiratorio"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitRespiratorio"} className={""} value={contextoMedico.deficitRespiratorio}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit cardiaco"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitCardiaco"} className={""} value={contextoMedico.deficitCardiaco}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit motorico"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitMotorico"} className={""} value={contextoMedico.deficitMotorico}/>
+                </div>
+                <hr style={{marginTop: '20px', marginBottom: '30px'}}/>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Tratamiento médico"} setValue={updateContextoMedico} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Tratamiento psicologico"} setValue={updateContextoMedico} idInput={"tratamientoPsicologico"} className={""} value={contextoMedico.tratamientoPsicologico}/>
+                </div>
+
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Alergias"} setValue={updateContextoMedico} idInput={"alergias"} className={""} value={contextoMedico.alergias}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Enfermedades"} setValue={updateContextoMedico} idInput={"enfermedades"} className={""} value={contextoMedico.enfermedades}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Observaciones deficit"} setValue={updateContextoMedico} idInput={"deficitObs"} className={""} value={contextoMedico.deficitObs}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Observaciones médicas"} setValue={updateContextoMedico} idInput={"observacionesMedicas"} className={""} value={contextoMedico.observacionesMedicas}/>
+                </div>
+
                 <div className="col-md-12" style={{textAlign: 'right'}}>
                   <Button text={'Actualizar Contexto médico'} className={'btn-primary'} onClick={() => sendData('updateContextoMedico')}/>
                 </div>
@@ -266,7 +375,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
         <div className="row">
                 {contextoFamiliarV1.map( e =>{
                     return (<div className="col-md-4 col-sm-6">
-                              <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                              <CheckboxText placeholder={e.name} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                             </div>)
                 })}
                 <div className="col-md-12" style={{textAlign: 'right'}}>
@@ -280,9 +389,19 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       return (
         <div className="row">
           {contextoEscolarV1.map( e =>{
-                      return (<div className="col-md-4 col-sm-6">
-                                <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
-                              </div>)
+              if(e.id==="curso"){
+                  return (<div className="col-md-12 col-sm-12 mb-4">
+                            <div className="row">
+                              <div className="col-md-4 col-sm-12">
+                                <Select placeholder={e.name} setValue={updateContextoEscolar} idInput={"curso"} className={""} values={cursos} selected={e.value} />
+                              </div>
+                            </div>
+                          </div>)
+              }else{
+                  return (<div className="col-md-4 col-sm-6">
+                            <CheckboxText placeholder={e.name} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                          </div>)
+              }
           })}
           <div className="col-md-12" style={{textAlign: 'right'}}>
             <Button text={'Actualizar Contexto escolar'} className={'btn-primary'} onClick={() => sendData('updateContextoEscolar')}/>
@@ -292,8 +411,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     }
 
     return (
+      <>
         <ModalPanel info={
-            
             linea.id===undefined
               ? <>
               <h4>{'Alta nueva'}</h4> <hr />
@@ -325,6 +444,8 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
             </>
           } closePanel={closePanel}
         />
+        {messageActive.activate && <FloatMessage text={messageActive.text} state={messageActive.state}/>}
+        </>
       );
 }
 

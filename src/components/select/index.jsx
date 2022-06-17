@@ -28,8 +28,13 @@ export const Select = ({ setValue, idInput, className, placeholder, values, disa
             disabled={disabled ? 'disabled' : ''}
             onChange={handleSelect} 
             value={selected}>
-            {values.map(option => {
-                return <option key={option.id} value={option.id} >{option.nombre}</option>
+            {values.map( (option, index) => {
+                if(index===0){ return (<>
+                                        <option key={placeholder+'_0'} value={""} >Sin seleccionar</option>
+                                        <option key={option.id} value={option.id} >{option.nombre}</option>
+                                        </>
+                                    ) }
+                else{ return <option key={option.id} value={option.id} >{option.nombre}</option>}
             })}
         </StyledSelect>
         </>
