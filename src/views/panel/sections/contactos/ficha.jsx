@@ -156,27 +156,27 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       console.log(contextoFamiliar);
       if(contextoFamiliarLoaded===false){
         let contextoFamiliarBuild = [
-          {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo},
-          {id: 'conocenCausasACNEAE', value: contextoFamiliar.conocenCausasACNEAE},
-          {id: 'excesivaProteccion', value: contextoFamiliar.excesivaProteccion},
-          {id: 'refuerzanLogros', value: contextoFamiliar.refuerzanLogros},
-          {id: 'castiganConductasDisruptivas', value: contextoFamiliar.castiganConductasDisruptivas},
-          {id: 'dialoganHijo', value: contextoFamiliar.dialoganHijo},
-          {id: 'presentanColaboracion', value: contextoFamiliar.presentanColaboracion},
-          {id: 'demandanReunionesTutor', value: contextoFamiliar.demandanReunionesTutor},
-          {id: 'colaboranSoloSiTutorLoPide', value: contextoFamiliar.colaboranSoloSiTutorLoPide},
-          {id: 'organizanTiempoDeEstudio', value: contextoFamiliar.organizanTiempoDeEstudio},
-          {id: 'refuerzanAprendizaje', value: contextoFamiliar.refuerzanAprendizaje},
-          {id: 'controlanEstudioDiario', value: contextoFamiliar.controlanEstudioDiario},
+          {id: 'aceptaSituacionHijo', value: contextoFamiliar.aceptaSituacionHijo, name: 'Aceptan situación hijo'},
+          {id: 'conocenCausasACNEAE', value: contextoFamiliar.conocenCausasACNEAE, name: 'Conocen causas ACNEAE'},
+          {id: 'excesivaProteccion', value: contextoFamiliar.excesivaProteccion, name: 'Excesiva protección'},
+          {id: 'refuerzanLogros', value: contextoFamiliar.refuerzanLogros, name: 'Refuerzan logros'},
+          {id: 'castiganConductasDisruptivas', value: contextoFamiliar.castiganConductasDisruptivas, name: 'Castigan conductas disruptivas'},
+          {id: 'dialoganHijo', value: contextoFamiliar.dialoganHijo, name: 'Dialogan con hijo'},
+          {id: 'presentanColaboracion', value: contextoFamiliar.presentanColaboracion, name: 'Presentan colaboración'},
+          {id: 'demandanReunionesTutor', value: contextoFamiliar.demandanReunionesTutor, name: 'Demandan reuniones tutor'},
+          {id: 'colaboranSoloSiTutorLoPide', value: contextoFamiliar.colaboranSoloSiTutorLoPide, name: 'Colaboran solo si tutor lo pide'},
+          {id: 'organizanTiempoDeEstudio', value: contextoFamiliar.organizanTiempoDeEstudio, name: 'Organizan tiempo de estudio'},
+          {id: 'refuerzanAprendizaje', value: contextoFamiliar.refuerzanAprendizaje, name: 'Refuerzan aprendizaje'},
+          {id: 'controlanEstudioDiario', value: contextoFamiliar.controlanEstudioDiario, name: 'Controlan estudio diario'},
 
-          {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre},
-          {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre},
-          {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre},
-          {id: 'desempleoMadre', value: contextoFamiliar.desempleoMadre},
-          {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre},
-          {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre},
-          {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos},
-          {id: 'custodiaOtros', value: contextoFamiliar.custodiaOtros},
+          {id: 'fallecimientoPadre', value: contextoFamiliar.fallecimientoPadre, name: 'Fallecimiento padre'},
+          {id: 'fallecimientoMadre', value: contextoFamiliar.fallecimientoMadre, name: 'Fallecimiento madre'},
+          {id: 'desempleoPadre', value: contextoFamiliar.desempleoPadre, name: 'Desempleo padre'},
+          {id: 'desempleoMadre', value: contextoFamiliar.desempleoMadre, name: 'Desempleo madre'},
+          {id: 'custodiaPadre', value: contextoFamiliar.custodiaPadre, name: 'Custodia padre'},
+          {id: 'custodiaMadre', value: contextoFamiliar.custodiaMadre, name: 'Custodia madre'},
+          {id: 'custodiaAbuelos', value: contextoFamiliar.custodiaAbuelos, name: 'Custodia abuelos'},
+          {id: 'custodiaOtros', value: contextoFamiliar.custodiaOtros, name: 'Custodia otros'},
         ];
 
         console.log(contextoFamiliarBuild)
@@ -237,6 +237,30 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
         }
       })
     }
+
+
+    /*
+      nHermanos
+      puesto
+      grupo
+      localidad
+      cp
+      provincia
+      foto
+
+      nombrePadre
+      telefonoPadre
+      estudiosPadre
+      profesionPadre
+
+      nombreMadre
+      telefonoMadre
+      estudiosMadre
+      profesionMadre
+
+      contactoUrgencia
+      telefonoUrgencia
+    */
 
     const ContextoPersonal = () => {
       return (
@@ -318,7 +342,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
         <div className="row">
                 {contextoFamiliarV1.map( e =>{
                     return (<div className="col-md-4 col-sm-6">
-                              <CheckboxText placeholder={e.id} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                              <CheckboxText placeholder={e.name} setValue={updateContextoFamiliar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                             </div>)
                 })}
                 <div className="col-md-12" style={{textAlign: 'right'}}>

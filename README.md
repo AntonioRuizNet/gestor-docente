@@ -1,8 +1,9 @@
 #RoadMap V1
 
-(1h) -> Agregar datos de prueba a todos los menus / Si el modo prueba esta activo, no realizar updates + aviso
-(1h) Alumnos > Ficha Agregar items a las tabs faltantes y renombrar items de Escolar & Familiar
+(1h) -> Datos de prueba > Configuraciones (Asignaturas, cursos, evaluaciones, examenes) > Alumnos (tabla, ficha, asistencias, notas) > Si demo==true > no hacer sendData en cada componente y lanzar floatMessage.
+(0.2h) -> Ficha Alumno -> Personal -> Agregar 9 campos faltantes (comentados)
 
+X (1h) Alumnos > Ficha Agregar items a las tabs faltantes y renombrar items de Escolar & Familiar
 X (0.5h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
 X (1h) Configuración > Crear cursos
 X (0.5h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
