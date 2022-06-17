@@ -9,16 +9,43 @@ import {escritorioFaltasDataChart, escritorioNotasDataChart} from './../../../..
 import {send_Mensaje} from './../../../../api/requests/globals'
 
 export default function Escritorio({accounts}) {
-  let dataFaltas = [];
-  let dataNotas = [];
-
+  
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
   const [sugerenciaEnviada, setSugerenciaEnviada] = useState(false);
   let sugerencias;
+  let dataFaltas = [];
+  let dataNotas = [];
 
   const roadMapDone = <FaFlagCheckered style={{color: '#4e73df'}}/>;
   const roadMapPending = <FaFlag style={{color: '#e1d300'}}/>;
   const styleRoadMapItems = {margin: '5px 0px', fontSize: '14px'};
+
+  const fillChartData = () => {
+   //FALTAS
+   if(accounts.cursos!==undefined){
+      accounts.cursos.map( c => {
+        let alumnos=0;
+        let faltas=0;
+        let notas=0; let nNotas=0;
+        accounts.contactosContextoEscolar.map( cce => {
+          if(c.id === cce.curso){
+            alumnos++;
+            //FALTAS
+            accounts.asistencias.map( a => {
+              if(cce.idContacto === a.idContacto){ faltas++; }
+            });
+            //NOTAS
+            accounts.notas.map( n => {
+              if(cce.idContacto === n.idContacto){ nNotas++; notas=notas+parseInt(n.valor); }
+            });
+          }
+        });
+        dataFaltas.push({ name: c.nombre, Alumnos: alumnos, Faltas: faltas });
+        dataNotas.push({ name: c.nombre, Alumnos: alumnos, Notas: parseInt(notas/nNotas) });
+      });
+    }
+  }
+  fillChartData();
 
   const setSugerencias = (data) => {
     sugerencias = data;
@@ -77,12 +104,14 @@ export default function Escritorio({accounts}) {
   return (
     <>
     <div className='row'>
-      <div className="col-md-8 col-sm-6 col-xs-12">Escritorio<hr/>
+      <div className="col-md-8 col-sm-6 col-xs-12">
       <div className='row'>
-        <div className="col-12" style={{height: '300px'}}>
+        <div className="col-12" style={{height: '300px', marginTop: '15px'}}>
+          <p>Total de faltas de asistencia por curso<hr/></p>
         <RenderBarChart data={dataFaltas} mocked={escritorioFaltasDataChart} dataKey1={"Alumnos"} dataKey2={"Faltas"}/>
         </div>
-        <div className="col-12 mt-4" style={{height: '300px'}}>
+        <div className="col-12 mt-42" style={{height: '300px', marginTop: '70px'}}>
+        <p>Media de calificaciones por curso<hr/></p>
         <RenderBarChart data={dataNotas} mocked={escritorioNotasDataChart} dataKey1={"Alumnos"} dataKey2={"Notas"}/>
         </div>
       </div>

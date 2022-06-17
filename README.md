@@ -1,11 +1,11 @@
 #RoadMap V1
 
-/ (0.5h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
 (1h) -> Agregar datos de prueba a todos los menus / Si el modo prueba esta activo, no realizar updates + aviso
 (1h) Alumnos > Ficha Agregar items a las tabs faltantes y renombrar items de Escolar & Familiar
-(0.5h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
-(1h) Configuración > Crear cursos
 
+X (0.5h) Escritorio > Subir grafica Bar y añadir otra igual debajo (cursos/notas medias)
+X (1h) Configuración > Crear cursos
+X (0.5h) Alumnos > Agregar curso a la tabla y a Ficha>Escolar
 X (1h) Escritorio > Enviar propuestas a Mysql
 X (0.2h) Alumnos > Tabla > Cambiar fecha por año nacimiento
 X (0.2h) Alumnos > Asistencias > Cambiar color de texto a blanco con seleccionados y usar mismo textarea en observaciones

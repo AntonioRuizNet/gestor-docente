@@ -11,7 +11,7 @@ import { FloatMessage } from '../../../../components/floatMessage';
 
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel, cursos}) => {
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
     //Genero nuevo array para pintar checkbox fácil
     const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
@@ -84,6 +84,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       console.log(contextoEscolar);
       if(contextoEscolarLoaded===false){
         let contextoEscolarBuild = [
+          {id: 'curso', value: contextoEscolar.curso},
           {id: 'Responsable', value: contextoEscolar.responsable},
           {id: 'Despreocupado', value: contextoEscolar.despreocupado},
           {id: 'Motivado', value: contextoEscolar.motivado},
@@ -143,6 +144,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(idContexto==="insersionSocial_habitosEstudio") contextoEscolar.habitosEstudio = ''+valor;
       if(idContexto==="insersionSocial_comportamiento") contextoEscolar.comportamiento = ''+valor;
       if(idContexto==="observacionesEscolares") contextoEscolar.observacionesEscolares = ''+valor;
+      if(idContexto==="curso") contextoEscolar.curso = ''+valor;
       console.log(contextoEscolar);
     }
 
@@ -291,9 +293,19 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       return (
         <div className="row">
           {contextoEscolarV1.map( e =>{
-                      return (<div className="col-md-4 col-sm-6">
-                                <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
-                              </div>)
+              if(e.id==="curso"){
+                  return (<div className="col-md-12 col-sm-12 mb-4">
+                            <div className="row">
+                              <div className="col-md-4 col-sm-12">
+                                <Select placeholder={"Curso"} setValue={updateContextoEscolar} idInput={"curso"} className={""} values={cursos} selected={e.value} />
+                              </div>
+                            </div>
+                          </div>)
+              }else{
+                  return (<div className="col-md-4 col-sm-6">
+                            <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                          </div>)
+              }
           })}
           <div className="col-md-12" style={{textAlign: 'right'}}>
             <Button text={'Actualizar Contexto escolar'} className={'btn-primary'} onClick={() => sendData('updateContextoEscolar')}/>
