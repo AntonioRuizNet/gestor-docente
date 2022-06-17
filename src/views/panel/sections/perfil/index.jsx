@@ -48,7 +48,7 @@ export default function Perfil() {
                         <Input placeholder={'Nueva clave (sólo si quieres cambiarla)'} setValue={setClave} type={''} idInput={''} className={''} value={''} />
                     </div>
                     <div className="col-md-2 col-sm-6 col-xs-12 text-center">
-                        <label>Datos de prueba</label><br/>
+                        <p style={{marginBottom: '5px'}}>Datos de prueba</p>
                         <CheckboxText placeholder={''} setValue={setMock} type={'checkbox'} idInput={''} className={''} value={profile.mock} />
                     </div>
                 </div>

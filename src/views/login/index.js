@@ -159,7 +159,12 @@ export default function Login() {
           {loginForm === "recover" && recoverCode === "" ? <p>Especifica el email con el que te registraste para solicitar un código de acceso de un solo uso.</p> : ""}
           {loginForm === "recover" && recoverCode !== "" ? <p>Escribe el código que has recibido por email para entrar a la plataforma. Acuérdate de actualiza tu clave cuando entres.</p> : ""}
         </div>
-        <LoginBlock>
+        <LoginBlock style={{ backgroundColor: loginForm === "register" ? "#0885a1" : "#0893a1" }}>
+          <p style={{ color: "white", fontSize: "17px", fontWeight: "bold" }}>
+            {loginForm === "register" ? "Registrate" : ""}
+            {loginForm === "login" ? "Identifícate" : ""}
+            {loginForm === "recover" ? "Recuperación" : ""}
+          </p>
           <InputBlock style={{ color: "white" }}>
             <Input placeholder={"Email"} setValue={setUser} type={"text"} idInput={"user"} className={"text-center"} />
             {loginForm !== "recover" ? <Input placeholder={"Clave"} setValue={setPassword} type={"password"} idInput={"password"} className={"text-center"} /> : ""}
@@ -196,15 +201,20 @@ export default function Login() {
             </a>
           </p>
         </LoginBlock>
-        <hr />
+        <hr style={{ marginTop: "50px" }} />
         <div className="row">
           <div className="col-12 text-center mt-4" style={{ color: "white", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "whitesmoke" }}>
-            <b>Version BETA | Funciones disponibles actualmente. Estamos en continuo desarrollo.</b>
+            <b>
+              Version BETA
+              <br />
+              <br />
+              Aún no tenemos todas las funciones disponibles, estamos en continuo desarrollo. A continuación se mostrarán los módulos activos.
+            </b>
           </div>
           {roadMap.map((r) => {
             if (r.done)
               return (
-                <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "white", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "whitesmoke" }}>
+                <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "white", textAlign: "center", padding: "25px 25px", fontSize: "13px", color: "whitesmoke" }}>
                   {r.name}
                 </div>
               );

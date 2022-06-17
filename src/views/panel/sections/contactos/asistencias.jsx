@@ -7,7 +7,7 @@ import { FloatMessage } from '../../../../components/floatMessage';
 
 import {update_Asistencias} from './../../../../api/requests/contacts'
 
-const Asistencias = ({closePanel, linea, idContacto, setDataBuilded, periodo}) => {
+const Asistencias = ({closePanel, linea, idContacto, setDataBuilded, periodo, mock}) => {
 
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
     const updateDate = (idContacto, fecha, valor, obs) =>{
@@ -19,6 +19,7 @@ const Asistencias = ({closePanel, linea, idContacto, setDataBuilded, periodo}) =
       }, 4000);
       
       console.log('update_Asistencias');
+      if(mock!=="true")
       update_Asistencias(
         idContacto,
         fecha,

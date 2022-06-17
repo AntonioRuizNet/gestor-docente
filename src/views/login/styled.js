@@ -19,7 +19,6 @@ export const LoginBlock = styled.div`
   margin: auto;
   max-width: 500px;
   padding: 2rem;
-  background-color: #0893a0;
 `;
 
 export const InputBlock = styled.div`

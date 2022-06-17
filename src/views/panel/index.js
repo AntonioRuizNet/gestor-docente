@@ -21,6 +21,7 @@ export default function Panel() {
   const [dataAccounts, setDataAccounts] = useState([]);
   const [dataBuilded, setDataBuilded] = useState(false);
   const periodo = useSelector((state) => state.globalReducer.periodo);
+  const mock = useSelector((state) => state.globalReducer.profile.mock);
 
   //Sections activation
   const [viewEscritorio, setViewEscritorio] = useState(true);
@@ -99,6 +100,13 @@ export default function Panel() {
         {viewPerfil && <Perfil />}
         {viewAyuda && <Ayuda />}
       </BackgroundBody>
+      {mock === "true" ? (
+        <div style={{ position: "absolute", backgroundColor: "#ffab11", color: "white", width: "100%", textAlign: "center", bottom: "0" }}>
+          Estás en modo <b>demostración</b>, desactiva esta opción en <b>Perfil</b> para usar la aplicación correctamente.
+        </div>
+      ) : (
+        ""
+      )}
     </Root>
   );
 }

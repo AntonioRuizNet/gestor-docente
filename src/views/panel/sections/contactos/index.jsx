@@ -11,9 +11,10 @@ import Notas from './notas'
 
 //Requests
 import {get_Accounts} from './../../../../api/requests/contacts'
+import {contactosDataMock} from './../../../../api/mock';
 
 export default function Contactos() {
-
+  const mock = useSelector((state) => state.globalReducer.profile.mock);
   const periodo = useSelector((state) => state.globalReducer.periodo);
 
   const [activeModalPanelAsistencias, setActiveModalPanelAsistencias] = useState(false);
@@ -35,11 +36,12 @@ export default function Contactos() {
 
   const getAccounts = async () => {
     if(!dataBuilded){
-      const accounts = await get_Accounts(periodo);
-      if(accounts){
-        console.log(accounts);
-        setData(accounts)
-        buildTable(accounts.accounts);
+      let dataMaster;
+      if(mock==="true"){ dataMaster = contactosDataMock; }else{dataMaster = await get_Accounts(periodo);}
+      if(dataMaster){
+        console.log(dataMaster);
+        setData(dataMaster)
+        buildTable(dataMaster.accounts);
       }
     }
     setDataBuilded(true)
@@ -136,7 +138,7 @@ export default function Contactos() {
   }, [dataBuilded]);
 
   useEffect( () =>{
-    setDataBuilded(false);
+    if(mock!=="true")setDataBuilded(false);
   }, [periodo]);
 
   return (
@@ -144,9 +146,9 @@ export default function Contactos() {
     <SubmenuSection options={enlaces}/>
     <Buscador setSearch={searcher}/>
     {dataBuilded && <Tabla widths={widths} header={header} data={lines} buildLinea={buildLinea} optionsTable={optionsTable}/>}
-    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo} setActiveModalPanel={setActiveModalPanel} cursos={data.cursos}/>}
-    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto} periodo={periodo}/>}
-    {activeModalPanelNotas && <Notas closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} setDataBuildedGlobal={setDataBuilded} />}
+    {activeModalPanel && <Ficha closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} contextoEscolar={contextoEscolar} contextoFamiliar={contextoFamiliar} contextoMedico={contextoMedico} periodo={periodo} setActiveModalPanel={setActiveModalPanel} cursos={data.cursos} mock={mock}/>}
+    {activeModalPanelAsistencias && <Asistencias closePanel={toogleModalPanel} linea={linea} setDataBuilded={setDataBuilded} idContacto={idContacto} periodo={periodo} mock={mock}/>}
+    {activeModalPanelNotas && <Notas closePanel={toogleModalPanel} linea={linea} idContacto={idContacto} setDataBuildedGlobal={setDataBuilded}  mock={mock}/>}
     </>
     
   )

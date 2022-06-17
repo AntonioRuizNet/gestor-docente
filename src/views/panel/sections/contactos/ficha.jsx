@@ -11,14 +11,14 @@ import { FloatMessage } from '../../../../components/floatMessage';
 
 import {updateData} from './../../../../api/requests/contacts'
 
-const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel, cursos}) => {
+const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFamiliar, contextoMedico, periodo, setActiveModalPanel, cursos, mock}) => {
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
-    //Genero nuevo array para pintar checkbox fácil
-    const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
-    const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
+  //Genero nuevo array para pintar checkbox fácil
+  const [contextoEscolarV1, setContextoEscolarV1] = useState([]);
+  const [contextoEscolarLoaded, setContextoEscolarLoaded] = useState(false);
 
-    const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
-    const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
+  const [contextoFamiliarV1, setContextoFamiliarV1] = useState([]);
+  const [contextoFamiliarLoaded, setContextoFamiliarLoaded] = useState(false);
 
     //https://i0.wp.com/www.orientacionandujar.es/wp-content/uploads/2014/08/Ficha-Personal-Alumno-Primaria-faltas-y-notas-imagen.png
     
@@ -229,6 +229,7 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       if(type==="createAccount") data = linea;
       if(type==="removeAccount") data = linea;
 
+      if(mock!=="true")
       updateData(type, data)
       .then((response,reject) => {
         if(response.ok){ 
@@ -237,30 +238,6 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
         }
       })
     }
-
-
-    /*
-      nHermanos 
-      puesto 
-      grupo 
-      localidad
-      cp
-      provincia
-      foto
-
-      nombrePadre
-      telefonoPadre
-      estudiosPadre
-      profesionPadre
-
-      nombreMadre
-      telefonoMadre
-      estudiosMadre
-      profesionMadre
-
-      contactoUrgencia
-      telefonoUrgencia
-    */
 
     const ContextoPersonal = () => {
       return (

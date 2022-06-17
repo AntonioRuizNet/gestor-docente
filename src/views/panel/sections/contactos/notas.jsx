@@ -11,7 +11,7 @@ import {updateData} from '../../../../api/requests/contacts'
 
 import {get_Configuraciones} from '../../../../api/requests/configuraciones'
 
-const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
+const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal, mock}) => {
   const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
     const periodo = useSelector((state) => state.globalReducer.periodo);
 
@@ -103,8 +103,8 @@ const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal}) => {
 
     const sendData = (type) => {
       console.log('sendData')
-      if(type==="trimestral") updateData('updateNotas', evaluacionesBuilded)
-      if(type==="examen") updateData('updateNotas', examenesBuilded)
+      if(type==="trimestral" && mock!=="true") updateData('updateNotas', evaluacionesBuilded)
+      if(type==="examen" && mock!=="true") updateData('updateNotas', examenesBuilded)
       setDataBuildedGlobal(false);
 
       //Send floatMessage
