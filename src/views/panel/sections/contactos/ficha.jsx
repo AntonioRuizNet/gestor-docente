@@ -60,19 +60,21 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
     const updateContextoMedico = (valor, idContexto) => {
       console.log(valor, idContexto)
-      if(idContexto==="tratamientoMedico") contextoMedico.tratamientoMedico = ''+valor;
-      if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
+      
 
       if(idContexto==="alergias") contextoMedico.alergias = ''+valor;
       if(idContexto==="enfermedades") contextoMedico.enfermedades = ''+valor;
+
+      if(idContexto==="tratamientoMedico") contextoMedico.tratamientoMedico = ''+valor;
+      if(idContexto==="tratamientoPsicologico") contextoMedico.tratamientoPsicologico = ''+valor;
       if(idContexto==="deficitAuditivo") contextoMedico.deficitAuditivo = ''+valor;
       if(idContexto==="deficitVisual") contextoMedico.deficitVisual = ''+valor;
       if(idContexto==="deficitTactil") contextoMedico.deficitTactil = ''+valor;
       if(idContexto==="deficitRespiratorio") contextoMedico.deficitRespiratorio = ''+valor;
       if(idContexto==="deficitCardiaco") contextoMedico.deficitCardiaco = ''+valor;
       if(idContexto==="deficitMotorico") contextoMedico.deficitMotorico = ''+valor;
-      if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
 
+      if(idContexto==="deficitObs") contextoMedico.deficitObs = ''+valor;
       if(idContexto==="observacionesMedicas") contextoMedico.observacionesMedicas = ''+valor;
       console.log(contextoMedico);
     }
@@ -84,27 +86,27 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
       console.log(contextoEscolar);
       if(contextoEscolarLoaded===false){
         let contextoEscolarBuild = [
-          {id: 'curso', value: contextoEscolar.curso},
-          {id: 'Responsable', value: contextoEscolar.responsable},
-          {id: 'Despreocupado', value: contextoEscolar.despreocupado},
-          {id: 'Motivado', value: contextoEscolar.motivado},
-          {id: 'Desmotivado', value: contextoEscolar.desmotivado},
-          {id: 'Atento', value: contextoEscolar.atento},
-          {id: 'Distraido', value: contextoEscolar.distraido},
-          {id: 'Reflexivo', value: contextoEscolar.reflexivo},
-          {id: 'Impulsivo', value: contextoEscolar.impulsivo},
-          {id: 'Independiente', value: contextoEscolar.independiente},
-          {id: 'Dependiente', value: contextoEscolar.dependiente},
-          {id: 'Organizado', value: contextoEscolar.organizado},
-          {id: 'Desorganizado', value: contextoEscolar.desorganizado},
-          {id: 'comprensionLectora', value: contextoEscolar.comprensionLectora},
-          {id: 'comprensionOral', value: contextoEscolar.comprensionOral},
-          {id: 'expresionEscrita', value: contextoEscolar.expresionEscrita},
-          {id: 'expresionOral', value: contextoEscolar.expresionOral},
-          {id: 'calculo', value: contextoEscolar.calculo},
-          {id: 'resolucionDeProblemas', value: contextoEscolar.resolucionDeProblemas},
-          {id: 'ortografia', value: contextoEscolar.ortografia},
-          {id: 'vocabulario', value: contextoEscolar.vocabulario},
+          {id: 'curso', value: contextoEscolar.curso, name:'Curso'},
+          {id: 'Responsable', value: contextoEscolar.responsable, name:'Responsable'},
+          {id: 'Despreocupado', value: contextoEscolar.despreocupado, name:'Despreocupado'},
+          {id: 'Motivado', value: contextoEscolar.motivado, name:'Motivado'},
+          {id: 'Desmotivado', value: contextoEscolar.desmotivado, name:'Desmotivado'},
+          {id: 'Atento', value: contextoEscolar.atento, name:'Atento'},
+          {id: 'Distraido', value: contextoEscolar.distraido, name:'Distraido'},
+          {id: 'Reflexivo', value: contextoEscolar.reflexivo, name:'Reflexivo'},
+          {id: 'Impulsivo', value: contextoEscolar.impulsivo, name:'Impulsivo'},
+          {id: 'Independiente', value: contextoEscolar.independiente, name:'Independiente'},
+          {id: 'Dependiente', value: contextoEscolar.dependiente, name:'Dependiente'},
+          {id: 'Organizado', value: contextoEscolar.organizado, name:'Organizado'},
+          {id: 'Desorganizado', value: contextoEscolar.desorganizado, name:'Desorganizado'},
+          {id: 'comprensionLectora', value: contextoEscolar.comprensionLectora, name:'Comprensión lectora'},
+          {id: 'comprensionOral', value: contextoEscolar.comprensionOral, name:'Comprensión oral'},
+          {id: 'expresionEscrita', value: contextoEscolar.expresionEscrita, name:'Expresión escrita'},
+          {id: 'expresionOral', value: contextoEscolar.expresionOral, name:'Expresión oral'},
+          {id: 'calculo', value: contextoEscolar.calculo, name:'Cálculo'},
+          {id: 'resolucionDeProblemas', value: contextoEscolar.resolucionDeProblemas, name:'Resolución de problemas'},
+          {id: 'ortografia', value: contextoEscolar.ortografia, name:'Ortografia'},
+          {id: 'vocabulario', value: contextoEscolar.vocabulario, name:'Vocabulario'},
         ];
 
         console.log(contextoEscolarBuild)
@@ -263,9 +265,46 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
     const ContextoMedico = () => {
       return (
         <div className="row">
-                <div className="col-md-12 col-sm-12">
-                  <Input placeholder={"Tratamiento médico"} setValue={updateContextoMedico} type={"text"} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico} />
+
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit auditivo"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitAuditivo"} className={""} value={contextoMedico.deficitAuditivo}/>
                 </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit visual"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitVisual"} className={""} value={contextoMedico.deficitVisual}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit tactil"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitTactil"} className={""} value={contextoMedico.deficitTactil}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit respiratorio"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitRespiratorio"} className={""} value={contextoMedico.deficitRespiratorio}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit cardiaco"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitCardiaco"} className={""} value={contextoMedico.deficitCardiaco}/>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <CheckboxText placeholder={"Deficit motorico"} setValue={updateContextoMedico} type={"checkbox"} idInput={"deficitMotorico"} className={""} value={contextoMedico.deficitMotorico}/>
+                </div>
+                <hr style={{marginTop: '20px', marginBottom: '30px'}}/>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Tratamiento médico"} setValue={updateContextoMedico} idInput={"tratamientoMedico"} className={""} value={contextoMedico.tratamientoMedico}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Tratamiento psicologico"} setValue={updateContextoMedico} idInput={"tratamientoPsicologico"} className={""} value={contextoMedico.tratamientoPsicologico}/>
+                </div>
+
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Alergias"} setValue={updateContextoMedico} idInput={"alergias"} className={""} value={contextoMedico.alergias}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Enfermedades"} setValue={updateContextoMedico} idInput={"enfermedades"} className={""} value={contextoMedico.enfermedades}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Observaciones deficit"} setValue={updateContextoMedico} idInput={"deficitObs"} className={""} value={contextoMedico.deficitObs}/>
+                </div>
+                <div className="col-md-6 col-sm-12">
+                  <Textarea placeholder={"Observaciones médicas"} setValue={updateContextoMedico} idInput={"observacionesMedicas"} className={""} value={contextoMedico.observacionesMedicas}/>
+                </div>
+
                 <div className="col-md-12" style={{textAlign: 'right'}}>
                   <Button text={'Actualizar Contexto médico'} className={'btn-primary'} onClick={() => sendData('updateContextoMedico')}/>
                 </div>
@@ -297,13 +336,13 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                   return (<div className="col-md-12 col-sm-12 mb-4">
                             <div className="row">
                               <div className="col-md-4 col-sm-12">
-                                <Select placeholder={"Curso"} setValue={updateContextoEscolar} idInput={"curso"} className={""} values={cursos} selected={e.value} />
+                                <Select placeholder={e.name} setValue={updateContextoEscolar} idInput={"curso"} className={""} values={cursos} selected={e.value} />
                               </div>
                             </div>
                           </div>)
               }else{
                   return (<div className="col-md-4 col-sm-6">
-                            <CheckboxText placeholder={e.id} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
+                            <CheckboxText placeholder={e.name} setValue={updateContextoEscolar} type={"checkbox"} idInput={e.id} className={""} value={e.value}/>
                           </div>)
               }
           })}
