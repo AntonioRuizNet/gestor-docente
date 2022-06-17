@@ -114,7 +114,7 @@ export default function Contactos() {
     const widths = [4, 20, 20, 11, 45];
     setWidths(widths);
 
-    const header = ["#", "Nombre", "Apellidos", "Años", " "];
+    const header = ["#", "Nombre", "Apellidos", "Edad", " "];
     setHeader(header);
 
     const extractedLines = data.map( e => {return [e.id, e.nombre, e.apellidos, (thisYear.getFullYear()-(e.nacimiento).split("-")[0]), null]})

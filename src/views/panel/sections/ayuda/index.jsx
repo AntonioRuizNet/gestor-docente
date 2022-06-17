@@ -51,7 +51,7 @@ export const Ayuda = () => {
         <div className="row">
             <div className="col-12">
                 <div style={{backgroundColor: 'white', border: '1px #d9d9d9 solid', padding: '15px'}}>
-                    Envía un mensaje<hr/>
+                    Envía un mensaje al equipo de soporte<hr/>
                     <Textarea placeholder={'Mensaje'} setValue={setMensaje} idInput={'nuevoMensaje'} className={''} value={mensaje} />
                     <div className="row">
                         <div className="col-6"><Select placeholder={"Tipo de consulta"} setValue={setTipo} idInput={"opcsMensaje"} className={"bg-light"} values={opcSelect} selected={''} /></div>
@@ -60,12 +60,12 @@ export const Ayuda = () => {
                 </div>
             </div>
             <div className="col-12 mt-4">
-                <div style={{backgroundColor: 'white', border: '1px #d9d9d9 solid', padding: '15px'}}>
+                <div style={{backgroundColor: '#f4f4f4', border: '1px #d9d9d9 solid', padding: '15px'}}>
                     Listado de mensajes<hr/>
                     {mensajes.map(m=>{
                         return (<div className="row" style={{color: 'black', borderBottom: '1px lightgrey solid', padding: '6px 1px', overflowY: 'auto', maxHeight: '350px'}}>
-                                    <div className="col-md-1 col-sm-2">{m.emisor==="0"?'Soporte':'Tu'}</div>
-                                    <div className="col-md-1 col-sm-2">{m.receptor==="0"?'Soporte':'Tu'}</div>
+                                    <div className="col-md-1 col-sm-2">{m.emisor==="0"?<b>Soporte</b>:<b style={{color: '#335acb'}}>Tu</b>}</div>
+                                    <div className="col-md-1 col-sm-2">{m.receptor==="0"?<b>Soporte</b>:<b style={{color: '#335acb'}}>Tu</b>}</div>
                                     <div className="col-md-1 col-sm-2">{m.tipo}</div>
                                     <div className="col-md-6 col-sm-12">{m.mensaje}</div>
                                     <div className="col-md-3 col-sm-12" style={{textAlign: 'right'}}>{m.fecha}</div>

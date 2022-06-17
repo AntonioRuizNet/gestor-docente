@@ -240,9 +240,9 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
 
 
     /*
-      nHermanos
-      puesto
-      grupo
+      nHermanos 
+      puesto 
+      grupo 
       localidad
       cp
       provincia
@@ -271,11 +271,67 @@ const Ficha = ({closePanel, linea, setDataBuilded, contextoEscolar, contextoFami
                 <div className="col-md-6 col-sm-12">
                   <Input placeholder={"Nombre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombre"} className={""} value={linea.nombre} />
                 </div>
-                <div className="col-md-4 col-sm-12">
+
+                <div className="col-md-4 col-sm-6">
                   <Input placeholder={"Nacimiento"} setValue={updateContextoPersonal} type={"date"} idInput={"nacimiento"} className={""} value={linea.nacimiento} />
                 </div>
+                <div className="col-md-2 col-sm-6">
+                  <Input placeholder={"Nº hermanos"} setValue={updateContextoPersonal} type={"text"} idInput={"nHermanos"} className={""} value={linea.nHermanos} />
+                </div>
+                <div className="col-md-2 col-sm-6">
+                  <Input placeholder={"Grupo"} setValue={updateContextoPersonal} type={"text"} idInput={"grupo"} className={""} value={linea.grupo} />
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <Input placeholder={"Puesto"} setValue={updateContextoPersonal} type={"text"} idInput={"puesto"} className={""} value={linea.puesto} />
+                </div>
+
                 <div className="col-md-12 col-sm-12">
                   <Input placeholder={"Domicilio"} setValue={updateContextoPersonal} type={"text"} idInput={"domicilio"} className={""} value={linea.domicilio} />
+                </div>
+
+                <div className="col-md-5 col-sm-8">
+                  <Input placeholder={"Localidad"} setValue={updateContextoPersonal} type={"text"} idInput={"localidad"} className={""} value={linea.localidad} />
+                </div>
+                <div className="col-md-2 col-sm-4">
+                  <Input placeholder={"CP"} setValue={updateContextoPersonal} type={"text"} idInput={"cp"} className={""} value={linea.cp} />
+                </div>
+                <div className="col-md-5 col-sm-12">
+                  <Input placeholder={"Provincia"} setValue={updateContextoPersonal} type={"text"} idInput={"provincia"} className={""} value={linea.provincia} />
+                </div>
+
+                <hr style={{marginTop: '20px', marginBottom: '30px'}}/>
+
+                <div className="col-md-9 col-sm-12">
+                  <Input placeholder={"Nombre padre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombrePadre"} className={""} value={linea.nombrePadre} />
+                </div>
+                <div className="col-md-3 col-sm-12">
+                  <Input placeholder={"Telefono padre"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoPadre"} className={""} value={linea.telefonoPadre} />
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Estudios padre"} setValue={updateContextoPersonal} type={"text"} idInput={"estudiosPadre"} className={""} value={linea.estudiosPadre} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Profesion padre"} setValue={updateContextoPersonal} type={"text"} idInput={"profesionPadre"} className={""} value={linea.profesionPadre} />
+                </div>
+
+                <div className="col-md-9 col-sm-12">
+                  <Input placeholder={"Nombre madre"} setValue={updateContextoPersonal} type={"text"} idInput={"nombreMadre"} className={""} value={linea.nombreMadre} />
+                </div>
+                <div className="col-md-3 col-sm-12">
+                  <Input placeholder={"Telefono madre"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoMadre"} className={""} value={linea.telefonoMadre} />
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Estudios madre"} setValue={updateContextoPersonal} type={"text"} idInput={"estudiosMadre"} className={""} value={linea.estudiosMadre} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Profesion madre"} setValue={updateContextoPersonal} type={"text"} idInput={"profesionMadre"} className={""} value={linea.profesionMadre} />
+                </div>
+
+                <div className="col-md-8 col-sm-12">
+                  <Input placeholder={"Contacto urgencia"} setValue={updateContextoPersonal} type={"text"} idInput={"contactoUrgencia"} className={""} value={linea.contactoUrgencia} />
+                </div>
+                <div className="col-md-4 col-sm-12">
+                  <Input placeholder={"Telefono urgencia"} setValue={updateContextoPersonal} type={"text"} idInput={"telefonoUrgencia"} className={""} value={linea.telefonoUrgencia} />
                 </div>
 
                 <div className="col-md-12 col-sm-12 mt-3" style={{textAlign: 'right'}}>
