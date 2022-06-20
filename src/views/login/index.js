@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import emailjs from "@emailjs/browser";
 
@@ -11,6 +11,7 @@ import LoadingOverlay from "../../components/loadingOverlay";
 //Constants
 import { get_Profile, check_Email } from "../../api/requests/login";
 import { roadMap } from "./../../api/constants";
+import { insert_Visita } from "../../api/requests/globals";
 
 //Actions
 import allActions from "../../actions";
@@ -34,6 +35,7 @@ export default function Login() {
   const [recoverCode, setRecoverCode] = useState("");
   const [emailCode, setEmailCode] = useState("");
   const [tokenCode, setTokenCode] = useState("");
+  const [visitaRegistrada, setVisitaRegistrada] = useState("");
   const dispatch = useDispatch();
   const [messageActive, setMessageActive] = useState({ text: "Texto", state: 0, active: false });
 
@@ -151,6 +153,19 @@ export default function Login() {
       showModal(true);
     }
   };
+
+  const insertVisita = (referencia) => {
+    insert_Visita(referencia);
+  };
+
+  useEffect(() => {
+    if (!visitaRegistrada) {
+      let url = new URL(window.location.href);
+      let ref = url.searchParams.get("r");
+      insertVisita(ref);
+      setVisitaRegistrada(true);
+    }
+  }, [visitaRegistrada]);
 
   return (
     <>

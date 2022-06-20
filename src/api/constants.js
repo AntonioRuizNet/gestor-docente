@@ -35,15 +35,17 @@ export const updateEvaluaciones = baseUrl + "/UPDATE_EVALUACIONES";
 export const sendMensaje = baseUrl + "/SEND_MENSAJE";
 export const getMensajes = baseUrl + "/GET_MENSAJES";
 
+export const insertVisita = baseUrl + "/INSERT_VISITA";
+
 export const roadMap = [
   { name: "Ficha del alumno", done: true },
   { name: "Gestión de asistencias", done: true },
   { name: "Gestión de notas", done: true },
-  { name: "Configuración de asignaturas y cursos", done: true },
-  { name: "Configuración de evaluaciones y exámenes", done: true },
+  { name: "Asignaturas y cursos", done: true },
+  { name: "Evaluaciones y exámenes", done: true },
   { name: "Informes en PDF", done: false },
   { name: "Estadísticas en escritorio", done: true },
-  { name: "Generador de fichas (operaciones básicas)", done: false },
+  { name: "Generador de operaciones", done: false },
   { name: "Gestión de tutorías", done: false },
   { name: "Diario", done: false },
   { name: "Horario", done: false },

@@ -67,10 +67,10 @@ export const Calendario = ({data, updateDate, idContacto, periodo}) => {
                         border: '1px #ccc solid', boxShadow: '0px 0px 7px #9f9f9f', top: '80px', minWdidth: '300px'}}>
                 <div className="row"><div className="text-center">Selecciona el tipo de falta</div></div>
                 <div className="row" style={{padding: '5px'}}>
-                    <div class="col-3" onClick={()=>updateStateDay(0)} style={colorDayGlosary('0')}>Eliminar falta</div>
-                    <div class="col-3" onClick={()=>updateStateDay(1)} style={colorDayGlosary('1')}>Justificada</div>
-                    <div class="col-3" onClick={()=>updateStateDay(2)} style={colorDayGlosary('2')}>Injustificada</div>
-                    <div class="col-3" onClick={()=>updateStateDay(3)} style={colorDayGlosary('3')}>Retraso</div>
+                    <div className="col-3" onClick={()=>updateStateDay(0)} style={colorDayGlosary('0')}>Eliminar falta</div>
+                    <div className="col-3" onClick={()=>updateStateDay(1)} style={colorDayGlosary('1')}>Justificada</div>
+                    <div className="col-3" onClick={()=>updateStateDay(2)} style={colorDayGlosary('2')}>Injustificada</div>
+                    <div className="col-3" onClick={()=>updateStateDay(3)} style={colorDayGlosary('3')}>Retraso</div>
                 </div>
                 <div className="row mt-3">
                     <div className="text-center">Observaciones</div>
