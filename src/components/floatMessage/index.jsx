@@ -21,6 +21,8 @@ export const FloatMessage = ({text, state}) => {
                 return {color: 'black'}
             case 1:
                 return {color: '#4e73df', backgroundColor: '#fff', border: '1px #4e73df solid'}
+            case 2:
+                return {color: '#fff', backgroundColor: 'darkred', border: '1px #fff solid'}
             default:
                 return {color: 'black'}
         }

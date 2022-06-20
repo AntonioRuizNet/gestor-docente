@@ -69,15 +69,22 @@ export default function Login() {
 
   const handleRegister = () => {
     let nombre = "Nuevo usuario";
-    //console.log(nombre, password, user);
-    set_Profile(nombre, password, user);
-    setLoginForm("login");
+    if (user !== "" && password !== "") {
+      set_Profile(nombre, password, user);
+      setLoginForm("login");
 
-    //Send floatMessage
-    setMessageActive({ text: "Registro enviado, por favor ahora identifícate.", state: 1, activate: true });
-    setTimeout(function () {
-      setMessageActive({ text: "", state: 0, activate: false });
-    }, 4000);
+      //Send floatMessage
+      setMessageActive({ text: "Registro enviado, por favor ahora identifícate.", state: 1, activate: true });
+      setTimeout(function () {
+        setMessageActive({ text: "", state: 0, activate: false });
+      }, 4000);
+    } else {
+      //Send floatMessage
+      setMessageActive({ text: "El formulario no se ha completado correctamente.", state: 2, activate: true });
+      setTimeout(function () {
+        setMessageActive({ text: "", state: 0, activate: false });
+      }, 4000);
+    }
   };
 
   const generateRecoverCode = () => {
@@ -148,78 +155,78 @@ export default function Login() {
   return (
     <>
       <Background>
-        <LogoBlock>
-          <h2 style={{ fontSize: "1.5rem", color: "whitesmoke" }}>
-            <FaChalkboardTeacher /> Gestion Docente
-          </h2>
-          <hr />
-        </LogoBlock>
-        <div style={{ color: "whitesmoke" }}>
-          {loginForm === "login" ? <p>Identifícate con tu email y clave para acceder a la plataforma.</p> : ""}
-          {loginForm === "register" ? <p>Regístrate con un email y una clave para acceder a la plataforma.</p> : ""}
-          {loginForm === "recover" && recoverCode === "" ? <p>Especifica el email con el que te registraste para solicitar un código de acceso de un solo uso.</p> : ""}
-          {loginForm === "recover" && recoverCode !== "" ? <p>Escribe el código que has recibido por email para entrar a la plataforma. Acuérdate de actualiza tu clave cuando entres.</p> : ""}
-        </div>
-        <LoginBlock style={{ backgroundColor: loginForm === "register" ? "#0885a1" : "#0893a1" }}>
-          <p style={{ color: "white", fontSize: "17px", fontWeight: "bold" }}>
-            {loginForm === "register" ? "Registrate" : ""}
-            {loginForm === "login" ? "Identifícate" : ""}
-            {loginForm === "recover" ? "Recuperación" : ""}
-          </p>
-          <InputBlock style={{ color: "white" }}>
-            <Input placeholder={"Email"} setValue={setUser} type={"text"} idInput={"user"} className={"text-center"} />
-            {loginForm !== "recover" ? <Input placeholder={"Clave"} setValue={setPassword} type={"password"} idInput={"password"} className={"text-center"} /> : ""}
-            {loginForm === "recover" && recoverCode !== "" ? (
-              <Input placeholder={"Código de recuperación"} setValue={setEmailCode} type={"text"} idInput={"recovercode"} className={"inputCode"} value={emailCode} />
-            ) : (
-              ""
-            )}
-          </InputBlock>
-          <SubmitBlock style={{ marginTop: "20px" }}>
-            {loginForm === "login" ? <Button text={"Identifícate"} onClick={handleLogin} /> : ""}
-            {loginForm === "register" ? <Button text={"Regístrate"} onClick={handleRegister} /> : ""}
-            {loginForm === "recover" && recoverCode === "" ? <Button text={"Enviar email"} onClick={handleRecover} /> : ""}
-            {loginForm === "recover" && recoverCode !== "" ? <Button text={"Comprobar código"} onClick={checkRecover} /> : ""}
-          </SubmitBlock>
-          <p style={{ marginTop: "25px" }}>
-            {loginForm === "login" ? (
-              <a href="#" onClick={() => setLoginForm("register")}>
-                Regístrate
-              </a>
-            ) : (
-              ""
-            )}
-            {loginForm === "register" || loginForm === "recover" ? (
-              <a href="#" onClick={() => setLoginForm("login")}>
-                Identifícate
-              </a>
-            ) : (
-              ""
-            )}
+        <div classname="row">
+          <div className="offset-md-6 col-md-6 offset-sm-8 col-sm-8 offset-xs-12 col-xs-12 text-center">
+            <LogoBlock>
+              <h2 style={{ fontSize: "2rem", color: "black" }}>Gestion Docente</h2>
+            </LogoBlock>
+            <div>
+              {loginForm === "login" ? <p>Identifícate con tu email y clave para acceder a la plataforma.</p> : ""}
+              {loginForm === "register" ? <p>Regístrate con un email y una clave para acceder a la plataforma.</p> : ""}
+              {loginForm === "recover" && recoverCode === "" ? <p>Especifica el email con el que te registraste para solicitar un código de acceso de un solo uso.</p> : ""}
+              {loginForm === "recover" && recoverCode !== "" ? <p>Escribe el código que has recibido por email para entrar a la plataforma. Acuérdate de actualiza tu clave cuando entres.</p> : ""}
+            </div>
+            <LoginBlock style={{ backgroundColor: loginForm === "register" ? "#f6f6f6" : "#fff" }}>
+              <p style={{ color: "black", fontSize: "17px", fontWeight: "bold" }}>
+                {loginForm === "register" ? "Registrate" : ""}
+                {loginForm === "login" ? "Identifícate" : ""}
+                {loginForm === "recover" ? "Recuperación" : ""}
+              </p>
+              <InputBlock style={{ color: "black" }}>
+                <Input placeholder={"Email"} setValue={setUser} type={"text"} idInput={"user"} className={"text-center"} />
+                {loginForm !== "recover" ? <Input placeholder={"Clave"} setValue={setPassword} type={"password"} idInput={"password"} className={"text-center"} /> : ""}
+                {loginForm === "recover" && recoverCode !== "" ? (
+                  <Input placeholder={"Código de recuperación"} setValue={setEmailCode} type={"text"} idInput={"recovercode"} className={"inputCode"} value={emailCode} />
+                ) : (
+                  ""
+                )}
+              </InputBlock>
+              <SubmitBlock style={{ marginTop: "20px" }}>
+                {loginForm === "login" ? <Button text={"Identifícate"} onClick={handleLogin} /> : ""}
+                {loginForm === "register" ? <Button text={"Regístrate"} onClick={handleRegister} /> : ""}
+                {loginForm === "recover" && recoverCode === "" ? <Button text={"Enviar email"} onClick={handleRecover} /> : ""}
+                {loginForm === "recover" && recoverCode !== "" ? <Button text={"Comprobar código"} onClick={checkRecover} /> : ""}
+              </SubmitBlock>
+              <p style={{ marginTop: "25px" }}>
+                {loginForm === "login" ? (
+                  <a href="#" onClick={() => setLoginForm("register")} style={{ color: "black" }}>
+                    Regístrate
+                  </a>
+                ) : (
+                  ""
+                )}
+                {loginForm === "register" || loginForm === "recover" ? (
+                  <a href="#" onClick={() => setLoginForm("login")} style={{ color: "black" }}>
+                    Identifícate
+                  </a>
+                ) : (
+                  ""
+                )}
 
-            <a href="#" onClick={() => setLoginForm("recover")} style={{ marginLeft: "75px" }}>
-              Recuperar clave
-            </a>
-          </p>
-        </LoginBlock>
-        <hr style={{ marginTop: "50px" }} />
-        <div className="row">
-          <div className="col-12 text-center mt-4" style={{ color: "white", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "whitesmoke" }}>
-            <b>
-              Version BETA
-              <br />
-              <br />
-              Aún no tenemos todas las funciones disponibles, estamos en continuo desarrollo. A continuación se mostrarán los módulos activos.
-            </b>
+                <a href="#" onClick={() => setLoginForm("recover")} style={{ marginLeft: "75px", color: "black" }}>
+                  Recuperar clave
+                </a>
+              </p>
+            </LoginBlock>
+            <div className="row">
+              <div className="col-12 text-center mt-4 mb-4" style={{ color: "black", textAlign: "center", padding: "10px 25px", fontSize: "13px", color: "black" }}>
+                ¡Estamos en continuo desarrollo!
+                <br />
+                <b>Gestor Docente</b> se encuentra en versión <b>BETA</b>.
+                <br />
+              </div>
+              <p>Estas son las funciones disponibles a día de hoy.</p>
+              <hr />
+              {roadMap.map((r) => {
+                if (r.done)
+                  return (
+                    <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "black", textAlign: "center", padding: "25px 25px", fontSize: "13px", color: "black" }}>
+                      <div style={{ backgroundColor: "white", width: "80%", height: "60px", padding: "10px", border: "1px lightgrey solid" }}>{r.name}</div>
+                    </div>
+                  );
+              })}
+            </div>
           </div>
-          {roadMap.map((r) => {
-            if (r.done)
-              return (
-                <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "white", textAlign: "center", padding: "25px 25px", fontSize: "13px", color: "whitesmoke" }}>
-                  {r.name}
-                </div>
-              );
-          })}
         </div>
       </Background>
       {modal ? <Modal text={modalText}></Modal> : ""}
