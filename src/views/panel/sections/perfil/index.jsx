@@ -12,13 +12,17 @@ import { FloatMessage } from '../../../../components/floatMessage';
 export default function Perfil() {
     const dispatch = useDispatch();
     const profile = useSelector((state) => state.globalReducer.profile);
-
+    console.log(profile)
     const [nombre, setNombre] = useState(profile.nombre);
     const [clave, setClave] = useState('');
     const [mock, setMock] = useState(profile.mock);
 
     const [messageActive, setMessageActive] = useState({text: "Texto", state: 0, active: false});
 
+    const updateNombre = (data) => {
+        console.log(data);
+        setNombre(data);
+    }
 
     const sendData = () => {
         dispatch(allActions.globalActions.setProfile({nombre: nombre, mock: `${mock}`}));
@@ -42,7 +46,7 @@ export default function Perfil() {
             <div style={{backgroundColor: 'white', border: '1px #d9d9d9 solid', padding: '15px'}}>
                 <div className="row mt-4">
                     <div className="col-md-6 col-sm-6 col-xs-12">
-                        <Input placeholder={'Nombre'} setValue={setNombre} type={''} idInput={''} className={''} value={profile.nombre} />
+                        <Input placeholder={'Nombre'} setValue={updateNombre} type={''} idInput={''} className={''} value={profile.nombre} />
                     </div>
                     <div className="col-md-4 col-sm-6 col-xs-12">
                         <Input placeholder={'Nueva clave (sólo si quieres cambiarla)'} setValue={setClave} type={''} idInput={''} className={''} value={''} />
