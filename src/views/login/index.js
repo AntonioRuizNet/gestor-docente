@@ -220,8 +220,8 @@ export default function Login() {
               {roadMap.map((r) => {
                 if (r.done)
                   return (
-                    <div className="col-md-4 col-sm-3 col-xs-2" style={{ color: "black", textAlign: "center", padding: "25px 25px", fontSize: "13px", color: "black" }}>
-                      <div style={{ backgroundColor: "white", width: "80%", height: "60px", padding: "10px", border: "1px lightgrey solid" }}>{r.name}</div>
+                    <div className="col-md-4 col-sm-6 col-xs-12" style={{ color: "black", textAlign: "center", padding: "25px 25px", fontSize: "13px", color: "black" }}>
+                      <div style={{ backgroundColor: "white", width: "80%", padding: "10px", border: "1px lightgrey solid" }}>{r.name}</div>
                     </div>
                   );
               })}
