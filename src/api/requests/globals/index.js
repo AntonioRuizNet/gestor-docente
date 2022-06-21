@@ -56,7 +56,7 @@ export const insert_Visita = (referencia) => {
 
 export const get_AdminData = () => {
   let formData = new FormData();
-
+  formData.append("auth", "iug&%ftRfr#@s=w!");
   return fetch(getAdminData, { method: "POST", body: formData })
     .then((response) => response.json())
     .then((json) => {
