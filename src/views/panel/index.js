@@ -101,7 +101,7 @@ export default function Panel() {
         {viewAyuda && <Ayuda />}
       </BackgroundBody>
       {mock === "true" ? (
-        <div style={{ position: "absolute", backgroundColor: "#ffab11", color: "white", width: "100%", textAlign: "center", bottom: "0" }}>
+        <div style={{ position: "fixed", backgroundColor: "#ffab11", color: "white", width: "100%", textAlign: "center", bottom: "0" }}>
           Estás en modo <b>demostración</b>, desactiva esta opción en <b>Perfil</b> para usar la aplicación correctamente.
         </div>
       ) : (

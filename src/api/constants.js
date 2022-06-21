@@ -36,6 +36,7 @@ export const sendMensaje = baseUrl + "/SEND_MENSAJE";
 export const getMensajes = baseUrl + "/GET_MENSAJES";
 
 export const insertVisita = baseUrl + "/INSERT_VISITA";
+export const getAdminData = baseUrl + "/GET_ADMIN_DATA";
 
 export const roadMap = [
   { name: "Ficha del alumno", done: true },

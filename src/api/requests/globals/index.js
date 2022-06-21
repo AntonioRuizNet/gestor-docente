@@ -1,4 +1,4 @@
-import { idUser, getPeriodos, sendMensaje, getMensajes, insertVisita } from "./../../constants";
+import { idUser, getPeriodos, sendMensaje, getMensajes, insertVisita, getAdminData } from "./../../constants";
 
 export const get_Periodos = () => {
   let formData = new FormData();
@@ -48,6 +48,19 @@ export const insert_Visita = (referencia) => {
   return fetch(insertVisita, { method: "POST", body: formData })
     .then((response) => {
       return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const get_AdminData = () => {
+  let formData = new FormData();
+
+  return fetch(getAdminData, { method: "POST", body: formData })
+    .then((response) => response.json())
+    .then((json) => {
+      return json.results[0];
     })
     .catch((error) => {
       console.error(error);
