@@ -128,6 +128,7 @@ const Notas = ({closePanel, linea, idContacto, setDataBuildedGlobal, mock}) => {
                 }
               })}
             </div>
+            {builded.length===0?<p style={{backgroundColor: '#e49046', color: 'white', padding: '5px 15px'}}>En <b>Configuraciones</b> debes de agregar al menos una asignatura, un examen y una evaluación.</p>:''}
             {asignaturas.map( a =>{
               return (<div className="row">
                   <div className="col">{a.nombre}</div>
