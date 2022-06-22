@@ -2,19 +2,18 @@ import { useDispatch } from "react-redux";
 //Actions
 import allActions from "../actions";
 //Helpers
-import {
-  getLocalStorage,
-  setLocalStorage,
-  clearLocalStorage,
-} from "../helpers/localStorage";
+import { getLocalStorage, setLocalStorage, clearLocalStorage } from "../helpers/localStorage";
 
 export const useAlreadyLogged = (logged) => {
   const resp = useCheckLocalStorageExpired();
   const dispatch = useDispatch();
   if (!resp) {
     const isLoggedStorage = getLocalStorage("logged");
+    const nombre = getLocalStorage("nombre");
+    const mock = getLocalStorage("mock");
     if (isLoggedStorage && !logged) {
       dispatch(allActions.globalActions.setLogged(true));
+      dispatch(allActions.globalActions.setProfile({ nombre: nombre, mock: mock }));
     }
     if (!isLoggedStorage && logged) {
       setLocalStorage("logged", true);

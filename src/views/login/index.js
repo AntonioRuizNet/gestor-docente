@@ -40,12 +40,13 @@ export default function Login() {
   const [messageActive, setMessageActive] = useState({ text: "Texto", state: 0, active: false });
 
   const loginApp = (token, mock, nombre) => {
-    console.log("loginApp", token, mock, nombre);
     showModal(false);
     showLoading(false);
     dispatch(allActions.globalActions.setLogged(true));
     dispatch(allActions.globalActions.setProfile({ nombre: nombre, mock: mock }));
     setLocalStorage("logged", true);
+    setLocalStorage("nombre", nombre);
+    setLocalStorage("mock", mock);
     setLocalStorage("token", token);
     const now = new Date();
     setLocalStorage("created", now.getTime());
