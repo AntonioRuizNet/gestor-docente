@@ -1,7 +1,7 @@
 //Helpers
 import { getLocalStorage } from "./../helpers/localStorage";
 
-const baseUrl = "https://gestordocente.com/back/index.php/api/action";
+const baseUrl = "https://antonioruiz.net/proyectos/profeapp/index.php/api/action";
 
 export const idUser = () => {
   const id = getLocalStorage("token")?.substring(6, 4);
